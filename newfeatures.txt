@@ -1,0 +1,17 @@
+	/*
+	if (REPLACE) {
+		if (invalidKeyword(keyword)) {
+		
+			item.style.borderColor = COLORS.yellow;
+			image.src = SOURCE.replace;
+		
+		} else {
+		
+			item.style.borderColor = null;
+			image.src = SOURCE.add;
+		
+		}
+		
+		return;
+	}
+	*/

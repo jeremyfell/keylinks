@@ -1,0 +1,418 @@
+/********************************
+			Global
+********************************/
+:root {
+	--white: #FFFFFF;
+	--gray-light: #EEEEEE;
+	--gray: #A9A9A9;
+	--gray-dark: #9A9A9A;
+	--blue-light: #75A4F4;
+	--blue: #4386FA;
+	--blue-dark: #2B74F2;
+	--red: #FF0000;
+	--blue-highlight: #E0EAF9;
+}
+
+html {
+	-webkit-user-select: none;
+	width: 600px;
+	height: 400px;
+}
+
+body {
+	width: 600px;
+	height: 400px;
+	margin: 0;
+}
+
+p {
+	cursor: default;
+}
+
+ul {
+	list-style-type: none;
+	overflow: hidden;
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	width: 583px;
+	height: 31px;
+}
+
+li:nth-child(odd) {
+	background-color: var(--blue);
+}
+
+li:nth-child(even) {
+	background-color: var(--blue-dark);
+}
+
+li:nth-child(odd) ::selection {
+	color: var(--white);
+	background-color: var(--blue);
+}
+
+li:nth-child(even) ::selection {
+	color: var(--white);
+	background-color: var(--blue-dark);
+}
+
+input {
+	-webkit-user-select: auto;
+	border-style: solid;
+	border-color: var(--gray);
+	border-width: 0px;
+	margin: 5px 5px 5px 5px;
+	height: 21px;
+	padding: 1px;
+	outline: 0;
+}
+
+input:focus {
+	border-style: solid;
+	border-color: var(--blue-light);
+	border-width: 0px;
+	background-color: var(--blue-highlight);
+}
+
+input[disabled] {
+	margin: 5px 3px 5px 5px;
+	border-style: solid;
+	border-color: var(--gray-dark);
+	border-width: 0px;
+	background-color: var(--gray-light);
+}
+
+button {
+	outline: 0;
+	padding: 0;
+	border-style: none;
+}
+
+select {
+	border-style: solid;
+	border-color: var(--gray);
+	border-image-width: 0;
+	width: 150px;
+	height: 21px;
+}
+
+select:hover {
+	border-color: var(--blue-light);
+}
+
+select:focus {
+	border-color: var(--blue-light);
+}
+
+option {
+	border-color: var(--red);
+}
+
+a {
+	text-decoration: none;
+	color: var(--blue-dark);
+}
+
+a:hover {
+	color: var(--blue-light);
+}
+/********************************
+			Menu Bar
+********************************/
+#menu {
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	width: 600px;
+	background-color: var(--blue);
+}
+
+#menubox {
+	background-color: var(--blue);
+	height: 50px;
+	width: 200px;
+	float: left;
+}
+
+#menutitle {
+	color: var(--white);
+	text-align: center;
+	font-size: 150%;
+	line-height: 14px;
+}
+
+.menubutton {
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	float:left;
+	background-color: transparent;
+}
+
+.menubutton:hover, .menubutton:focus {
+	background-color: var(--blue-light);
+}
+
+.menubutton[disabled], .menubutton[disabled]:hover {
+	background-color: var(--blue-dark);
+}
+
+.menuicon {
+	height: 30px;
+	width: 30px;
+	margin: 10px;
+}
+
+.sorticon {
+	height: 20px;
+	width: 20px;
+	margin: 15px 15px 5px;
+}
+
+.selected {
+	background-color: var(--blue-dark);
+}
+
+.arrow {
+	height: 10px;
+	width: 10px;
+}
+
+/********************************
+		Add & Toolbar
+********************************/
+#addbox {
+	height: 50px;
+	width: 350px;
+	margin: 150px 150px;
+}
+
+#addinput, #smallinput {
+	height: 50px;
+	width: 250px;
+	font-size: 250%;
+	margin: 0;
+	border-style: solid;
+	border-width: 2px 2px 2px 2px;
+	border-color: var(--gray);
+	float: left;
+}
+
+#addinput:focus, #smallinput:focus {
+	border-color: var(--blue);
+	background-color: var(--white);
+}
+
+#addinput::selection, #smallinput::selection {
+	color: var(--white);
+	background: var(--blue);
+}
+
+#addbookmark, #smallbookmark {
+	height: 50px;
+	width: 50px;
+	margin: 0;
+	padding: 0;
+	border-style: none;
+	float: left;
+	background-color: var(--blue);
+	cursor: pointer;
+}
+
+#addbookmark:hover, #addbookmark:focus, #smallbookmark:hover, #smallbookmark:focus {
+	background-color: var(--blue-light);
+}
+
+#addbookmark[disabled], #smallbookmark[disabled] {
+	background-color: var(--gray);
+	cursor: default;
+}
+
+#addadd, #smalladd {
+	height: 50px;
+	width: 50px;
+}
+
+#smallmenu {
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	width: 350px;
+	background-color: var(--blue);
+}
+
+.stat {
+	text-align: right;
+	color: var(--white);
+	font-size: 110%;
+	line-height: 0;
+	margin: 0;
+	padding: 12px 20px;
+}
+
+.popup {
+	width: 600px;
+	height: 400px;
+}
+
+.toolbar {
+	width: 350px;
+	height: 50px;
+}
+
+/********************************
+		Import & Manage
+********************************/
+
+#managebookmarks, #importbookmarks {
+	height: 340px;
+	margin-top: 10px;
+}
+
+#folderstext {
+	float: left;
+}
+
+#folders {
+	margin: 15px;
+	float: right;
+}
+
+#sortbox {
+	float: right;
+}
+
+.emptymain {
+	text-align: center;
+	color: var(--blue);
+	font-size: 24px;
+	margin-top: 100px;
+}
+
+.emptybody {
+	text-align: center;
+	color: var(--gray);
+	font-size: 16px;
+}
+
+.equal, .importkeyword, .importtitle, .importbutton, .importadd, .managekeyword, .managelink, .managebutton, .managedelete, .linkbutton, .link {
+	float: left;
+}
+
+.importkeyword, .managekeyword {
+	width: 200px;
+}
+
+.equal {
+	line-height: 0px;
+	color: var(--white);
+	font-size: 125%;
+	font-weight: bold;
+}
+
+.importtitle, .managelink {
+	width: 325px;
+}
+
+.importtitle[disabled] {
+	margin: 5px 5px 5px 0px;
+}
+
+.importbutton, .managebutton, .linkbutton {
+	width: 21px;
+	height: 21px;
+	margin: 5px 0 5px 0;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.importbutton:hover, .importbutton:focus, .managebutton:hover, .managebutton:focus, .linkbutton:hover, .linkbutton:focus {
+	background-color: var(--blue-light);
+}
+
+.importbutton[disabled] {
+	cursor: default;
+}
+
+.importbutton[disabled]:hover {
+	background-color: transparent;
+}
+
+.importadd, .managedelete {
+	width: 21px;
+	height: 21px;
+}
+
+.link {
+	width: 11px;
+	height: 11px;
+	margin: 5px;
+}
+
+.importkeyword, .managekeyword {
+	margin-right: 0;
+}
+
+.importtitle, .managelink {
+	margin-left: 0;
+}
+
+/********************************
+			Settings
+********************************/
+#bugs {
+	position: absolute;
+	float: left;
+	font-size: 100%;
+	margin: 10px;
+	bottom: 0;
+	color: var(--gray-dark);
+}
+
+#export {
+	float:right;
+}
+
+.settingstext {
+	float: left;
+	font-size: 150%;
+	margin: 10px;
+	color: var(--gray-dark);
+}
+
+.settingstext:hover {
+	color: var(--blue-light);
+	-webkit-transition: color 1s;
+}
+
+.checkoff, .checkon {
+	float: right;
+	height: 25px;
+	width: 25px;
+	margin: 9px;
+	cursor: pointer;
+	border-radius: 5px;
+	-webkit-transition: background-color 0.3s;
+}
+
+.checkoff {
+	background-color: var(--gray-dark);
+}
+
+.checkon {
+	background-color: var(--blue);
+}
+
+.checkon:focus, .checkon:hover {
+	background-color: var(--blue-light);
+}
+
+.checkicon {
+	height: 15px;
+	width: 15px;
+	margin: 5px;
+}
