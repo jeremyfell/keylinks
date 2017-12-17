@@ -25,20 +25,20 @@ const BLANK = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 
 // Source paths for each icon
 var SOURCE = {
-	add			: "svg/add.svg",
-	arrow		: "svg/arrow.svg",
-	check		: "svg/check.svg",
-	date		: "svg/date.svg",
-	deleting	: "svg/delete.svg",
-	equal		: "svg/equal.svg",
-	exporting	: "svg/export.svg",
-	importing	: "svg/import.svg",
-	manage		: "svg/manage.svg",
-	name		: "svg/name.svg",
-	options		: "svg/options.svg",
-	replace		: "svg/replace.svg",
-	settings	: "svg/settings.svg",
-	use			: "svg/use.svg"
+	add				: "../svg/add.svg",
+	arrow			: "../svg/arrow.svg",
+	check			: "../svg/check.svg",
+	date			: "../svg/date.svg",
+	deleting	: "../svg/delete.svg",
+	equal			: "../svg/equal.svg",
+	exporting	: "../svg/export.svg",
+	importing	: "../svg/import.svg",
+	manage		: "../svg/manage.svg",
+	name			: "../svg/name.svg",
+	options		: "../svg/options.svg",
+	replace		: "../svg/replace.svg",
+	settings	: "../svg/settings.svg",
+	use				: "../svg/use.svg"
 };
 
 var COLORS = {

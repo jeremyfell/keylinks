@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "KeyLinks",
 	"version": "1.0",
-	
+
 	"description": "Easily save and access bookmarks with custom keywords",
 	"icons": {
 		"16": "icons/16.png",
@@ -10,26 +10,26 @@
 		"48": "icons/48.png",
 		"128": "icons/128.png"
 	},
-	
+
 	"browser_action": {
 		"default_icon": {
 			"19": "icons/link19.png",
 			"38": "icons/link38.png"
 		},
 		"default_title": "KeyLinks",
-		"default_popup": "popup.html"
+		"default_popup": "html/popup.html"
 	},
-		
+
 	"omnibox": {
 		"keyword": "."
 	},
-	
+
 	"permissions": ["tabs", "bookmarks", "storage", "activeTab", "commands"],
-	
+
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["js/background.js"]
 	},
-	
+
 	"commands": {
 		"_execute_browser_action": {
 			"suggested_key": {
