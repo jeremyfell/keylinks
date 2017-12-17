@@ -42,7 +42,7 @@ var SOURCE = {
 };
 
 var COLORS = {
-	red			: "#FF0000",
+	red				: "#FF0000",
 	lightred	: "#FFB2B2",
 	yellow		: "#FFD800"
 
@@ -53,10 +53,10 @@ var SETTINGS;
 
 
 // Each individual user setting
-var CLOSE 		= false;
+var CLOSE 			= false;
 var SUGGESTIONS = false;
-var STATS 		= false;
-var SORT 		= false;
-var SMALL 		= false;
-var AUTO 		= false;
-var REPLACE 	= false;
+var STATS 			= false;
+var SORT 				= false;
+var SMALL 			= false;
+var AUTO 				= false;
+var REPLACE 		= false;

@@ -53,21 +53,21 @@ function iconUpdate(bookmark, url) {
 function iconSwitch(bookmarked, id) {
 
 	if (bookmarked) {
-		
+
 		chrome.browserAction.setIcon({
 			path: "icons/keylink19.png",
 			tabId: id
 		});
-	
+
 	} else {
-		
+
 		chrome.browserAction.setIcon({
 			path: "icons/link19.png",
 			tabId: id
 		});
-	
+
 	}
-	
+
 }
 
 /*////////////
@@ -92,19 +92,19 @@ Omnibox listeners
 chrome.omnibox.onInputEntered.addListener(function(keyword) {
 
 	if (KEYLINKS[keyword]) {
-		
+
 		// If the keyword is valid, go to the associated link, increment total uses, and save keylinks
 		var keylink = KEYLINKS[keyword];
 		var keyurl = keylink[0];
 		KEYLINKS[keyword][2]++;
 		chrome.tabs.update({url: keyurl});
 		chrome.storage.sync.set({"keylinks": KEYLINKS});
-	
+
 	} else {
-		
+
 		// If the keyword is invalid, go to the broken link page
-		chrome.tabs.update({url: chrome.extension.getURL("broken.html")});
-	
+		chrome.tabs.update({url: chrome.extension.getURL("../html/broken.html")});
+
 	}
 
 });
@@ -115,33 +115,33 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
 	suggestions = SETTINGS.suggestions;
-	
+
 	if (suggestions && text.length > 0) {
-	
+
 		var matches = [];
-		
+
 		// Finds all keywords that have the omnibox text at the start
 		for (key in KEYLINKS) {
 			if (key.lastIndexOf(text, 0) === 0 && text.length <= key.length) { // lastIndexOf could possibly be replaced with just firstIndexOf === 0
 				matches.push(key);
 			}
 		}
-		
+
 		if (matches.length > 0) {
-		
+
 			var suggestions = [];
 			// Sorts the possible matches by how many times they have been used
 			matches.sort(function compare(a, b) {return (a[2] < b[2]) ? -1 : 1;});
-			
+
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
 			for (var m = 0; m < matches.length && m < 5; m++) {
 				match = matches[m];
 				suggestions.push({content: match, description: match});
 			}
-			
+
 			// Pushes the suggestions to be displayed underneath the omnibox
 			suggest(suggestions);
-			
+
 		}
 	}
 });
