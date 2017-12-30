@@ -24,7 +24,7 @@ function saveStorage(keylinks, settings) {
 Functions for icons
 *///////////////////
 
-//Sets bookmark status icon when a tab is created or updated
+// Sets bookmark status icon when a tab is created or updated
 function iconChange(tabId, changeInfo, tab) {
 	if (changeInfo.status === "loading" || changeInfo.status === "created") {
 		var check = false;
@@ -38,7 +38,7 @@ function iconChange(tabId, changeInfo, tab) {
 	}
 }
 
-//Updates bookmark status icon when a new bookmark is added
+// Updates bookmark status icon when a new bookmark is added
 function iconUpdate(bookmark, url) {
 	chrome.tabs.query({}, function(tabs) {
 		for (var t = 0; t < tabs.length; t++) {

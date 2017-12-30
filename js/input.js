@@ -15,12 +15,12 @@ function checkInput(item) {
 
 	// Can most likely simplify all these if and else statements into a better control flow
 
-	if (PAGE === "import") {
+	if (CURRENT_PAGE === "import") {
 
 		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
 
 			// Keyword is not valid, disable the import button
-			image.src = BLANK;
+			image.src = BLANK_IMAGE;
 			button.disabled = true;
 
 		} else {
@@ -33,7 +33,7 @@ function checkInput(item) {
 
 	}
 
-	if ((item.id === "addinput" || item.id === "smallinput") && (PAGE === "add" || PAGE === "tooladd")) {
+	if ((item.id === "addinput" || item.id === "smallinput") && (CURRENT_PAGE === "add" || CURRENT_PAGE === "tooladd")) {
 
 		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
 			// Disables the add keylink button
@@ -52,7 +52,7 @@ function checkInput(item) {
 			if (item.id == "addinput" || item.id == "smallinput") {
 				item.style.borderColor = COLORS.red;
 			} else {
-				item.style.backgroundColor = COLORS.lightred;
+				item.style.backgroundColor = COLORS.light_red;
 			}
 
 			return false;
@@ -143,10 +143,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 		if (unusedLink) {
 
 			if (defaultPopup) {
-				PAGE = "add";
+				CURRENT_PAGE = "add";
 				document.getElementById("menutitle").innerHTML = "Add Bookmark";
 			} else {
-				PAGE = "tooladd";
+				CURRENT_PAGE = "tooladd";
 			}
 
 			newButton.disabled = true;
@@ -163,11 +163,11 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					KEYWORD = this.value;
 					this.value = "";
 					this.parentNode.lastChild.disabled = true;
-					addBookmark(url);
+					addKeylink(url);
 
 					(this.id === "addinput") ? addTab() : toolbarTab();
 
-					if (CLOSE) window.close();
+					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
@@ -178,11 +178,11 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					KEYWORD = this.parentNode.firstChild.value;
 					this.parentNode.firstChild.value = "";
 					this.disabled = true;
-					addBookmark(url);
+					addKeylink(url);
 
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-					if (CLOSE) window.close();
+					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
@@ -192,10 +192,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 
 			if (defaultPopup) {
-				PAGE = "change";
+				CURRENT_PAGE = "change";
 				document.getElementById("menutitle").innerHTML = "Change Bookmark";
 			} else {
-				PAGE = "toolchange";
+				CURRENT_PAGE = "toolchange";
 			}
 
 			newInput.value = currentKeyword;
@@ -206,7 +206,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newImage.title = "Delete";
 
 			// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-			if (defaultPopup && STATS) keylinkStatistics(menu, currentKeyword);
+			if (defaultPopup && SHOW_KEYLINK_STATS_IN_ADD_TAB) keylinkStatistics(menu, currentKeyword);
 
 			newInput.addEventListener("focus", function() {this.select(); OLDKEYWORD = this.value;});
 			newInput.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
@@ -223,22 +223,22 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					KEYLINKS[keyword] = KEYLINKS[OLDKEYWORD];
 					delete KEYLINKS[OLDKEYWORD];
 
-					if (CLOSE) window.close();
+					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
 
 			newButton.addEventListener("click", function() {
-				deleteBookmark(this);
+				deleteKeylink(this);
 
 				(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-				if (CLOSE) window.close();
+				if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 			});
 		}
 
 		// Suggests a possible keyword based on the webpage title
-		if (AUTO && newButton.disabled) {
+		if (SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK && newButton.disabled) {
 			var title = titleSuggestion(tab.title);
 
 			newButton.disabled = false;

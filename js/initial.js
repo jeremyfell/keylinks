@@ -22,15 +22,15 @@ function initial() {
 			};
 		}
 
-		CLOSE 			= SETTINGS.close;
-		SUGGESTIONS = SETTINGS.suggestions;
-		STATS 			= SETTINGS.stats;
-		SORT 				= SETTINGS.sort;
-		SMALL 			= SETTINGS.small;
-		AUTO 				= SETTINGS.auto;
+		CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB 			= SETTINGS.close;
+		SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = SETTINGS.suggestions;
+		SHOW_KEYLINK_STATS_IN_ADD_TAB 			= SETTINGS.stats;
+		SHOW_SORTING_OPTIONS_IN_MANAGE_TAB 				= SETTINGS.sort;
+		USE_SMALL_POPUP_ON_STARTUP 			= SETTINGS.small;
+		SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK 				= SETTINGS.auto;
 		REPLACE			= SETTINGS.replace;
 
-		SMALL ? toolbarSetup() : defaultSetup();
+		USE_SMALL_POPUP_ON_STARTUP ? toolbarSetup() : defaultSetup();
 	});
 }
 

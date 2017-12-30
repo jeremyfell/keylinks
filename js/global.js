@@ -1,4 +1,4 @@
-var FOLDERS = [];
+var BOOKMARK_FOLDERS = [];
 
 var KEYWORD;
 var KEYLINKS;
@@ -7,21 +7,21 @@ var OLDKEYWORD;
 var OLDURL;
 
 // Current type of sorting
-var SORTING = "name";
-var REVERSE = false;
+var CURRENT_SORTING_PARAMETER = "name";
+var REVERSE_SORTING = false;
 
 // There are no keylinks to manage
-var EMPTYMANAGE = true;
+var NO_KEYLINKS_TO_MANAGE = true;
 
 // There are no bookmarks to import
-var EMPTYIMPORT = true;
+var NO_BOOKMARKS_TO_IMPORT = true;
 
 // Holds the current displayed page state
 // settings, import, manage, add, change, toolbar
-var PAGE = "";
+var CURRENT_PAGE = "";
 
 // Describes a blank icon, used as an image source when no icon should be displayed
-const BLANK = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
+const BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 
 // Source paths for each icon
 var SOURCE = {
@@ -43,7 +43,7 @@ var SOURCE = {
 
 var COLORS = {
 	red				: "#FF0000",
-	lightred	: "#FFB2B2",
+	light_red	: "#FFB2B2",
 	yellow		: "#FFD800"
 
 }
@@ -53,10 +53,10 @@ var SETTINGS;
 
 
 // Each individual user setting
-var CLOSE 			= false;
-var SUGGESTIONS = false;
-var STATS 			= false;
-var SORT 				= false;
-var SMALL 			= false;
-var AUTO 				= false;
+var CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB 	= false;
+var SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX 					= false;
+var SHOW_KEYLINK_STATS_IN_ADD_TAB 								= false;
+var SHOW_SORTING_OPTIONS_IN_MANAGE_TAB 						= false;
+var USE_SMALL_POPUP_ON_STARTUP 										= false;
+var SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK 					= false;
 var REPLACE 		= false;

@@ -1,5 +1,5 @@
-// Saves a bookmark
-function addBookmark(url) {
+// Saves a new keylink
+function addKeylink(url) {
 	var background_page = chrome.extension.getBackgroundPage();
 	var time = new Date().getTime();
 
@@ -8,15 +8,15 @@ function addBookmark(url) {
 }
 
 // Deletes a saved bookmark
-function deleteBookmark(item) {
+function deleteKeylink(element) {
 	var background_page = chrome.extension.getBackgroundPage();
-	var keyword = item.parentNode.firstChild.value;
+	var keyword = element.parentNode.firstChild.value;
 	var url = KEYLINKS[keyword][0];
 
 	delete KEYLINKS[keyword];
 
-	if (item.className === "managebutton") {
-		item.parentNode.parentNode.removeChild(item.parentNode);
+	if (element.className === "managebutton") {
+		element.parentNode.parentNode.removeChild(element.parentNode);
 
 		if (!document.getElementById("managebookmarks").firstChild) {
 			manageTab();

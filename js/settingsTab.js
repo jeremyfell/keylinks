@@ -77,7 +77,7 @@ function settingsTab() {
 
 	// Tab setup
 	clearTabs();
-	PAGE = "settings";
+	CURRENT_PAGE = "settings";
 	document.getElementById("settingstab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Settings";
 
@@ -155,41 +155,41 @@ function settingsTab() {
 	newImage6.className = "checkicon";
 	newImage7.className = "checkicon";
 
-	newImage1.src = BLANK;
-	newImage2.src = BLANK;
-	newImage3.src = BLANK;
-	newImage4.src = BLANK;
-	newImage5.src = BLANK;
-	newImage6.src = BLANK;
-	newImage7.src = BLANK;
+	newImage1.src = BLANK_IMAGE;
+	newImage2.src = BLANK_IMAGE;
+	newImage3.src = BLANK_IMAGE;
+	newImage4.src = BLANK_IMAGE;
+	newImage5.src = BLANK_IMAGE;
+	newImage6.src = BLANK_IMAGE;
+	newImage7.src = BLANK_IMAGE;
 
 	// Sets the default states of all settings checkboxes according to the current saved settings
-	if (SUGGESTIONS) {
+	if (SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX) {
 		newCheckbox1.className = "checkon";
 		newImage1.src = SOURCE.check;
 	}
 
-	if (CLOSE) {
+	if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) {
 		newCheckbox2.className = "checkon";
 		newImage2.src = SOURCE.check;
 	}
 
-	if (SORT) {
+	if (SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
 		newCheckbox3.className = "checkon";
 		newImage3.src = SOURCE.check;
 	}
 
-	if (STATS) {
+	if (SHOW_KEYLINK_STATS_IN_ADD_TAB) {
 		newCheckbox4.className = "checkon";
 		newImage4.src = SOURCE.check;
 	}
 
-	if (SMALL) {
+	if (USE_SMALL_POPUP_ON_STARTUP) {
 		newCheckbox5.className = "checkon";
 		newImage5.src = SOURCE.check;
 	}
 
-	if (AUTO) {
+	if (SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK) {
 		newCheckbox6.className = "checkon";
 		newImage6.src = SOURCE.check;
 	}
@@ -211,7 +211,7 @@ function settingsTab() {
 
 		checkbox.addEventListener("mouseleave", function() {
 			if (this.className === "checkoff") {
-				this.firstChild.src = BLANK;
+				this.firstChild.src = BLANK_IMAGE;
 			}
 		});
 
@@ -223,50 +223,50 @@ function settingsTab() {
 
 		checkbox.addEventListener("focusout", function() {
 			if (this.className === "checkoff") {
-				this.firstChild.src = BLANK;
+				this.firstChild.src = BLANK_IMAGE;
 			}
 		});
 	}
 
 	// Creates listeners to handle clicks for all settings checkboxes
 	newCheckbox1.addEventListener("click", function() {
-		SUGGESTIONS = !SUGGESTIONS;
-		SETTINGS.suggestions = SUGGESTIONS;
+		SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = !SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
+		SETTINGS.suggestions = SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
 
 	newCheckbox2.addEventListener("click", function() {
-		CLOSE = !CLOSE;
-		SETTINGS.close = CLOSE;
+		CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB = !CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB;
+		SETTINGS.close = CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
 
 	newCheckbox3.addEventListener("click", function() {
-		SORT = !SORT;
-		SETTINGS.sort = SORT;
+		SHOW_SORTING_OPTIONS_IN_MANAGE_TAB = !SHOW_SORTING_OPTIONS_IN_MANAGE_TAB;
+		SETTINGS.sort = SHOW_SORTING_OPTIONS_IN_MANAGE_TAB;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
 
 	newCheckbox4.addEventListener("click", function() {
-		STATS = !STATS;
-		SETTINGS.stats = STATS;
+		SHOW_KEYLINK_STATS_IN_ADD_TAB = !SHOW_KEYLINK_STATS_IN_ADD_TAB;
+		SETTINGS.stats = SHOW_KEYLINK_STATS_IN_ADD_TAB;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
 
 	newCheckbox5.addEventListener("click", function() {
-		SMALL = !SMALL;
-		SETTINGS.small = SMALL;
+		USE_SMALL_POPUP_ON_STARTUP = !USE_SMALL_POPUP_ON_STARTUP;
+		SETTINGS.small = USE_SMALL_POPUP_ON_STARTUP;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
 
 	newCheckbox6.addEventListener("click", function() {
-		AUTO = !AUTO;
-		SETTINGS.auto = AUTO;
+		SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK = !SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK;
+		SETTINGS.auto = SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK;
 		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
 		this.blur();
 	});
