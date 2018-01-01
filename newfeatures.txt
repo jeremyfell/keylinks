@@ -1,5 +1,5 @@
 	/*
-	if (REPLACE) {
+	if (SETTINGS.ALLOW_LINK_REPLACING_IN_ADD_TAB) {
 		if (invalidKeyword(keyword)) {
 		
 			item.style.borderColor = COLORS.yellow;

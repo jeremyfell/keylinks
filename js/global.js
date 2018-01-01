@@ -50,13 +50,3 @@ var COLORS = {
 
 // Holds the user settings retrieved from storage
 var SETTINGS;
-
-
-// Each individual user setting
-var CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB 	= false;
-var SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX 					= false;
-var SHOW_KEYLINK_STATS_IN_ADD_TAB 								= false;
-var SHOW_SORTING_OPTIONS_IN_MANAGE_TAB 						= false;
-var USE_SMALL_POPUP_ON_STARTUP 										= false;
-var SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK 					= false;
-var REPLACE 		= false;

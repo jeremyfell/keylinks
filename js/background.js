@@ -5,18 +5,18 @@ var SETTINGS;
 Functions for storage
 */////////////////////
 
-//Retrieves keylinks and settings from storage
-function updateStorage() {
+// Retrieves keylinks and settings from storage
+function getStorage() {
 	chrome.storage.sync.get(["keylinks","settings"], function(storage) {
 		KEYLINKS = storage.keylinks;
 		SETTINGS = storage.settings;
 	});
 }
 
-//Saves keylinks and settings to storage
-function saveStorage(keylinks, settings) {
+// Saves keylinks and settings to storage
+function setStorage(keylinks, settings) {
 	chrome.storage.sync.set({"keylinks": keylinks, "settings" : settings}, function() {
-		updateStorage();
+		getStorage();
 	});
 }
 
@@ -28,8 +28,8 @@ Functions for icons
 function iconChange(tabId, changeInfo, tab) {
 	if (changeInfo.status === "loading" || changeInfo.status === "created") {
 		var check = false;
-		for (var key in KEYLINKS) {
-			if (KEYLINKS[key][0] === tab.url) {
+		for (var keyword in KEYLINKS) {
+			if (KEYLINKS[keyword][0] === tab.url) {
 				check = true;
 				break;
 			}
@@ -114,36 +114,35 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 //Shows keyword suggestions
 chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
-	suggestions = SETTINGS.suggestions;
-
-	if (suggestions && text.length > 0) {
+	if (SETTINGS.SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX && text.length > 0) {
 
 		var matches = [];
 
 		// Finds all keywords that have the omnibox text at the start
-		for (key in KEYLINKS) {
-			if (key.lastIndexOf(text, 0) === 0 && text.length <= key.length) { // lastIndexOf could possibly be replaced with just firstIndexOf === 0
-				matches.push(key);
+		for (keyword in KEYLINKS) {
+			if (keyword.lastIndexOf(text, 0) === 0 && text.length <= keyword.length) { // lastIndexOf could possibly be replaced with just firstIndexOf === 0
+				matches.push(keyword);
 			}
 		}
 
 		if (matches.length > 0) {
 
-			var suggestions = [];
+			var best_five_suggestions = [];
+
 			// Sorts the possible matches by how many times they have been used
 			matches.sort(function compare(a, b) {return (a[2] < b[2]) ? -1 : 1;});
 
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
-			for (var m = 0; m < matches.length && m < 5; m++) {
-				match = matches[m];
-				suggestions.push({content: match, description: match});
+			for (var i = 0; i < matches.length && i < 5; i++) {
+				match = matches[i];
+				best_five_suggestions.push({content: match, description: match});
 			}
 
 			// Pushes the suggestions to be displayed underneath the omnibox
-			suggest(suggestions);
+			suggest(best_five_suggestions);
 
 		}
 	}
 });
 
-updateStorage();
+getStorage();

@@ -17,12 +17,12 @@ function clearTabs() {
 	// Can probably simpify this, maybe test for the existence of each individual element and delete it if it exists
 	if (
 		(CURRENT_PAGE === "import" && !NO_BOOKMARKS_TO_IMPORT) ||
-		(CURRENT_PAGE === "manage" && SHOW_SORTING_OPTIONS_IN_MANAGE_TAB && !NO_KEYLINKS_TO_MANAGE) ||
-		(CURRENT_PAGE === "change" && SHOW_KEYLINK_STATS_IN_ADD_TAB) ||
+		(CURRENT_PAGE === "manage" && SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB && !NO_KEYLINKS_TO_MANAGE) ||
+		(CURRENT_PAGE === "change" && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) ||
 		(CURRENT_PAGE === "settings")
 	) {
 		document.getElementById("menu").removeChild(document.getElementById("menu").lastChild);
-		if (CURRENT_PAGE === "change" && SHOW_KEYLINK_STATS_IN_ADD_TAB) {
+		if (CURRENT_PAGE === "change" && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) {
 			document.getElementById("menu").removeChild(document.getElementById("menu").lastChild);
 		}
 	}

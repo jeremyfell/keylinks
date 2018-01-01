@@ -109,8 +109,8 @@ function getBookmarks(id) {
 		for (var index = 0; index < folder.length; index++) {
 			var bookmark = folder[index];
 			var check = true;
-			for (var key in KEYLINKS) {
-				if (bookmark.url === KEYLINKS[key][0]) {
+			for (var keyword in KEYLINKS) {
+				if (bookmark.url === KEYLINKS[keyword][0]) {
 					check = false;
 					break;
 				}
@@ -154,9 +154,9 @@ function getFolders(tree) {
 					var twig = branch.children[b];
 					var bookmarkcheck = true;
 
-					for (var key in KEYLINKS) {
+					for (var keyword in KEYLINKS) {
 
-						var keyurl = KEYLINKS[key][0];
+						var keyurl = KEYLINKS[keyword][0];
 
 						if (twig.url === keyurl) {
 							bookmarkcheck = false;
@@ -236,7 +236,7 @@ function importTab() {
 			var newP2 = document.createElement("p");
 
 			NO_BOOKMARKS_TO_IMPORT = true;
-			
+
 			newP1.className = "emptymain";
 			newP2.className = "emptybody";
 			newP1.innerHTML = "You don't have any Chrome bookmarks to import!";

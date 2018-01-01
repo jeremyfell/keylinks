@@ -1,25 +1,23 @@
-REPLACE = true;
 
 // Exports all keylinks as bookmarks in a folder named Keylinks within the Other Bookmarks folder
 function exportBookmarks() {
-	folderName = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
+	folder_name = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
 
 	// If the cancel button was pressed
-	if (folderName == null) {
+	if (folder_name == null) {
 		document.getElementById("export").blur();
 		return;
 	}
 
 	// Default folder name if none is specified
-	if (folderName == "") folderName == "Keylinks";
+	if (folder_name === "") folder_name = "Keylinks";
 
 
-	chrome.bookmarks.create({title: folderName}, function(parentFolder) {
-		var id = parentFolder.id;
+	chrome.bookmarks.create({title: folder_name}, function(parent_folder) {
 
 		// Creates each bookmark in the folder
-		for (var key in KEYLINKS) {
-			chrome.bookmarks.create({title: key, url: KEYLINKS[key][0], parentId: id});
+		for (var keyword in KEYLINKS) {
+			chrome.bookmarks.create({title: keyword, url: KEYLINKS[keyword][0], parentId: parent_folder.id});
 		}
 
 		// Opens a new tab at the chrome bookmarks page
@@ -139,13 +137,13 @@ function settingsTab() {
 	newCheckbox6.className = "checkoff";
 	newCheckbox7.className = "checkoff";
 
-	newCheckbox1.id = "suggestions";
-	newCheckbox2.id = "close";
-	newCheckbox3.id = "sort";
-	newCheckbox4.id = "stats";
-	newCheckbox5.id = "small";
-	newCheckbox6.id = "auto";
-	newCheckbox7.id = "replace";
+	newCheckbox1.id = "SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX";
+	newCheckbox2.id = "CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB";
+	newCheckbox3.id = "SHOW_SORTING_OPTIONS_IN_MANAGE_TAB";
+	newCheckbox4.id = "SHOW_KEYLINK_STATS_IN_ADD_TAB";
+	newCheckbox5.id = "USE_SMALL_POPUP_ON_STARTUP";
+	newCheckbox6.id = "SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK";
+	newCheckbox7.id = "ALLOW_LINK_REPLACING_IN_ADD_TAB";
 
 	newImage1.className = "checkicon";
 	newImage2.className = "checkicon";
@@ -164,44 +162,44 @@ function settingsTab() {
 	newImage7.src = BLANK_IMAGE;
 
 	// Sets the default states of all settings checkboxes according to the current saved settings
-	if (SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX) {
+	if (SETTINGS.SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX) {
 		newCheckbox1.className = "checkon";
 		newImage1.src = SOURCE.check;
 	}
 
-	if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) {
+	if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) {
 		newCheckbox2.className = "checkon";
 		newImage2.src = SOURCE.check;
 	}
 
-	if (SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
+	if (SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
 		newCheckbox3.className = "checkon";
 		newImage3.src = SOURCE.check;
 	}
 
-	if (SHOW_KEYLINK_STATS_IN_ADD_TAB) {
+	if (SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) {
 		newCheckbox4.className = "checkon";
 		newImage4.src = SOURCE.check;
 	}
 
-	if (USE_SMALL_POPUP_ON_STARTUP) {
+	if (SETTINGS.USE_SMALL_POPUP_ON_STARTUP) {
 		newCheckbox5.className = "checkon";
 		newImage5.src = SOURCE.check;
 	}
 
-	if (SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK) {
+	if (SETTINGS.SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK) {
 		newCheckbox6.className = "checkon";
 		newImage6.src = SOURCE.check;
 	}
 
-	if (REPLACE) {
+	if (SETTINGS.ALLOW_LINK_REPLACING_IN_ADD_TAB) {
 		newCheckbox7.className = "checkon";
 		newImage7.src = SOURCE.check;
 	}
 
 	// Creates listeners to handle mouse hover and element focus for all settings checkboxes
-	for (var c = 0; c < checkboxes.length; c++) {
-		var checkbox = checkboxes[c];
+	for (var i = 0; i < checkboxes.length; i++) {
+		var checkbox = checkboxes[i];
 
 		checkbox.addEventListener("mouseenter", function() {
 			if (this.className === "checkoff") {
@@ -226,63 +224,19 @@ function settingsTab() {
 				this.firstChild.src = BLANK_IMAGE;
 			}
 		});
+
+		checkbox.addEventListener("click", function() {
+			SETTINGS[this.id] = !SETTINGS[this.id];
+			this.className = (this.className === "checkoff" ? "checkon" : "checkoff")
+			this.blur();
+
+		});
 	}
-
-	// Creates listeners to handle clicks for all settings checkboxes
-	newCheckbox1.addEventListener("click", function() {
-		SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = !SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
-		SETTINGS.suggestions = SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox2.addEventListener("click", function() {
-		CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB = !CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB;
-		SETTINGS.close = CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox3.addEventListener("click", function() {
-		SHOW_SORTING_OPTIONS_IN_MANAGE_TAB = !SHOW_SORTING_OPTIONS_IN_MANAGE_TAB;
-		SETTINGS.sort = SHOW_SORTING_OPTIONS_IN_MANAGE_TAB;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox4.addEventListener("click", function() {
-		SHOW_KEYLINK_STATS_IN_ADD_TAB = !SHOW_KEYLINK_STATS_IN_ADD_TAB;
-		SETTINGS.stats = SHOW_KEYLINK_STATS_IN_ADD_TAB;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox5.addEventListener("click", function() {
-		USE_SMALL_POPUP_ON_STARTUP = !USE_SMALL_POPUP_ON_STARTUP;
-		SETTINGS.small = USE_SMALL_POPUP_ON_STARTUP;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox6.addEventListener("click", function() {
-		SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK = !SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK;
-		SETTINGS.auto = SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
-
-	newCheckbox7.addEventListener("click", function() {
-		REPLACE = !REPLACE;
-		SETTINGS.replace = REPLACE;
-		this.className === "checkoff" ? this.className = "checkon" : this.className = "checkoff";
-		this.blur();
-	});
 
 	// Creates click listeners to open each link in a new tab
 	links = newP8.childNodes;
-	for (var l = 1; l < links.length; l+= 2) {
-		var link = links[l];
-		link.addEventListener("click", function() {
+	for (var i = 1; i < links.length; i += 2) {
+		links[i].addEventListener("click", function() {
 			chrome.tabs.create({url: this.href});
 		});
 	}

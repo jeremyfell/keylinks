@@ -1,4 +1,5 @@
 // Calls upon the background page to save keylinks and settings on popup unload
 addEventListener("unload", function () {
-	chrome.extension.getBackgroundPage().saveStorage(KEYLINKS, SETTINGS);
+	var background_page = chrome.extension.getBackgroundPage();
+	background_page.setStorage(KEYLINKS, SETTINGS);
 }, true);

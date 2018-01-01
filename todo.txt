@@ -1,5 +1,11 @@
 Todo
 
+NEWER
+Change camel case variables to underscores
+Change how storage, saving and syncing work
+Finish renaming setting names
+
+
 BUGS
 
 Check formatting on other devices
@@ -45,16 +51,16 @@ Prepare all icon sizes
 Bookmarks/keywords/keylinks terminology
 
 WHEN ICON NEEDS CHECKING
-Window created			
-Tab created				
+Window created
+Tab created
 Tab updated				NEEDED
 Bookmark added			NEEDED
 Bookmark removed		NEEDED
 
 Definitions
-Bookmark	= 
-Keylink		= 
-Keyword		= 
+Bookmark	=
+Keylink		=
+Keyword		=
 
 What's a keylink?
 

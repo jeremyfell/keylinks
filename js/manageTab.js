@@ -145,7 +145,7 @@ function sortingSetup(menu, sorted) {
 function getSortedItems(newList, sorted) {
 	for (var s = 0; s < sorted.length; s++) {
 
-		var key = sorted[s];
+		var keyword = sorted[s];
 
 		var newListItem = document.createElement("li");
 		var newDiv = document.createElement("div");
@@ -157,7 +157,7 @@ function getSortedItems(newList, sorted) {
 		var newImage2 = document.createElement("img");
 
 		newInput1.setAttribute("type", "text");
-		newInput1.value = key[0];
+		newInput1.value = keyword[0];
 		newInput1.className = "managekeyword";
 		newInput1.setAttribute("maxlength", "100");
 
@@ -173,8 +173,7 @@ function getSortedItems(newList, sorted) {
 			} else {
 
 				// Keyword is valid, delete old keyword and add new one
-				var keyword = this.value;
-				KEYLINKS[keyword] = KEYLINKS[OLDKEYWORD];
+				KEYLINKS[this.value] = KEYLINKS[OLDKEYWORD];
 				delete KEYLINKS[OLDKEYWORD];
 
 			}
@@ -197,7 +196,7 @@ function getSortedItems(newList, sorted) {
 
 		newInput2.setAttribute("type", "text");
 		newInput2.spellcheck = false;
-		newInput2.value = key[1];
+		newInput2.value = keyword[1];
 		newInput2.className = "managelink";
 		newInput2.addEventListener("focus", function() {OLDURL = this.value});
 		newInput2.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
@@ -263,8 +262,8 @@ function manageTab() {
 	newList.id = "managebookmarks";
 
 	// Takes all keylinks from the main object, and puts them into an array so that they can be sorted
-	for (var key in KEYLINKS) {
-		sorted.push([key, KEYLINKS[key][0], KEYLINKS[key][1], KEYLINKS[key][2]]);
+	for (var keyword in KEYLINKS) {
+		sorted.push([keyword, KEYLINKS[keyword][0], KEYLINKS[keyword][1], KEYLINKS[keyword][2]]);
 	}
 
 	if (sorted.length === 0) {
@@ -289,7 +288,7 @@ function manageTab() {
 
 		NO_KEYLINKS_TO_MANAGE = false;
 
-		if (SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
+		if (SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
 			// Sets up the sorting buttons in the menu
 			sortingSetup(menu, sorted);
 		} else {

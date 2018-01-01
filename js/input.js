@@ -83,33 +83,14 @@ function titleSuggestion(tabtitle) {
 			title = title.replace(/[^a-zA-Z0-9]/g, "");
 
 			// If the generated title suggestion is already a keyword, do not make a suggestion
-			for (var key in KEYLINKS) {
-				if (key === title) {
+			for (var keyword in KEYLINKS) {
+				if (keyword === title) {
 					title = "";
 					break;
 				}
 			}
 
 			return title;
-}
-
-// Display the date the keylink was created and how many times it has been used
-function keylinkStatistics(menu, currentKeyword) {
-	var time = KEYLINKS[currentKeyword][1];
-	var date = new Date(time);
-
-	var newP1 = document.createElement("p");
-	var newP2 = document.createElement("p");
-
-	newP1.className = "stat";
-	newP2.className = "stat";
-
-	newP1.innerHTML = "Created " + date.toString().substring(4, 15);
-	newP1.title = date.toString().substring(16,24);
-	newP2.innerHTML = "Used " + String(KEYLINKS[currentKeyword][2]) + " times";
-
-	menu.appendChild(newP1);
-	menu.appendChild(newP2);
 }
 
 
@@ -132,9 +113,9 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 		var url = tab.url;
 
 		// Checks if the current tab's url is already associated with a keylink
-		for (var key in KEYLINKS) {
-			if (KEYLINKS[key][0] === url) {
-				currentKeyword = key;
+		for (var keyword in KEYLINKS) {
+			if (KEYLINKS[keyword][0] === url) {
+				currentKeyword = keyword;
 				unusedLink = false;
 				break;
 			}
@@ -167,7 +148,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 					(this.id === "addinput") ? addTab() : toolbarTab();
 
-					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
@@ -182,7 +163,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
@@ -206,7 +187,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newImage.title = "Delete";
 
 			// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-			if (defaultPopup && SHOW_KEYLINK_STATS_IN_ADD_TAB) keylinkStatistics(menu, currentKeyword);
+			if (defaultPopup && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) keylinkStatistics(menu, currentKeyword);
 
 			newInput.addEventListener("focus", function() {this.select(); OLDKEYWORD = this.value;});
 			newInput.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
@@ -223,7 +204,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					KEYLINKS[keyword] = KEYLINKS[OLDKEYWORD];
 					delete KEYLINKS[OLDKEYWORD];
 
-					if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
 				}
 			});
@@ -233,12 +214,12 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 				(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-				if (CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+				if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 			});
 		}
 
 		// Suggests a possible keyword based on the webpage title
-		if (SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK && newButton.disabled) {
+		if (SETTINGS.SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK && newButton.disabled) {
 			var title = titleSuggestion(tab.title);
 
 			newButton.disabled = false;
