@@ -110,7 +110,7 @@ function getBookmarks(id) {
 			var bookmark = folder[index];
 			var check = true;
 			for (var keyword in KEYLINKS) {
-				if (bookmark.url === KEYLINKS[keyword][0]) {
+				if (bookmark.url === KEYLINKS[keyword].link) {
 					check = false;
 					break;
 				}
@@ -156,9 +156,7 @@ function getFolders(tree) {
 
 					for (var keyword in KEYLINKS) {
 
-						var keyurl = KEYLINKS[keyword][0];
-
-						if (twig.url === keyurl) {
+						if (twig.url === KEYLINKS[keyword].link) {
 							bookmarkcheck = false;
 						}
 

@@ -1,8 +1,8 @@
 // Display the date the keylink was created and how many times it has been used
 function keylinkStatistics(menu, current_keyword) {
-	var time = KEYLINKS[current_keyword][1];
+	var time = KEYLINKS[current_keyword].time_created;
 	var date = new Date(time);
-	var uses = KEYLINKS[current_keyword][2];
+	var uses = KEYLINKS[current_keyword].times_used;
 
 	var newP1 = document.createElement("p");
 	var newP2 = document.createElement("p");

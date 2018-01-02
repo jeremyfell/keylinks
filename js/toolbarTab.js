@@ -29,5 +29,5 @@ function toolbarTab() {
 
 	// Places the cursor within the input box
 	newInput.focus();
-
+	
 }

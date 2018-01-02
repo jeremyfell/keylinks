@@ -15,6 +15,7 @@ function clearTabs() {
 	}
 
 	// Can probably simpify this, maybe test for the existence of each individual element and delete it if it exists
+	// Maybe while menu has more than 5 child elements (4 main buttons and title), remove last child element
 	if (
 		(CURRENT_TAB === "import" && !NO_BOOKMARKS_TO_IMPORT) ||
 		(CURRENT_TAB === "manage" && SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB && !NO_KEYLINKS_TO_MANAGE) ||

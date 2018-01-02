@@ -5,7 +5,6 @@ function initial() {
 		KEYLINKS = storage.keylinks;
 		SETTINGS = storage.settings;
 
-
 		// If there are no keylinks, create a new object to hold them
 		if (KEYLINKS === undefined) {
 			KEYLINKS = {};

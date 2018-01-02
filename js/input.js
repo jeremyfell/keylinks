@@ -114,7 +114,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 		// Checks if the current tab's url is already associated with a keylink
 		for (var keyword in KEYLINKS) {
-			if (KEYLINKS[keyword][0] === url) {
+			if (KEYLINKS[keyword].link === url) {
 				currentKeyword = keyword;
 				unusedLink = false;
 				break;

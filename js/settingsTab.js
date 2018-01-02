@@ -17,7 +17,7 @@ function exportBookmarks() {
 
 		// Creates each bookmark in the folder
 		for (var keyword in KEYLINKS) {
-			chrome.bookmarks.create({title: keyword, url: KEYLINKS[keyword][0], parentId: parent_folder.id});
+			chrome.bookmarks.create({title: keyword, url: KEYLINKS[keyword].link, parentId: parent_folder.id});
 		}
 
 		// Opens a new tab at the chrome bookmarks page

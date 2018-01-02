@@ -113,5 +113,5 @@ function defaultSetup() {
 	document.body.appendChild(content);
 
 	addTab();
-
+	
 }

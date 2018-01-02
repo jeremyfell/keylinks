@@ -91,7 +91,7 @@ function sortingSetup(menu, sorted) {
 			newArrow1.style.webkitTransform = "rotate(180deg)";
 		}
 
-		sorted.sort(function(a,b) {return (a[0].toLowerCase() < b[0].toLowerCase()) ? -1 : 1;});
+		sorted.sort(function(a,b) {return (a.keyword.toLowerCase() < b.keyword.toLowerCase()) ? -1 : 1;});
 
 	} else if (CURRENT_SORTING_PARAMETER === "date") {
 
@@ -106,7 +106,7 @@ function sortingSetup(menu, sorted) {
 			newArrow2.style.webkitTransform = "rotate(180deg)";
 		}
 
-		sorted.sort(function(a,b) {return (a[2] < b[2]) ? -1 : 1;});
+		sorted.sort(function(a,b) {return (a.time_created < b.time_created) ? -1 : 1;});
 
 	} else {
 
@@ -121,7 +121,7 @@ function sortingSetup(menu, sorted) {
 			newArrow3.style.webkitTransform = "rotate(180deg)";
 		}
 
-		sorted.sort(function(a,b) {return (a[3] < b[3]) ? -1 : 1;});
+		sorted.sort(function(a,b) {return (a.times_used < b.times_used) ? -1 : 1;});
 
 	}
 
@@ -143,9 +143,9 @@ function sortingSetup(menu, sorted) {
 }
 
 function getSortedItems(newList, sorted) {
-	for (var s = 0; s < sorted.length; s++) {
+	for (var i = 0; i < sorted.length; i++) {
 
-		var keyword = sorted[s];
+		var keylink = sorted[i];
 
 		var newListItem = document.createElement("li");
 		var newDiv = document.createElement("div");
@@ -157,7 +157,7 @@ function getSortedItems(newList, sorted) {
 		var newImage2 = document.createElement("img");
 
 		newInput1.setAttribute("type", "text");
-		newInput1.value = keyword[0];
+		newInput1.value = keylink.keyword;
 		newInput1.className = "managekeyword";
 		newInput1.setAttribute("maxlength", "100");
 
@@ -198,7 +198,7 @@ function getSortedItems(newList, sorted) {
 
 		newInput2.setAttribute("type", "text");
 		newInput2.spellcheck = false;
-		newInput2.value = keyword[1];
+		newInput2.value = keylink.link;
 		newInput2.className = "managelink";
 		newInput2.addEventListener("focus", function() {
 			this.dataset.oldLink = this.value;
@@ -214,7 +214,7 @@ function getSortedItems(newList, sorted) {
 			} else {
 				var keyurl = this.parentNode.childNodes[2].value;
 				var keyword = this.parentNode.firstChild.value;
-				KEYLINKS[keyword][0] = keyurl;
+				KEYLINKS[keyword].link = keyurl;
 			}
 		});
 
@@ -222,10 +222,10 @@ function getSortedItems(newList, sorted) {
 		// If sorting by date, displays the time the keylink was created
 		// If sorting by uses, displays the number of times the keylink has been used
 		if (CURRENT_SORTING_PARAMETER === "date") {
-			var date = new Date(sorted[s][2]);
+			var date = new Date(keylink.time_created);
 			newInput2.title = "Created " + date.toLocaleTimeString() + ", " + date.toDateString();
 		} else if (CURRENT_SORTING_PARAMETER === "use") {
-			newInput2.title = "Used " + sorted[s][3] + " time" + (sorted[s][3] === 1 ? "" : "s");
+			newInput2.title = "Used " + keylink.times_used + " time" + (keylink.times_used === 1 ? "" : "s");
 		}
 
 		newButton2.className = "managebutton";
@@ -270,7 +270,12 @@ function manageTab() {
 
 	// Takes all keylinks from the main object, and puts them into an array so that they can be sorted
 	for (var keyword in KEYLINKS) {
-		sorted.push([keyword, KEYLINKS[keyword][0], KEYLINKS[keyword][1], KEYLINKS[keyword][2]]);
+		sorted.push({
+			keyword: keyword,
+			link: KEYLINKS[keyword].link,
+			time_created: KEYLINKS[keyword].time_created,
+			times_used: KEYLINKS[keyword].times_used
+		});
 	}
 
 	if (sorted.length === 0) {
@@ -299,8 +304,8 @@ function manageTab() {
 			// Sets up the sorting buttons in the menu
 			sortingSetup(menu, sorted);
 		} else {
-			// Default sort is alphabetically
-			sorted.sort(function(a,b) {return (a[0].toLowerCase() < b[0].toLowerCase()) ? -1 : 1;});
+			// Default sort is alphabetically by keyword
+			sorted.sort(function(a,b) {return (a.keyword.toLowerCase() < b.keyword.toLowerCase()) ? -1 : 1;});
 		}
 
 		// Creates and displays the list of sorted keylinks

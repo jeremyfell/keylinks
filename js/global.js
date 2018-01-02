@@ -25,6 +25,9 @@ var NO_BOOKMARKS_TO_IMPORT = true;
 // Describes a blank icon, used as an image source when no icon should be displayed
 var BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 
+// Path to page displayed for entering an invalid keylink in the omnibox
+var BROKEN_PAGE = "../html/broken.html";
+
 // Source paths for each icon
 var SOURCE = {
 	add				: "../svg/add.svg",

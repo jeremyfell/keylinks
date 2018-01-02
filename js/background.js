@@ -29,7 +29,7 @@ function iconChange(tabId, changeInfo, tab) {
 	if (changeInfo.status === "loading" || changeInfo.status === "created") {
 		var check = false;
 		for (var keyword in KEYLINKS) {
-			if (KEYLINKS[keyword][0] === tab.url) {
+			if (KEYLINKS[keyword].link === tab.url) {
 				check = true;
 				break;
 			}
@@ -38,11 +38,12 @@ function iconChange(tabId, changeInfo, tab) {
 	}
 }
 
+// Double check whether it needs to examine all tabs
 // Updates bookmark status icon when a new bookmark is added
 function iconUpdate(bookmark, url) {
 	chrome.tabs.query({}, function(tabs) {
-		for (var t = 0; t < tabs.length; t++) {
-			var tab = tabs[t];
+		for (var i = 0; i < tabs.length; i++) {
+			var tab = tabs[i];
 			if (tab.url === url) {
 				iconSwitch(bookmark, tab.id);
 			}
@@ -94,16 +95,16 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 	if (KEYLINKS[keyword]) {
 
 		// If the keyword is valid, go to the associated link, increment total uses, and save keylinks
-		var keylink = KEYLINKS[keyword];
-		var keyurl = keylink[0];
-		KEYLINKS[keyword][2]++;
-		chrome.tabs.update({url: keyurl});
+		var link = KEYLINKS[keyword].link;
+		KEYLINKS[keyword].times_used++;
+		chrome.tabs.update({url: link});
+		// Necessary to save to storage each time? Maybe just on unload?
 		chrome.storage.sync.set({"keylinks": KEYLINKS});
 
 	} else {
 
 		// If the keyword is invalid, go to the broken link page
-		chrome.tabs.update({url: chrome.extension.getURL("../html/broken.html")});
+		chrome.tabs.update({url: chrome.extension.getURL(BROKEN_PAGE)});
 
 	}
 
@@ -130,7 +131,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 			var best_five_suggestions = [];
 
 			// Sorts the possible matches by how many times they have been used
-			matches.sort(function compare(a, b) {return (a[2] < b[2]) ? -1 : 1;});
+			matches.sort(function compare(a, b) {return (a.times_used < b.times_used) ? -1 : 1;});
 
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
 			for (var i = 0; i < matches.length && i < 5; i++) {
