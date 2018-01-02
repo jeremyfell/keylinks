@@ -1,11 +1,14 @@
+// All user keylinks
 var KEYLINKS;
 
+// Holds the previous keyword, when a keyword is changed, so that it can be reverted if it is set to an invalid value
 var OLD_KEYWORD;
 
 // Holds the current displayed page state
 // settings, import, manage, add, change, toolbar
 var CURRENT_TAB = "";
 
+// Holds all user bookmark folders
 var BOOKMARK_FOLDERS = [];
 
 // Current type of sorting
