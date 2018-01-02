@@ -188,6 +188,7 @@ function getSortedItems(newList, sorted) {
 		newInput1.spellcheck = false;
 
 		newButton1.className = "linkbutton";
+		newButton1.title = "Visit link";
 		newButton1.addEventListener("click", function() {
 			// Creates a new tab with the url associated with that button's row
 			chrome.tabs.create({url: this.parentNode.childNodes[2].value})
@@ -212,9 +213,9 @@ function getSortedItems(newList, sorted) {
 			if (this.value === "") {
 				this.value = this.dataset.oldLink;
 			} else {
-				var keyurl = this.parentNode.childNodes[2].value;
+				var link = this.parentNode.childNodes[2].value;
 				var keyword = this.parentNode.firstChild.value;
-				KEYLINKS[keyword].link = keyurl;
+				KEYLINKS[keyword].link = link;
 			}
 		});
 
@@ -229,8 +230,8 @@ function getSortedItems(newList, sorted) {
 		}
 
 		newButton2.className = "managebutton";
-		newButton2.addEventListener("click", function() {deleteKeylink(this)});
 		newButton2.title = "Delete keylink";
+		newButton2.addEventListener("click", function() {deleteKeylink(this)});
 
 		newImage2.src = SOURCE.deleting;
 		newImage2.className = "managedelete visible";
