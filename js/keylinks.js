@@ -1,9 +1,9 @@
 // Saves a new keylink
-function addKeylink(url) {
+function addKeylink(keyword, url) {
 	var background_page = chrome.extension.getBackgroundPage();
 	var time = new Date().getTime();
 
-	KEYLINKS[KEYWORD] = [url, time, 0];
+	KEYLINKS[keyword] = [url, time, 0];
 	background_page.iconUpdate(true, url);
 }
 

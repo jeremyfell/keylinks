@@ -4,7 +4,7 @@ Functions controlling input
 
 // Check if keyword is already used by a saved bookmark
 function invalidKeyword(keyword) {
-	return (KEYLINKS[keyword] && keyword !== OLDKEYWORD);
+	return (KEYLINKS[keyword] && keyword !== OLD_KEYWORD);
 }
 
 // Check if current keyword is valid, and able to be saved
@@ -15,7 +15,7 @@ function checkInput(item) {
 
 	// Can most likely simplify all these if and else statements into a better control flow
 
-	if (CURRENT_PAGE === "import") {
+	if (CURRENT_TAB === "import") {
 
 		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
 
@@ -33,7 +33,7 @@ function checkInput(item) {
 
 	}
 
-	if ((item.id === "addinput" || item.id === "smallinput") && (CURRENT_PAGE === "add" || CURRENT_PAGE === "tooladd")) {
+	if ((item.id === "addinput" || item.id === "smallinput") && (CURRENT_TAB === "add" || CURRENT_TAB === "tooladd")) {
 
 		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
 			// Disables the add keylink button
@@ -124,10 +124,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 		if (unusedLink) {
 
 			if (defaultPopup) {
-				CURRENT_PAGE = "add";
+				CURRENT_TAB = "add";
 				document.getElementById("menutitle").innerHTML = "Add Bookmark";
 			} else {
-				CURRENT_PAGE = "tooladd";
+				CURRENT_TAB = "tooladd";
 			}
 
 			newButton.disabled = true;
@@ -141,10 +141,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 				if (!this.parentNode.lastChild.disabled && e.which === 13) {
 
-					KEYWORD = this.value;
+					var keyword = this.value;
 					this.value = "";
 					this.parentNode.lastChild.disabled = true;
-					addKeylink(url);
+					addKeylink(keyword, url);
 
 					(this.id === "addinput") ? addTab() : toolbarTab();
 
@@ -156,10 +156,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newButton.addEventListener("click", function() {
 				if (!this.disabled) {
 
-					KEYWORD = this.parentNode.firstChild.value;
+					var keyword = this.parentNode.firstChild.value;
 					this.parentNode.firstChild.value = "";
 					this.disabled = true;
-					addKeylink(url);
+					addKeylink(keyword, url);
 
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 
@@ -173,10 +173,10 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 
 			if (defaultPopup) {
-				CURRENT_PAGE = "change";
+				CURRENT_TAB = "change";
 				document.getElementById("menutitle").innerHTML = "Change Bookmark";
 			} else {
-				CURRENT_PAGE = "toolchange";
+				CURRENT_TAB = "toolchange";
 			}
 
 			newInput.value = currentKeyword;
@@ -189,20 +189,27 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
 			if (defaultPopup && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) keylinkStatistics(menu, currentKeyword);
 
-			newInput.addEventListener("focus", function() {this.select(); OLDKEYWORD = this.value;});
-			newInput.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
+			newInput.addEventListener("focus", function() {
+				this.select();
+				OLD_KEYWORD = this.value;
+			});
+
+			newInput.addEventListener("keydown", function(e) {
+				if (e.which === 13) this.blur();
+			});
+
 			newInput.addEventListener("change", function() {
 				if (this.value === "" || !checkInput(this)) {
 
-					this.value = OLDKEYWORD;
+					this.value = OLD_KEYWORD;
 					this.style.borderColor = null;
 
 				} else {
 
 					var keyword = this.parentNode.firstChild.value;
 
-					KEYLINKS[keyword] = KEYLINKS[OLDKEYWORD];
-					delete KEYLINKS[OLDKEYWORD];
+					KEYLINKS[keyword] = KEYLINKS[OLD_KEYWORD];
+					delete KEYLINKS[OLD_KEYWORD];
 
 					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 

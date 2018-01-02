@@ -75,7 +75,7 @@ function settingsTab() {
 
 	// Tab setup
 	clearTabs();
-	CURRENT_PAGE = "settings";
+	CURRENT_TAB = "settings";
 	document.getElementById("settingstab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Settings";
 

@@ -1,6 +1,9 @@
 Todo
 
 NEWER
+Adding keylinks is broken
+
+
 Change camel case variables to underscores
 Change how storage, saving and syncing work
 Finish renaming setting names

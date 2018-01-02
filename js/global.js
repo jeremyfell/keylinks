@@ -1,10 +1,12 @@
-var BOOKMARK_FOLDERS = [];
-
-var KEYWORD;
 var KEYLINKS;
 
-var OLDKEYWORD;
-var OLDURL;
+var OLD_KEYWORD;
+
+// Holds the current displayed page state
+// settings, import, manage, add, change, toolbar
+var CURRENT_TAB = "";
+
+var BOOKMARK_FOLDERS = [];
 
 // Current type of sorting
 var CURRENT_SORTING_PARAMETER = "name";
@@ -16,12 +18,9 @@ var NO_KEYLINKS_TO_MANAGE = true;
 // There are no bookmarks to import
 var NO_BOOKMARKS_TO_IMPORT = true;
 
-// Holds the current displayed page state
-// settings, import, manage, add, change, toolbar
-var CURRENT_PAGE = "";
 
 // Describes a blank icon, used as an image source when no icon should be displayed
-const BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
+var BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 
 // Source paths for each icon
 var SOURCE = {
@@ -45,7 +44,6 @@ var COLORS = {
 	red				: "#FF0000",
 	light_red	: "#FFB2B2",
 	yellow		: "#FFD800"
-
 }
 
 // Holds the user settings retrieved from storage

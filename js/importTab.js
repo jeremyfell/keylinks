@@ -1,7 +1,7 @@
 // Adds bookmark in import tab and removes it from the list
 function importAdd(item) {
 	var url = item.parentNode.childNodes[2].title;
-	KEYWORD = item.parentNode.firstChild.value;
+	var keyword = item.parentNode.firstChild.value;
 
 	for (var i = 0; i < item.parentNode.parentNode.childNodes.length; i++) {
 
@@ -20,7 +20,7 @@ function importAdd(item) {
 	}
 
 	item.parentNode.parentNode.removeChild(item.parentNode);
-	addKeylink(url);
+	addKeylink(keyword, url);
 }
 
 function getBookmarkItems(list, sorted) {
@@ -193,7 +193,7 @@ function importTab() {
 
 	// Tab setup
 	clearTabs();
-	CURRENT_PAGE = "import";
+	CURRENT_TAB = "import";
 	document.getElementById("importtab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Import Bookmarks";
 

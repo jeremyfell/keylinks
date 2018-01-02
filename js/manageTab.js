@@ -161,20 +161,22 @@ function getSortedItems(newList, sorted) {
 		newInput1.className = "managekeyword";
 		newInput1.setAttribute("maxlength", "100");
 
-		newInput1.addEventListener("focus", function() {OLDKEYWORD = this.value;});
+		newInput1.addEventListener("focus", function() {
+			OLD_KEYWORD = this.value;
+		});
 
 		newInput1.addEventListener("change", function() {
 			if (this.value === "" || !checkInput(this)) {
 
 				// Keyword is invalid, revert to previous keyword
-				this.value = OLDKEYWORD;
+				this.value = OLD_KEYWORD;
 				this.style.backgroundColor = null;
 
 			} else {
 
 				// Keyword is valid, delete old keyword and add new one
-				KEYLINKS[this.value] = KEYLINKS[OLDKEYWORD];
-				delete KEYLINKS[OLDKEYWORD];
+				KEYLINKS[this.value] = KEYLINKS[OLD_KEYWORD];
+				delete KEYLINKS[OLD_KEYWORD];
 
 			}
 		});
@@ -198,16 +200,21 @@ function getSortedItems(newList, sorted) {
 		newInput2.spellcheck = false;
 		newInput2.value = keyword[1];
 		newInput2.className = "managelink";
-		newInput2.addEventListener("focus", function() {OLDURL = this.value});
-		newInput2.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
+		newInput2.addEventListener("focus", function() {
+			this.dataset.oldLink = this.value;
+		});
+
+		newInput2.addEventListener("keydown", function(e) {
+			if (e.which === 13) this.blur();
+		});
+
 		newInput2.addEventListener("change", function() {
 			if (this.value === "") {
-				this.value = OLDURL;
-				console.log(OLDURL);
+				this.value = this.dataset.oldLink;
 			} else {
 				var keyurl = this.parentNode.childNodes[2].value;
-				KEYWORD = this.parentNode.firstChild.value;
-				KEYLINKS[KEYWORD][0] = keyurl;
+				var keyword = this.parentNode.firstChild.value;
+				KEYLINKS[keyword][0] = keyurl;
 			}
 		});
 
@@ -255,7 +262,7 @@ function manageTab() {
 
 	// Tab setup
 	clearTabs();
-	CURRENT_PAGE = "manage";
+	CURRENT_TAB = "manage";
 	document.getElementById("managetab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Manage Keylinks";
 
