@@ -180,6 +180,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			}
 
 			newInput.value = currentKeyword;
+			OLD_KEYWORD = currentKeyword;
 
 			newButton.disabled = false;
 
@@ -201,6 +202,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newInput.addEventListener("change", function() {
 				if (this.value === "" || !checkInput(this)) {
 
+					console.log(OLD_KEYWORD);
 					this.value = OLD_KEYWORD;
 					this.style.borderColor = null;
 

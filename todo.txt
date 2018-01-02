@@ -3,6 +3,9 @@ Todo
 NEWER
 Adding keylinks is broken
 
+Red incorrect input bug
+Happens when input has not been selected manually, but automatically selected by javascript, so OLDKEYWORD is undefined
+
 
 Change camel case variables to underscores
 Change how storage, saving and syncing work
