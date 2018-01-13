@@ -98,7 +98,6 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 		var link = KEYLINKS[keyword].link;
 		KEYLINKS[keyword].times_used++;
 		chrome.tabs.update({url: link});
-		// Necessary to save to storage each time? Maybe just on unload?
 		chrome.storage.sync.set({"keylinks": KEYLINKS});
 
 	} else {
