@@ -20,6 +20,8 @@ If omnibox suggestions are enabled, keyword suggestions will appear below the om
 
 ![omnibox](https://user-images.githubusercontent.com/31748813/34911397-b027804c-f87e-11e7-9fc4-c43135b83f3c.png)
 
+![oops](https://user-images.githubusercontent.com/31748813/34911511-fd53b94c-f880-11e7-98a1-a0fd37c29e88.png)
+
 Manage Keylinks
 ------
 Allows you to manage all existing keylinks.  
