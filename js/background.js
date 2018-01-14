@@ -1,6 +1,9 @@
 var KEYLINKS;
 var SETTINGS;
 
+// Path to page displayed for entering an invalid keylink in the omnibox
+var BROKEN_PAGE = "../html/broken.html";
+
 /*////////////////////
 Functions for storage
 */////////////////////
