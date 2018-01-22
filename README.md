@@ -74,8 +74,8 @@ The keylinks popup can also be opened quickly using Ctrl+. (period)
 
 Using Extension
 ------
-The extension is not yet released on the Chrome web store, but can still be used while in development
-Download the zip of this project, and extract the main folder
-Go to chrome://extensions, and enable developer mode
-Click "Load unpacked extension" and select the folder
-The extension is now ready to use
+The extension is not yet released on the Chrome web store, but can still be used while in development.  
+Download the zip of this project, and extract the main folder.  
+Go to chrome://extensions, and enable developer mode.  
+Click "Load unpacked extension" and select the folder.  
+The extension is now ready to use.  
