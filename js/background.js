@@ -101,9 +101,11 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 
 		// If the keyword is valid, go to the associated link, increment total uses, and save keylinks
 		var link = KEYLINKS[keyword].link;
+		var storageChanges = {};
 		KEYLINKS[keyword].timesUsed++;
+		storageChanges[keyword]= KEYLINKS[keyword];
 		chrome.tabs.update({url: link});
-		chrome.storage.sync.set({"keylinks": KEYLINKS});
+		chrome.storage.sync.set(storageChanges);
 
 	} else {
 

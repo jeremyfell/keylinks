@@ -4,7 +4,7 @@ function getKeylinks() {
 		for (var key in storage) {
 			if (key === STORAGE_KEY) {
 				CURRENT_KEYLINKS = storage[key].keylinkCount;
-				CURRENT_CHARACTERS = storage[key].byteCount;
+				CURRENT_BYTES = storage[key].byteCount;
 			} else if (key === SETTINGS_KEY) {
 				SETTINGS = Object.assign({}, storage[key]);
 			} else {
@@ -65,9 +65,9 @@ function saveKeylink(keyword, url) {
 
 // Deletes a saved bookmark
 function deleteKeylink(element) {
-	var bytes = keyword.length + url.length + KEYLINK_OVERHEAD;
 	var keyword = element.parentNode.firstChild.value;
 	var url = KEYLINKS[keyword].link;
+	var bytes = keyword.length + url.length + KEYLINK_OVERHEAD;
 	var storageChanges = {};
 	var background_page = chrome.extension.getBackgroundPage();
 
