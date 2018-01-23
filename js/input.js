@@ -202,7 +202,6 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newInput.addEventListener("change", function() {
 				if (this.value === "" || !checkInput(this)) {
 
-					console.log(OLD_KEYWORD);
 					this.value = OLD_KEYWORD;
 					this.style.borderColor = null;
 
@@ -210,8 +209,9 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 					var keyword = this.parentNode.firstChild.value;
 
-					KEYLINKS[keyword] = KEYLINKS[OLD_KEYWORD];
-					delete KEYLINKS[OLD_KEYWORD];
+					// Resets the time created and uses for the changed keylink, may want to modify this later
+					saveKeylink(keyword, KEYLINKS[OLD_KEYWORD]);
+					deleteKeylink(OLD_KEYWORD);
 
 					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
 
@@ -219,7 +219,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			});
 
 			newButton.addEventListener("click", function() {
-				deleteKeylink(this);
+				deleteKeylink(this.parentNode.firstChild.value);
 
 				(this.id === "addbookmark") ? addTab() : toolbarTab();
 

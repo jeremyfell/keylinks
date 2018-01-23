@@ -231,7 +231,11 @@ function getSortedItems(newList, sorted) {
 
 		newButton2.className = "managebutton";
 		newButton2.title = "Delete keylink";
-		newButton2.addEventListener("click", function() {deleteKeylink(this)});
+		newButton2.addEventListener("click", function() {
+			deleteKeylink(this.parentNode.firstChild.value);
+			this.parentNode.remove();
+			if (CURRENT_KEYLINKS === DEFAULT_KEYLINK_COUNT) manageTab();
+		});
 
 		newImage2.src = SOURCE.deleting;
 		newImage2.className = "managedelete visible";

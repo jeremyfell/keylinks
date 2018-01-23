@@ -64,22 +64,13 @@ function saveKeylink(keyword, url) {
 }
 
 // Deletes a saved bookmark
-function deleteKeylink(element) {
-	var keyword = element.parentNode.firstChild.value;
+function deleteKeylink(keyword) {
 	var url = KEYLINKS[keyword].link;
 	var bytes = keyword.length + url.length + KEYLINK_OVERHEAD;
 	var storageChanges = {};
 	var background_page = chrome.extension.getBackgroundPage();
 
 	delete KEYLINKS[keyword];
-
-	if (element.className === "managebutton") {
-		element.parentNode.parentNode.removeChild(element.parentNode);
-
-		if (!document.getElementById("managebookmarks").firstChild) {
-			manageTab();
-		}
-	}
 
 	CURRENT_KEYLINKS--;
 	CURRENT_BYTES -= bytes;
