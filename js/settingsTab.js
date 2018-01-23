@@ -25,6 +25,13 @@ function exportBookmarks() {
 	});
 }
 
+function toggleSetting(setting) {
+	var storageChanges = {};
+	SETTINGS[setting] = !SETTINGS[setting];
+	storageChanges[SETTINGS_KEY] = SETTINGS;
+	chrome.storage.sync.set(storageChanges, function(entry) {errorCheck(entry)});
+}
+
 // Creates the settings tab when the gear icon is pressed
 function settingsTab() {
 
@@ -225,10 +232,9 @@ function settingsTab() {
 		});
 
 		checkbox.addEventListener("click", function() {
-			SETTINGS[this.id] = !SETTINGS[this.id];
+			toggleSetting(this.id);
 			this.className = (this.className === "checkoff" ? "checkon" : "checkoff")
 			this.blur();
-
 		});
 	}
 

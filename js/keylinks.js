@@ -29,7 +29,10 @@ function getKeylinks() {
 			SETTINGS = Object.assign({}, DEFAULT_SETTINGS);
 
 			chrome.storage.sync.set(storageDefault, function(entry) {errorCheck(entry)});
+
 		}
+
+		SETTINGS.USE_SMALL_POPUP_ON_STARTUP ? toolbarSetup() : defaultSetup();
 
 	});
 }
