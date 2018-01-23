@@ -1,6 +1,7 @@
 function getKeylinks() {
 	chrome.storage.sync.get(null, function(storage) {
 
+		// Separates storage items into keylinks, the storage count, and the user settings
 		for (var key in storage) {
 			if (key === STORAGE_KEY) {
 				CURRENT_KEYLINKS = storage[key].keylinkCount;
@@ -12,6 +13,8 @@ function getKeylinks() {
 			}
 		}
 
+		// If the chrome extension is being used for the first time, setup the storage count and user settings
+		// Possibly move to background page
 		if (!storage[STORAGE_KEY] || !storage[SETTINGS_KEY]) {
 
 			var storageDefault = {};

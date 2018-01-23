@@ -264,7 +264,7 @@ function manageTab() {
 	var sorted = [];
 
 	// Tab setup
-	clearTabs();
+	resetMenu();
 	CURRENT_TAB = "manage";
 	document.getElementById("managetab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Manage Keylinks";

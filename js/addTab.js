@@ -30,7 +30,7 @@ function addTab() {
 	var newImage = document.createElement("img");
 
 	// Tab setup
-	clearTabs();
+	resetMenu();
 	document.getElementById("addtab").disabled = true;
 
 	newDiv.id = "addbox";

@@ -71,8 +71,9 @@ function checkInput(item) {
 	}
 }
 
-function titleSuggestion(tabtitle) {
-			title = tabtitle.substr(0, 15).toLowerCase();
+// Generates a suggested keyword based on the page's title
+function titleSuggestion(tabTitle) {
+			title = tabTitle.substr(0, 15).toLowerCase();
 
 			// If there are multiple words, only take the first
 			if (title.indexOf(" ") > -1) {
@@ -83,12 +84,7 @@ function titleSuggestion(tabtitle) {
 			title = title.replace(/[^a-zA-Z0-9]/g, "");
 
 			// If the generated title suggestion is already a keyword, do not make a suggestion
-			for (var keyword in KEYLINKS) {
-				if (keyword === title) {
-					title = "";
-					break;
-				}
-			}
+			if (KEYLINKS[keyword]) title = "";
 
 			return title;
 }

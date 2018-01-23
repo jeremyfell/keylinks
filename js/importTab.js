@@ -188,7 +188,7 @@ function importTab() {
 	var newList = document.createElement("ul");
 
 	// Tab setup
-	clearTabs();
+	resetMenu();
 	CURRENT_TAB = "import";
 	document.getElementById("importtab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Import Bookmarks";

@@ -1,7 +1,7 @@
 // Removes all child elements of an element
-function trimElement(item) {
-	while (item.lastChild) {
-		item.removeChild(item.lastChild);
+function trimElement(element) {
+	while (element.lastChild) {
+		element.lastChild.remove();
 	}
 }
 
@@ -17,12 +17,12 @@ function errorCheck(entry) {
 }
 
 // Resets the colors of all menu buttons when one is pressed, and delete any extra elements in the menu
-function clearTabs() {
-	var buttons = document.getElementsByClassName("menubutton");
+function resetMenu() {
+	var menuButtons = document.getElementsByClassName("menubutton");
 	var menu = document.getElementById("menu");
 
-	for (var i = 0; i < buttons.length; i++) {
-		var button = buttons[i];
+	for (var i = 0; i < menuButtons.length; i++) {
+		var button = menuButtons[i];
 		button.disabled = false;
 	}
 

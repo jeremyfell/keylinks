@@ -25,6 +25,8 @@ function exportBookmarks() {
 	});
 }
 
+// Called when the user clicks on a setting button in the settings tab
+// Toggles the setting value and saves the change to storage
 function toggleSetting(setting) {
 	var storageChanges = {};
 	SETTINGS[setting] = !SETTINGS[setting];
@@ -38,8 +40,10 @@ function settingsTab() {
 	var content = document.getElementById("content");
 	var menu = document.getElementById("menu");
 
-	var newButton = document.createElement("button");
-	var newButtonImage = document.createElement("img");
+	var exportButton = document.createElement("button");
+	var exportButtonIcon = document.createElement("img");
+
+	//closePopupAfterKeylinkChangesInAddTabSettingContainer
 
 	var newDiv1 = document.createElement("div");
 	var newDiv2 = document.createElement("div");
@@ -80,20 +84,22 @@ function settingsTab() {
 	var links;
 
 	// Tab setup
-	clearTabs();
+	resetMenu();
+	// Deletes all elements from the previous tab
+	trimElement(content);
 	CURRENT_TAB = "settings";
 	document.getElementById("settingstab").disabled = true;
 	document.getElementById("menutitle").innerHTML = "Settings";
 
-	newButton.className = "menubutton";
-	newButton.id = "export";
-	newButton.title = "Export keylinks as bookmarks";
+	exportButton.className = "menubutton";
+	exportButton.id = "export";
+	exportButton.title = "Export keylinks as bookmarks";
 
-	newButtonImage.className = "menuicon";
-	newButtonImage.id = "exporticon";
-	newButtonImage.src = SOURCE.exporting;
+	exportButtonIcon.className = "menuicon";
+	exportButtonIcon.id = "exporticon";
+	exportButtonIcon.src = SOURCE.exporting;
 
-	newButton.addEventListener("click", function() {
+	exportButton.addEventListener("click", function() {
 		exportBookmarks();
 	});
 
@@ -246,10 +252,7 @@ function settingsTab() {
 		});
 	}
 
-	// Deletes all elements from the previous tab
-	trimElement(content);
-
-	newButton.appendChild(newButtonImage);
+	exportButton.appendChild(exportButtonIcon);
 
 	newCheckbox1.appendChild(newImage1);
 	newCheckbox2.appendChild(newImage2);
@@ -259,7 +262,7 @@ function settingsTab() {
 	newCheckbox6.appendChild(newImage6);
 	newCheckbox7.appendChild(newImage7);
 
-	menu.appendChild(newButton);
+	menu.appendChild(exportButton);
 
 	newDiv1.appendChild(newP1);
 	newDiv1.appendChild(newCheckbox1);
