@@ -20,7 +20,7 @@ function importAdd(item) {
 	}
 
 	item.parentNode.parentNode.removeChild(item.parentNode);
-	addKeylink(keyword, url);
+	saveKeylink(keyword, url);
 }
 
 function getBookmarkItems(list, sorted) {

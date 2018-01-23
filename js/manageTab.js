@@ -106,7 +106,7 @@ function sortingSetup(menu, sorted) {
 			newArrow2.style.webkitTransform = "rotate(180deg)";
 		}
 
-		sorted.sort(function(a,b) {return (a.time_created < b.time_created) ? -1 : 1;});
+		sorted.sort(function(a,b) {return (a.timeCreated < b.timeCreated) ? -1 : 1;});
 
 	} else {
 
@@ -121,7 +121,7 @@ function sortingSetup(menu, sorted) {
 			newArrow3.style.webkitTransform = "rotate(180deg)";
 		}
 
-		sorted.sort(function(a,b) {return (a.times_used < b.times_used) ? -1 : 1;});
+		sorted.sort(function(a,b) {return (a.timesUsed < b.timesUsed) ? -1 : 1;});
 
 	}
 
@@ -223,10 +223,10 @@ function getSortedItems(newList, sorted) {
 		// If sorting by date, displays the time the keylink was created
 		// If sorting by uses, displays the number of times the keylink has been used
 		if (CURRENT_SORTING_PARAMETER === "date") {
-			var date = new Date(keylink.time_created);
+			var date = new Date(keylink.timeCreated);
 			newInput2.title = "Created " + date.toLocaleTimeString() + ", " + date.toDateString();
 		} else if (CURRENT_SORTING_PARAMETER === "use") {
-			newInput2.title = "Used " + keylink.times_used + " time" + (keylink.times_used === 1 ? "" : "s");
+			newInput2.title = "Used " + keylink.timesUsed + " time" + (keylink.timesUsed === 1 ? "" : "s");
 		}
 
 		newButton2.className = "managebutton";
@@ -274,8 +274,8 @@ function manageTab() {
 		sorted.push({
 			keyword: keyword,
 			link: KEYLINKS[keyword].link,
-			time_created: KEYLINKS[keyword].time_created,
-			times_used: KEYLINKS[keyword].times_used
+			timeCreated: KEYLINKS[keyword].timeCreated,
+			timesUsed: KEYLINKS[keyword].timesUsed
 		});
 	}
 

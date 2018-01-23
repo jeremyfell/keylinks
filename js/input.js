@@ -144,7 +144,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					var keyword = this.value;
 					this.value = "";
 					this.parentNode.lastChild.disabled = true;
-					addKeylink(keyword, url);
+					saveKeylink(keyword, url);
 
 					(this.id === "addinput") ? addTab() : toolbarTab();
 
@@ -159,7 +159,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					var keyword = this.parentNode.firstChild.value;
 					this.parentNode.firstChild.value = "";
 					this.disabled = true;
-					addKeylink(keyword, url);
+					saveKeylink(keyword, url);
 
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 

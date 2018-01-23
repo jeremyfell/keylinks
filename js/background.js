@@ -1,5 +1,6 @@
-var KEYLINKS;
-var SETTINGS;
+var KEYLINKS = {};
+var SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = false;
+var SETTINGS_KEY = "___KEYLINKS_USER_SETTINGS___";
 
 // Path to page displayed for entering an invalid keylink in the omnibox
 var BROKEN_PAGE = "../html/broken.html";
@@ -8,20 +9,21 @@ var BROKEN_PAGE = "../html/broken.html";
 Functions for storage
 */////////////////////
 
-// Retrieves keylinks and settings from storage
-function getStorage() {
-	chrome.storage.sync.get(["keylinks","settings"], function(storage) {
-		KEYLINKS = storage.keylinks;
-		SETTINGS = storage.settings;
+// Retrieves keylinks and the ketword suggestion in omnibox setting from storage into the background page
+function updateBackgroundPageStorage() {
+	chrome.storage.sync.get(null, function(storage) {
+
+		for (var key in storage) {
+			if (key === SETTINGS_KEY) {
+				SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = storage[SETTINGS_KEY].SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
+			} else {
+				KEYLINKS[key] = storage[key];
+			}
+		}
+
 	});
 }
 
-// Saves keylinks and settings to storage
-function setStorage(keylinks, settings) {
-	chrome.storage.sync.set({"keylinks": keylinks, "settings" : settings}, function() {
-		getStorage();
-	});
-}
 
 /*//////////////////
 Functions for icons
@@ -99,7 +101,7 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 
 		// If the keyword is valid, go to the associated link, increment total uses, and save keylinks
 		var link = KEYLINKS[keyword].link;
-		KEYLINKS[keyword].times_used++;
+		KEYLINKS[keyword].timesUsed++;
 		chrome.tabs.update({url: link});
 		chrome.storage.sync.set({"keylinks": KEYLINKS});
 
@@ -117,7 +119,7 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 //Shows keyword suggestions
 chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
-	if (SETTINGS.SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX && text.length > 0) {
+	if (SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX && text.length > 0) {
 
 		var matches = [];
 
@@ -133,7 +135,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 			var best_five_suggestions = [];
 
 			// Sorts the possible matches by how many times they have been used
-			matches.sort(function compare(a, b) {return (a.times_used < b.times_used) ? -1 : 1;});
+			matches.sort(function compare(a, b) {return (a.timesUsed < b.timesUsed) ? -1 : 1;});
 
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
 			for (var i = 0; i < matches.length && i < 5; i++) {
@@ -148,4 +150,4 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	}
 });
 
-getStorage();
+updateBackgroundPageStorage();
