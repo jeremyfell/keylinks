@@ -41,14 +41,12 @@ function getBookmarkItems(list, sorted) {
 
 		newInput1.addEventListener("keydown", function(e) {
 			checkInput(this);
-			if (this.parentNode.lastChild.firstChild.src.indexOf(SOURCE.add) != -1 && e.which === 13) {
+			if (this.parentNode.lastChild.firstChild.src.indexOf(SOURCE.add) !== -1 && e.which === 13) {
 				importAdd(this);
 			}
 		});
 
-		newInput1.addEventListener("keyup", function() {checkInput(this)});
-		newInput1.addEventListener("keypress", function() {checkInput(this)});
-		newInput1.addEventListener("paste", function() {checkInput(this)});
+		newInput1.addEventListener("input", function() {checkInput(this)});
 
 		newInput1.spellcheck = false;
 

@@ -16,26 +16,18 @@ function errorCheck(entry) {
 	}
 }
 
-// Resets the colors of all menu buttons when one is pressed
+// Resets the colors of all menu buttons when one is pressed, and delete any extra elements in the menu
 function clearTabs() {
 	var buttons = document.getElementsByClassName("menubutton");
+	var menu = document.getElementById("menu");
 
-	for (var b = 0; b < buttons.length; b++) {
-		var button = buttons[b];
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
 		button.disabled = false;
 	}
 
-	// Can probably simpify this, maybe test for the existence of each individual element and delete it if it exists
-	// Maybe while menu has more than 5 child elements (4 main buttons and title), remove last child element
-	if (
-		(CURRENT_TAB === "import" && !NO_BOOKMARKS_TO_IMPORT) ||
-		(CURRENT_TAB === "manage" && SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB && !NO_KEYLINKS_TO_MANAGE) ||
-		(CURRENT_TAB === "change" && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) ||
-		(CURRENT_TAB === "settings")
-	) {
-		document.getElementById("menu").removeChild(document.getElementById("menu").lastChild);
-		if (CURRENT_TAB === "change" && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) {
-			document.getElementById("menu").removeChild(document.getElementById("menu").lastChild);
-		}
+	while (menu.childNodes.length > 5) {
+		menu.lastChild.remove();
 	}
+
 }

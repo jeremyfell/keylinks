@@ -1,23 +1,22 @@
 
-// Exports all keylinks as bookmarks in a folder named Keylinks within the Other Bookmarks folder
+// Exports all keylinks as bookmarks in a folder within the Other Bookmarks folder
 function exportBookmarks() {
-	folder_name = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
+	folderName = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
 
 	// If the cancel button was pressed
-	if (folder_name == null) {
+	if (folderName === null) {
 		document.getElementById("export").blur();
 		return;
 	}
 
 	// Default folder name if none is specified
-	if (folder_name === "") folder_name = "Keylinks";
+	if (folderName === "") folderName = "Keylinks";
 
-
-	chrome.bookmarks.create({title: folder_name}, function(parent_folder) {
+	chrome.bookmarks.create({title: folderName}, function(parentFolder) {
 
 		// Creates each bookmark in the folder
 		for (var keyword in KEYLINKS) {
-			chrome.bookmarks.create({title: keyword, url: KEYLINKS[keyword].link, parentId: parent_folder.id});
+			chrome.bookmarks.create({title: keyword, url: KEYLINKS[keyword].link, parentId: parentFolder.id});
 		}
 
 		// Opens a new tab at the chrome bookmarks page

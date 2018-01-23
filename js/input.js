@@ -52,7 +52,7 @@ function checkInput(item) {
 			if (item.id == "addinput" || item.id == "smallinput") {
 				item.style.borderColor = COLORS.red;
 			} else {
-				item.style.backgroundColor = COLORS.light_red;
+				item.style.backgroundColor = COLORS.lightRed;
 			}
 
 			return false;
@@ -102,12 +102,8 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 	newInput.setAttribute("type", "text");
 	newInput.setAttribute("maxlength", "100");
 
-	// Check that the input is valid when a key is pressed, if it is not the enter key
-	newInput.addEventListener("keyup", function(e) {if (e.which !== 13) checkInput(this)});
-
 	// Check that the input is valid when any changes are made
-	newInput.addEventListener("keypress", function() {checkInput(this)});
-	newInput.addEventListener("paste", function() {checkInput(this)});
+	newInput.addEventListener("input", function() {checkInput(this)});
 
 	chrome.tabs.getSelected(function(tab) {
 		var url = tab.url;

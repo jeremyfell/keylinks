@@ -69,6 +69,6 @@ var SOURCE = {
 
 var COLORS = {
 	red				: "#FF0000",
-	light_red	: "#FFB2B2",
+	lightRed	: "#FFB2B2",
 	yellow		: "#FFD800"
 }

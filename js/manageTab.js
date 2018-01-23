@@ -175,16 +175,14 @@ function getSortedItems(newList, sorted) {
 			} else {
 
 				// Keyword is valid, delete old keyword and add new one
-				KEYLINKS[this.value] = KEYLINKS[OLD_KEYWORD];
-				delete KEYLINKS[OLD_KEYWORD];
+				saveKeylink(this.value, KEYLINKS[OLD_KEYWORD].link);
+				deleteKeylink(OLD_KEYWORD);
 
 			}
 		});
 
-		newInput1.addEventListener("keydown", function(e) {checkInput(this); if (e.which === 13) this.blur();});
-		newInput1.addEventListener("keyup", function(e) {checkInput(this)});
-		newInput1.addEventListener("keypress", function(e) {checkInput(this)});
-		newInput1.addEventListener("paste", function(e) {checkInput(this)});
+		newInput1.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
+		newInput1.addEventListener("input", function(e) {checkInput(this)});
 		newInput1.spellcheck = false;
 
 		newButton1.className = "linkbutton";

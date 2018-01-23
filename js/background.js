@@ -134,7 +134,7 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
 		if (matches.length > 0) {
 
-			var best_five_suggestions = [];
+			var bestFiveSuggestions = [];
 
 			// Sorts the possible matches by how many times they have been used
 			matches.sort(function compare(a, b) {return (a.timesUsed < b.timesUsed) ? -1 : 1;});
@@ -142,11 +142,11 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
 			for (var i = 0; i < matches.length && i < 5; i++) {
 				match = matches[i];
-				best_five_suggestions.push({content: match, description: match});
+				bestFiveSuggestions.push({content: match, description: match});
 			}
 
 			// Pushes the suggestions to be displayed underneath the omnibox
-			suggest(best_five_suggestions);
+			suggest(bestFiveSuggestions);
 
 		}
 	}
