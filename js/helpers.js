@@ -18,7 +18,7 @@ function errorCheck(entry) {
 
 // Resets the colors of all menu buttons when one is pressed, and delete any extra elements in the menu
 function resetMenu() {
-	var menuButtons = document.getElementsByClassName("menubutton");
+	var menuButtons = document.getElementsByClassName("menu-button");
 	var menu = document.getElementById("menu");
 
 	for (var i = 0; i < menuButtons.length; i++) {

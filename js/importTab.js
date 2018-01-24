@@ -94,18 +94,18 @@ function getBookmarkItems(list, sorted) {
 function getBookmarks(id) {
 
 	var content = document.getElementById("content");
-	var select = document.getElementById("folders");
-	var list = document.getElementById("importbookmarks");
+	var select = document.getElementById("bookmark-folders-selection-box");
+	var list = document.getElementById("import-bookmarks-list");
 
 	trimElement(list);
 
 	chrome.bookmarks.getChildren(id, function(folder) {
 
-		var sorted = [];
+		var sortedBookmarks = [];
 
-		// Put all bookmarks from folder that are not already keylinks into sorted
-		for (var index = 0; index < folder.length; index++) {
-			var bookmark = folder[index];
+		// Put all bookmarks from folder that are not already keylinks into sortedBookmarks
+		for (var i = 0; i < folder.length; i++) {
+			var bookmark = folder[i];
 			var check = true;
 			for (var keyword in KEYLINKS) {
 				if (bookmark.url === KEYLINKS[keyword].link) {
@@ -115,17 +115,17 @@ function getBookmarks(id) {
 			}
 
 			if (bookmark.url && check) {
-				sorted.push(bookmark);
+				sortedBookmarks.push(bookmark);
 			}
 
 			// Consider changing this so that at the top if !bookmark.url, then continue, and the modify bottom if to just test for check
 		}
 
 		// Sort bookmarks alphabetically
-		sorted.sort(function(a,b) {return (a.title.toLowerCase() < b.title.toLowerCase()) ? -1 : 1;});
+		sortedBookmarks.sort(function(a,b) {return (a.title.toLowerCase() < b.title.toLowerCase()) ? -1 : 1;});
 
 		// Create and display list of bookmarks
-		getBookmarkItems(list, sorted);
+		getBookmarkItems(list, sortedBookmarks);
 
 		// Focus on the first input box of the first bookmark item
 		list.firstChild.firstChild.focus();
@@ -191,11 +191,11 @@ function importTab() {
 	resetMenu();
 	CURRENT_TAB = "import";
 	document.getElementById("importtab").disabled = true;
-	document.getElementById("menutitle").innerHTML = "Import Bookmarks";
+	document.getElementById("menu-title").innerHTML = "Import Bookmarks";
 
-	newSelect.id = "folders";
+	newSelect.id = "bookmark-folders-selection-box";
 	newSelect.addEventListener("change", function() {getBookmarks(this.options[this.selectedIndex].value)});
-	newList.id = "importbookmarks";
+	newList.id = "import-bookmarks-list";
 
 	chrome.bookmarks.getTree(function(tree) {
 

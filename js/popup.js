@@ -12,7 +12,7 @@ function toolbarSetup() {
 
 	menu.id = "smallmenu";
 	newDiv.id = "smallbox";
-	newButton.className = "menubutton";
+	newButton.className = "menu-button";
 	newButton.id = "options";
 	newButton.title = "Options";
 
@@ -24,7 +24,7 @@ function toolbarSetup() {
 		defaultSetup();
 	});
 
-	newImage.className = "menuicon";
+	newImage.className = "menu-tab-icon";
 	newImage.id = "optionsicon";
 	newImage.src = SOURCE.options;
 
@@ -59,10 +59,10 @@ function defaultSetup() {
 	menu.id = "menu";
 	content.id = "content";
 
-	newButton1.className = "menubutton";
-	newButton2.className = "menubutton";
-	newButton3.className = "menubutton";
-	newButton4.className = "menubutton";
+	newButton1.className = "menu-button";
+	newButton2.className = "menu-button";
+	newButton3.className = "menu-button";
+	newButton4.className = "menu-button";
 
 	newButton1.id = "settingstab";
 	newButton2.id = "importtab";
@@ -79,10 +79,10 @@ function defaultSetup() {
 	newButton3.addEventListener("click", function() {manageTab()});
 	newButton4.addEventListener("click", function() {addTab()});
 
-	newImage1.className = "menuicon";
-	newImage2.className = "menuicon";
-	newImage3.className = "menuicon";
-	newImage4.className = "menuicon";
+	newImage1.className = "menu-tab-icon";
+	newImage2.className = "menu-tab-icon";
+	newImage3.className = "menu-tab-icon";
+	newImage4.className = "menu-tab-icon";
 
 	newImage1.id = "settingsicon";
 	newImage2.id = "importicon";
@@ -94,8 +94,8 @@ function defaultSetup() {
 	newImage3.src = SOURCE.manage;
 	newImage4.src = SOURCE.add;
 
-	newDiv2.id = "menubox";
-	newP.id = "menutitle";
+	newDiv2.id = "menu-title-container";
+	newP.id = "menu-title";
 	newDiv2.appendChild(newP);
 
 	newButton1.appendChild(newImage1);

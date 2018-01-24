@@ -1,6 +1,6 @@
 // Resets the colors of all sort buttons when one is pressed
 function clearSort() {
-	var buttons = document.getElementsByClassName("menubutton");
+	var buttons = document.getElementsByClassName("menu-button");
 	buttons[4].disabled = false;
 	buttons[5].disabled = false;
 	buttons[6].disabled = false;
@@ -26,15 +26,15 @@ function sortingSetup(menu, sorted) {
 
 	var buttons = [newButton1, newButton2, newButton3];
 
-	newDiv1.id = "sortbox";
+	newDiv1.id = "sort-button-container";
 
 	newButton1.id = "name";
 	newButton2.id = "date";
 	newButton3.id = "use";
 
-	newButton1.className = "menubutton";
-	newButton2.className = "menubutton";
-	newButton3.className = "menubutton";
+	newButton1.className = "menu-button";
+	newButton2.className = "menu-button";
+	newButton3.className = "menu-button";
 
 	newButton1.title = "Name";
 	newButton2.title = "Date Created";
@@ -45,28 +45,28 @@ function sortingSetup(menu, sorted) {
 	newButton2.dataset.reverse = "true";
 	newButton3.dataset.reverse = "true";
 
-	newImage1.className = "sorticon";
-	newImage2.className = "sorticon";
-	newImage3.className = "sorticon";
+	newImage1.className = "menu-sort-type-icon";
+	newImage2.className = "menu-sort-type-icon";
+	newImage3.className = "menu-sort-type-icon";
 
 	newImage1.src = SOURCE.name;
 	newImage2.src = SOURCE.date;
 	newImage3.src = SOURCE.use;
 
-	newArrow1.className = "arrow";
-	newArrow2.className = "arrow";
-	newArrow3.className = "arrow";
+	newArrow1.className = "menu-sort-arrow-icon";
+	newArrow2.className = "menu-sort-arrow-icon";
+	newArrow3.className = "menu-sort-arrow-icon";
 
 	newArrow1.src = BLANK_IMAGE;
 	newArrow2.src = BLANK_IMAGE;
 	newArrow3.src = BLANK_IMAGE;
 
 	// Add click listeners to each sorting button
-	for (var b = 0; b < buttons.length; b++) {
-		var button = buttons[b];
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
 		button.addEventListener("click", function() {
 			clearSort();
-			this.className = "menubutton selected";
+			this.className = "menu-button selected";
 			if (CURRENT_SORTING_PARAMETER !== this.id) {
 				CURRENT_SORTING_PARAMETER = this.id;
 				REVERSE_SORTING = (this.dataset.reverse === "true");
@@ -81,7 +81,7 @@ function sortingSetup(menu, sorted) {
 	if (CURRENT_SORTING_PARAMETER === "name") {
 
 		// Sort alphabetically
-		newButton1.className = "menubutton selected";
+		newButton1.className = "menu-button selected";
 		newArrow1.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -96,7 +96,7 @@ function sortingSetup(menu, sorted) {
 	} else if (CURRENT_SORTING_PARAMETER === "date") {
 
 		// Sort by date
-		newButton2.className = "menubutton selected";
+		newButton2.className = "menu-button selected";
 		newArrow2.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -111,7 +111,7 @@ function sortingSetup(menu, sorted) {
 	} else {
 
 		// Sort by uses
-		newButton3.className = "menubutton selected";
+		newButton3.className = "menu-button selected";
 		newArrow3.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -267,9 +267,9 @@ function manageTab() {
 	resetMenu();
 	CURRENT_TAB = "manage";
 	document.getElementById("managetab").disabled = true;
-	document.getElementById("menutitle").innerHTML = "Manage Keylinks";
+	document.getElementById("menu-title").innerHTML = "Manage Keylinks";
 
-	newList.id = "managebookmarks";
+	newList.id = "manage-keylinks-list";
 
 	// Takes all keylinks from the main object, and puts them into an array so that they can be sorted
 	for (var keyword in KEYLINKS) {

@@ -5,7 +5,7 @@ function exportBookmarks() {
 
 	// If the cancel button was pressed
 	if (folderName === null) {
-		document.getElementById("export").blur();
+		document.getElementById("export-button").blur();
 		return;
 	}
 
@@ -89,28 +89,28 @@ function settingsTab() {
 	trimElement(content);
 	CURRENT_TAB = "settings";
 	document.getElementById("settingstab").disabled = true;
-	document.getElementById("menutitle").innerHTML = "Settings";
+	document.getElementById("menu-title").innerHTML = "Settings";
 
-	exportButton.className = "menubutton";
-	exportButton.id = "export";
+	exportButton.className = "menu-button";
+	exportButton.id = "export-button";
 	exportButton.title = "Export keylinks as bookmarks";
 
-	exportButtonIcon.className = "menuicon";
-	exportButtonIcon.id = "exporticon";
+	exportButtonIcon.className = "menu-tab-icon";
+	exportButtonIcon.id = "export-icon";
 	exportButtonIcon.src = SOURCE.exporting;
 
 	exportButton.addEventListener("click", function() {
 		exportBookmarks();
 	});
 
-	newDiv1.className = "settings-container";
-	newDiv2.className = "settings-container";
-	newDiv3.className = "settings-container";
-	newDiv4.className = "settings-container";
-	newDiv5.className = "settings-container";
-	newDiv6.className = "settings-container";
-	newDiv7.className = "settings-container";
-	newDiv8.className = "settings-container";
+	newDiv1.className = "setting-container";
+	newDiv2.className = "setting-container";
+	newDiv3.className = "setting-container";
+	newDiv4.className = "setting-container";
+	newDiv5.className = "setting-container";
+	newDiv6.className = "setting-container";
+	newDiv7.className = "setting-container";
+	newDiv8.className = "setting-container";
 
 	newP1.innerHTML = "Keyword suggestions in omnibox";
 	newP2.innerHTML = "Close popup after adding, changing or deleting a bookmark";
@@ -128,13 +128,13 @@ function settingsTab() {
 	newP6.title = "Suggests keywords for a webpage when adding a bookmark";
 	newP7.title = "Allows you to update the link for an existing keyword from the Add tab or small popup";
 
-	newP1.className = "settingstext";
-	newP2.className = "settingstext";
-	newP3.className = "settingstext";
-	newP4.className = "settingstext";
-	newP5.className = "settingstext";
-	newP6.className = "settingstext";
-	newP7.className = "settingstext";
+	newP1.className = "settings-text";
+	newP2.className = "settings-text";
+	newP3.className = "settings-text";
+	newP4.className = "settings-text";
+	newP5.className = "settings-text";
+	newP6.className = "settings-text";
+	newP7.className = "settings-text";
 
 	newP8.id = "bugs";
 	newP8.innerHTML = 	"Icons by <a href='http://www.flaticon.com/authors/google'>Google</a> and <a href='http://www.flaticon.com/authors/freepik'>Freepik</a>" +

@@ -14,7 +14,7 @@ function toolbarTab() {
 	addKeylinkButton.id = "smallbookmark";
 	addKeylinkButton.disabled = true;
 
-	addKeylinkIcon.id = "smalladd";
+	addKeylinkIcon.className = "add-icon";
 	addKeylinkIcon.src = SOURCE.add;
 
 	// Adds functionality to the input box and add button

@@ -7,8 +7,8 @@ function keylinkStatistics(menu, currentKeyword) {
 	var newP1 = document.createElement("p");
 	var newP2 = document.createElement("p");
 
-	newP1.className = "stat";
-	newP2.className = "stat";
+	newP1.className = "keylink-statistics-text";
+	newP2.className = "keylink-statistics-text";
 
 	newP1.innerHTML = "Created " + date.toString().substring(4, 15);
 	newP1.title = date.toString().substring(16,24);
@@ -33,11 +33,11 @@ function addTab() {
 	resetMenu();
 	document.getElementById("addtab").disabled = true;
 
-	newDiv.id = "addbox";
+	newDiv.id = "add-tab-container";
 	newInput.id = "addinput";
 	newInput.spellcheck = false;
 	newButton.id = "addbookmark";
-	newImage.id = "addadd";
+	newImage.className = "add-icon";
 
 	// Adds functionality to the input box and add button
 	addInputs(true, newInput, newButton, newImage);

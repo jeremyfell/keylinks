@@ -84,7 +84,7 @@ function titleSuggestion(tabTitle) {
 			title = title.replace(/[^a-zA-Z0-9]/g, "");
 
 			// If the generated title suggestion is already a keyword, do not make a suggestion
-			if (KEYLINKS[keyword]) title = "";
+			if (KEYLINKS[title]) title = "";
 
 			return title;
 }
@@ -117,7 +117,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 			if (defaultPopup) {
 				CURRENT_TAB = "add";
-				document.getElementById("menutitle").innerHTML = "Add Bookmark";
+				document.getElementById("menu-title").innerHTML = "Add Bookmark";
 			} else {
 				CURRENT_TAB = "tooladd";
 			}
@@ -166,7 +166,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 			if (defaultPopup) {
 				CURRENT_TAB = "change";
-				document.getElementById("menutitle").innerHTML = "Change Bookmark";
+				document.getElementById("menu-title").innerHTML = "Change Bookmark";
 			} else {
 				CURRENT_TAB = "toolchange";
 			}
