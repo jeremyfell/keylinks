@@ -45,73 +45,73 @@ function defaultSetup() {
 
 	var menu = document.createElement("div");
 	var content = document.createElement("div");
-	var newButton1 = document.createElement("button");
-	var newButton2 = document.createElement("button");
-	var newButton3 = document.createElement("button");
-	var newButton4 = document.createElement("button");
-	var newImage1 = document.createElement("img");
-	var newImage2 = document.createElement("img");
-	var newImage3 = document.createElement("img");
-	var newImage4 = document.createElement("img");
-	var newDiv2 = document.createElement("div");
-	var newP = document.createElement("p");
+	var settingsTabButton = document.createElement("button");
+	var importTabButton = document.createElement("button");
+	var manageTabButton = document.createElement("button");
+	var addTabButton = document.createElement("button");
+	var settingsTabIcon = document.createElement("img");
+	var importTabIcon = document.createElement("img");
+	var manageTabIcon = document.createElement("img");
+	var addTabIcon = document.createElement("img");
+	var menuTitleContainer = document.createElement("div");
+	var menuTitle = document.createElement("p");
 
 	menu.id = "menu";
 	content.id = "content";
 
-	newButton1.className = "menu-button";
-	newButton2.className = "menu-button";
-	newButton3.className = "menu-button";
-	newButton4.className = "menu-button";
+	settingsTabButton.className = "menu-button";
+	importTabButton.className = "menu-button";
+	manageTabButton.className = "menu-button";
+	addTabButton.className = "menu-button";
 
-	newButton1.id = "settingstab";
-	newButton2.id = "importtab";
-	newButton3.id = "managetab";
-	newButton4.id = "addtab";
+	settingsTabButton.id = "settingstab";
+	importTabButton.id = "importtab";
+	manageTabButton.id = "managetab";
+	addTabButton.id = "addtab";
 
-	newButton1.title = "Settings";
-	newButton2.title = "Import";
-	newButton3.title = "Manage";
-	newButton4.title = "Add";
+	settingsTabButton.title = "Settings";
+	importTabButton.title = "Import";
+	manageTabButton.title = "Manage";
+	addTabButton.title = "Add";
 
-	newButton1.addEventListener("click", function() {settingsTab()});
-	newButton2.addEventListener("click", function() {importTab()});
-	newButton3.addEventListener("click", function() {manageTab()});
-	newButton4.addEventListener("click", function() {addTab()});
+	settingsTabButton.addEventListener("click", function() {settingsTab()});
+	importTabButton.addEventListener("click", function() {importTab()});
+	manageTabButton.addEventListener("click", function() {manageTab()});
+	addTabButton.addEventListener("click", function() {addTab()});
 
-	newImage1.className = "menu-tab-icon";
-	newImage2.className = "menu-tab-icon";
-	newImage3.className = "menu-tab-icon";
-	newImage4.className = "menu-tab-icon";
+	settingsTabIcon.className = "menu-tab-icon";
+	importTabIcon.className = "menu-tab-icon";
+	manageTabIcon.className = "menu-tab-icon";
+	addTabIcon.className = "menu-tab-icon";
 
-	newImage1.id = "settingsicon";
-	newImage2.id = "importicon";
-	newImage3.id = "manageicon";
-	newImage4.id = "addicon";
+	settingsTabIcon.id = "settings-tab-icon";
+	importTabIcon.id = "import-tab-icon";
+	manageTabIcon.id = "manage-tab-icon";
+	addTabIcon.id = "add-tab-icon";
 
-	newImage1.src = SOURCE.settings;
-	newImage2.src = SOURCE.importing;
-	newImage3.src = SOURCE.manage;
-	newImage4.src = SOURCE.add;
+	settingsTabIcon.src = SOURCE.settings;
+	importTabIcon.src = SOURCE.importing;
+	manageTabIcon.src = SOURCE.manage;
+	addTabIcon.src = SOURCE.add;
 
-	newDiv2.id = "menu-title-container";
-	newP.id = "menu-title";
-	newDiv2.appendChild(newP);
+	menuTitleContainer.id = "menu-title-container";
+	menuTitle.id = "menu-title";
+	menuTitleContainer.appendChild(menuTitle);
 
-	newButton1.appendChild(newImage1);
-	newButton2.appendChild(newImage2);
-	newButton3.appendChild(newImage3);
-	newButton4.appendChild(newImage4);
+	settingsTabButton.appendChild(settingsTabIcon);
+	importTabButton.appendChild(importTabIcon);
+	manageTabButton.appendChild(manageTabIcon);
+	addTabButton.appendChild(addTabIcon);
 
-	menu.appendChild(newButton1);
-	menu.appendChild(newButton2);
-	menu.appendChild(newButton3);
-	menu.appendChild(newButton4);
-	menu.appendChild(newDiv2);
+	menu.appendChild(settingsTabButton);
+	menu.appendChild(importTabButton);
+	menu.appendChild(manageTabButton);
+	menu.appendChild(addTabButton);
+	menu.appendChild(menuTitleContainer);
 
 	document.body.appendChild(menu);
 	document.body.appendChild(content);
 
 	addTab();
-	
+
 }

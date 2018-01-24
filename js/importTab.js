@@ -36,7 +36,7 @@ function getBookmarkItems(list, sorted) {
 		var newImage2 = document.createElement("img");
 
 		newInput1.setAttribute("type", "text");
-		newInput1.className = "importkeyword";
+		newInput1.className = "import-keyword-input";
 		newInput1.setAttribute("maxlength", "100");
 
 		newInput1.addEventListener("keydown", function(e) {
@@ -50,7 +50,7 @@ function getBookmarkItems(list, sorted) {
 
 		newInput1.spellcheck = false;
 
-		newButton1.className = "linkbutton";
+		newButton1.className = "visit-link-button";
 		newButton1.title = "Visit link";
 
 		newButton1.addEventListener("click", function() {
@@ -67,14 +67,14 @@ function getBookmarkItems(list, sorted) {
 		newInput2.className = "importtitle";
 		newInput2.spellcheck = false;
 
-		newButton2.className = "importbutton";
+		newButton2.className = "import-bookmark-button";
 		newButton2.disabled = true;
 		newButton2.title = "Create keylink";
 		newButton2.addEventListener("click", function() {if (!this.disabled) importAdd(this.parentNode.firstChild)});
 
 
 		newImage2.src = BLANK_IMAGE;
-		newImage2.className = "importadd hidden";
+		newImage2.className = "import-add-icon hidden";
 
 		newListItem.className = "importbookmark";
 
@@ -233,8 +233,8 @@ function importTab() {
 
 			NO_BOOKMARKS_TO_IMPORT = true;
 
-			newP1.className = "emptymain";
-			newP2.className = "emptybody";
+			newP1.className = "empty-tab-header";
+			newP2.className = "empty-tab-text";
 			newP1.innerHTML = "You don't have any Chrome bookmarks to import!";
 			newP2.innerHTML = "That's okay, you can use the Add tab to create one for your current page.";
 

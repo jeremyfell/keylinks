@@ -66,7 +66,7 @@ function sortingSetup(menu, sorted) {
 		var button = buttons[i];
 		button.addEventListener("click", function() {
 			clearSort();
-			this.className = "menu-button selected";
+			this.classList.add("selected-button");
 			if (CURRENT_SORTING_PARAMETER !== this.id) {
 				CURRENT_SORTING_PARAMETER = this.id;
 				REVERSE_SORTING = (this.dataset.reverse === "true");
@@ -81,7 +81,7 @@ function sortingSetup(menu, sorted) {
 	if (CURRENT_SORTING_PARAMETER === "name") {
 
 		// Sort alphabetically
-		newButton1.className = "menu-button selected";
+		newButton1.className = "menu-button selected-button";
 		newArrow1.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -96,7 +96,7 @@ function sortingSetup(menu, sorted) {
 	} else if (CURRENT_SORTING_PARAMETER === "date") {
 
 		// Sort by date
-		newButton2.className = "menu-button selected";
+		newButton2.className = "menu-button selected-button";
 		newArrow2.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -111,7 +111,7 @@ function sortingSetup(menu, sorted) {
 	} else {
 
 		// Sort by uses
-		newButton3.className = "menu-button selected";
+		newButton3.className = "menu-button selected-button";
 		newArrow3.src = SOURCE.arrow;
 
 		if (REVERSE_SORTING) {
@@ -158,7 +158,7 @@ function getSortedItems(newList, sorted) {
 
 		newInput1.setAttribute("type", "text");
 		newInput1.value = keylink.keyword;
-		newInput1.className = "managekeyword";
+		newInput1.className = "manage-keyword-input";
 		newInput1.setAttribute("maxlength", "100");
 
 		newInput1.addEventListener("focus", function() {
@@ -185,7 +185,7 @@ function getSortedItems(newList, sorted) {
 		newInput1.addEventListener("input", function(e) {checkInput(this)});
 		newInput1.spellcheck = false;
 
-		newButton1.className = "linkbutton";
+		newButton1.className = "visit-link-button";
 		newButton1.title = "Visit link";
 		newButton1.addEventListener("click", function() {
 			// Creates a new tab with the url associated with that button's row
@@ -198,7 +198,7 @@ function getSortedItems(newList, sorted) {
 		newInput2.setAttribute("type", "text");
 		newInput2.spellcheck = false;
 		newInput2.value = keylink.link;
-		newInput2.className = "managelink";
+		newInput2.className = "manage-link-input";
 		newInput2.addEventListener("focus", function() {
 			this.dataset.oldLink = this.value;
 		});
@@ -227,7 +227,7 @@ function getSortedItems(newList, sorted) {
 			newInput2.title = "Used " + keylink.timesUsed + " time" + (keylink.timesUsed === 1 ? "" : "s");
 		}
 
-		newButton2.className = "managebutton";
+		newButton2.className = "delete-keylink-button";
 		newButton2.title = "Delete keylink";
 		newButton2.addEventListener("click", function() {
 			deleteKeylink(this.parentNode.firstChild.value);
@@ -236,7 +236,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newImage2.src = SOURCE.deleting;
-		newImage2.className = "managedelete visible";
+		newImage2.className = "manage-delete-icon visible";
 
 		newListItem.className = "managebookmark";
 
@@ -289,8 +289,8 @@ function manageTab() {
 
 		NO_KEYLINKS_TO_MANAGE = true;
 
-		newP1.className = "emptymain";
-		newP2.className = "emptybody";
+		newP1.className = "empty-tab-header";
+		newP2.className = "empty-tab-text";
 		newP1.innerHTML = "You don't have any keylinks yet!"
 		newP2.innerHTML = "To add some, use the Add tab to create one for your current page,<br>or the Import tab to create some from your existing bookmarks.";
 
