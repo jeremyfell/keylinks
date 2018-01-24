@@ -131,21 +131,21 @@ a:hover {
 	background-color: var(--blue);
 }
 
-#menubox {
+#menu-title-container {
 	background-color: var(--blue);
 	height: 50px;
 	width: 200px;
 	float: left;
 }
 
-#menutitle {
+#menu-title {
 	color: var(--white);
 	text-align: center;
 	font-size: 150%;
 	line-height: 14px;
 }
 
-.menubutton {
+.menu-button {
 	cursor: pointer;
 	height: 50px;
 	width: 50px;
@@ -153,39 +153,39 @@ a:hover {
 	background-color: transparent;
 }
 
-.menubutton:hover, .menubutton:focus {
+.menu-button:hover, .menu-button:focus {
 	background-color: var(--blue-light);
 }
 
-.menubutton[disabled], .menubutton[disabled]:hover {
+.menu-button[disabled], .menu-button[disabled]:hover {
 	background-color: var(--blue-dark);
 }
 
-.menuicon {
+.menu-tab-icon {
 	height: 30px;
 	width: 30px;
 	margin: 10px;
 }
 
-.sorticon {
+.menu-sort-type-icon {
 	height: 20px;
 	width: 20px;
 	margin: 15px 15px 5px;
 }
 
-.selected {
-	background-color: var(--blue-dark);
-}
-
-.arrow {
+.menu-sort-arrow-icon {
 	height: 10px;
 	width: 10px;
+}
+
+.selected-button {
+	background-color: var(--blue-dark);
 }
 
 /********************************
 		Add & Toolbar
 ********************************/
-#addbox {
+#add-tab-container {
 	height: 50px;
 	width: 350px;
 	margin: 150px 150px;
@@ -232,7 +232,7 @@ a:hover {
 	cursor: default;
 }
 
-#addadd, #smalladd {
+.add-icon {
 	height: 50px;
 	width: 50px;
 }
@@ -245,7 +245,7 @@ a:hover {
 	background-color: var(--blue);
 }
 
-.stat {
+.keylink-statistics-text {
 	text-align: right;
 	color: var(--white);
 	font-size: 110%;
@@ -268,42 +268,39 @@ a:hover {
 		Import & Manage
 ********************************/
 
-#managebookmarks, #importbookmarks {
+#manage-keylinks-list, #import-bookmarks-list {
 	height: 340px;
 	margin-top: 10px;
 }
 
-#folderstext {
-	float: left;
-}
-
-#folders {
+/* Replace with stylized option box */
+#bookmark-folders-selection-box {
 	margin: 15px;
 	float: right;
 }
 
-#sortbox {
+#sort-button-container {
 	float: right;
 }
 
-.emptymain {
+.empty-tab-header {
 	text-align: center;
 	color: var(--blue);
 	font-size: 24px;
 	margin-top: 100px;
 }
 
-.emptybody {
+.empty-tab-text {
 	text-align: center;
 	color: var(--gray);
 	font-size: 16px;
 }
 
-.equal, .importkeyword, .importtitle, .importbutton, .importadd, .managekeyword, .managelink, .managebutton, .managedelete, .linkbutton, .link {
+.equal, .import-keyword-input, .importtitle, .import-bookmark-button, .import-add-icon, .manage-keyword-input, .manage-link-input, .delete-keylink-button, .manage-delete-icon, .visit-link-button, .link {
 	float: left;
 }
 
-.importkeyword, .managekeyword {
+.import-keyword-input, .manage-keyword-input {
 	width: 200px;
 }
 
@@ -314,7 +311,7 @@ a:hover {
 	font-weight: bold;
 }
 
-.importtitle, .managelink {
+.importtitle, .manage-link-input {
 	width: 325px;
 }
 
@@ -322,7 +319,7 @@ a:hover {
 	margin: 5px 5px 5px 0px;
 }
 
-.importbutton, .managebutton, .linkbutton {
+.import-bookmark-button, .delete-keylink-button, .visit-link-button {
 	width: 21px;
 	height: 21px;
 	margin: 5px 0 5px 0;
@@ -330,19 +327,19 @@ a:hover {
 	cursor: pointer;
 }
 
-.importbutton:hover, .importbutton:focus, .managebutton:hover, .managebutton:focus, .linkbutton:hover, .linkbutton:focus {
+.import-bookmark-button:hover, .import-bookmark-button:focus, .delete-keylink-button:hover, .delete-keylink-button:focus, .visit-link-button:hover, .visit-link-button:focus {
 	background-color: var(--blue-light);
 }
 
-.importbutton[disabled] {
+.import-bookmark-button[disabled] {
 	cursor: default;
 }
 
-.importbutton[disabled]:hover {
+.import-bookmark-button[disabled]:hover {
 	background-color: transparent;
 }
 
-.importadd, .managedelete {
+.import-add-icon, .manage-delete-icon {
 	width: 21px;
 	height: 21px;
 }
@@ -353,11 +350,11 @@ a:hover {
 	margin: 5px;
 }
 
-.importkeyword, .managekeyword {
+.import-keyword-input, .manage-keyword-input {
 	margin-right: 0;
 }
 
-.importtitle, .managelink {
+.importtitle, .manage-link-input {
 	margin-left: 0;
 }
 
@@ -373,18 +370,18 @@ a:hover {
 	color: var(--gray-dark);
 }
 
-#export {
+#export-button {
 	float:right;
 }
 
-.settingstext {
+.settings-text {
 	float: left;
 	font-size: 18px;
 	margin: 5px;
 	color: var(--gray-dark);
 }
 
-.settingstext:hover {
+.settings-text:hover {
 	color: var(--blue-light);
 	-webkit-transition: color 1s;
 }
@@ -417,7 +414,7 @@ a:hover {
 	margin: 5px;
 }
 
-.settings-container {
+.setting-container {
 	width: 100%;
 	width: 600px;
 	height: 40px;
