@@ -229,7 +229,7 @@ a:hover {
 	border-color: var(--red);
 }
 
-#addbookmark, #smallbookmark {
+#add-keylink-button {
 	height: 50px;
 	width: 50px;
 	margin: 0;
@@ -240,11 +240,11 @@ a:hover {
 	cursor: pointer;
 }
 
-#addbookmark:hover, #addbookmark:focus, #smallbookmark:hover, #smallbookmark:focus {
+#add-keylink-button:hover, #add-keylink-button:focus {
 	background-color: var(--blue-light);
 }
 
-#addbookmark[disabled], #smallbookmark[disabled] {
+#add-keylink-button[disabled] {
 	background-color: var(--gray);
 	cursor: default;
 }

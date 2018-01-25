@@ -99,6 +99,7 @@ function defaultSetup() {
 
 	menuTitleContainer.id = "menu-title-container";
 	menuTitle.id = "menu-title";
+	
 	menuTitleContainer.appendChild(menuTitle);
 
 	settingsTabButton.appendChild(settingsTabIcon);

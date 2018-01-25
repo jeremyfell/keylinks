@@ -1,8 +1,15 @@
 // Resets the tab, according to what the current tab is
 function resetCurrentTab() {
-	if (CURRENT_TAB === "") {
-		
+	CURRENT_TAB === "toolbar" ? toolbarTab() : addTab();
+}
+
+function getKeywordFromLink(link) {
+	for (var keyword in KEYLINKS) {
+		if (KEYLINKS[keyword].link === link) {
+			return keyword;
+		}
 	}
+	return "";
 }
 
 // Removes all child elements of an element

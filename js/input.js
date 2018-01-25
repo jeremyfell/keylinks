@@ -68,136 +68,119 @@ function validateKeywordInput(inputBox, keyword) {
 	}
 }
 
-// Configures input and button for add and toolbar tabs
-function addInputs(defaultPopup, newInput, newButton, newImage) {
-	var unusedLink = true;
-	var currentKeyword;
 
-	newInput.setAttribute("type", "text");
-	newInput.setAttribute("maxlength", "100");
 
-	// Check that the input is valid when any changes are made
-	newInput.addEventListener("input", function() {validateAddKeywordInput(this)});
+function configureAddKeylinkInput(defaultPopup, addKeywordInput, addKeylinkButton, addKeylinkIcon, url) {
 
-	chrome.tabs.getSelected(function(tab) {
-		var url = tab.url;
+	if (defaultPopup) document.getElementById("menu-title").innerHTML = "Add Bookmark";
 
-		// Checks if the current tab's url is already associated with a keylink
-		for (var keyword in KEYLINKS) {
-			if (KEYLINKS[keyword].link === url) {
-				currentKeyword = keyword;
-				unusedLink = false;
-				break;
-			}
-		}
+	addKeylinkButton.disabled = true;
 
-		if (unusedLink) {
+	addKeylinkIcon.src = SOURCE.add;
+	addKeylinkIcon.title = "Add";
 
-			if (defaultPopup) {
-				CURRENT_TAB = "add";
-				document.getElementById("menu-title").innerHTML = "Add Bookmark";
-			} else {
-				CURRENT_TAB = "tooladd";
-			}
+	addKeywordInput.addEventListener("input", function() {
+		validateAddKeywordInput(this);
+	})
 
-			newButton.disabled = true;
+	addKeywordInput.addEventListener("keydown", function(e) {
+		if (e.which === 13) this.parentNode.lastChild.click();
+	});
 
-			newImage.src = SOURCE.add;
-			newImage.title = "Add";
-			newImage.dataset.add = "true";
+	addKeylinkButton.addEventListener("click", function() {
 
-			newInput.addEventListener("input", function() {
-				validateAddKeywordInput(this);
-			})
+			var keyword = this.parentNode.firstChild.value;
+			this.parentNode.firstChild.value = "";
+			this.disabled = true;
 
-			newInput.addEventListener("keydown", function(e) {
-				if (e.which === 13) this.parentNode.lastChild.click();
-			});
+			saveKeylink(keyword, url);
+			resetCurrentTab();
 
-			newButton.addEventListener("click", function() {
+			if (SETTINGS.closePopup) window.close();
+	});
+}
 
-					var keyword = this.parentNode.firstChild.value;
-					this.parentNode.firstChild.value = "";
-					this.disabled = true;
-					saveKeylink(keyword, url);
+function configureChangeKeylinkInput(defaultPopup, changeKeywordInput, changeKeylinkButton, changeKeylinkIcon, currentKeyword) {
 
-					(this.id === "addbookmark") ? addTab() : toolbarTab();
+	if (defaultPopup) {
+		document.getElementById("menu-title").innerHTML = "Change Bookmark";
+		// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
+		if (SETTINGS.keylinkStats) keylinkStatistics(menu, currentKeyword);
+	}
 
-					if (SETTINGS.closePopup) window.close();
-			});
+	changeKeywordInput.value = currentKeyword;
+	OLD_KEYWORD = currentKeyword;
+
+	changeKeylinkButton.disabled = false;
+
+	changeKeylinkIcon.src = SOURCE.deleting;
+	changeKeylinkIcon.title = "Delete";
+
+	changeKeywordInput.addEventListener("focus", function() {
+		this.select();
+		OLD_KEYWORD = this.value;
+	});
+
+	changeKeywordInput.addEventListener("keydown", function(e) {
+		if (e.which === 13) this.blur();
+	});
+
+	changeKeywordInput.addEventListener("change", function() {
+		if (!this.value || !validateAddKeywordInput(this)) {
+
+			this.value = OLD_KEYWORD;
 
 		} else {
 
+			var keyword = this.parentNode.firstChild.value;
+
+			// Resets the time created and uses for the changed keylink, may want to modify this later
+			saveKeylink(keyword, KEYLINKS[OLD_KEYWORD].link);
+			deleteKeylink(OLD_KEYWORD);
+
+			if (SETTINGS.closePopup) window.close();
+
+		}
+	});
+
+	changeKeylinkButton.addEventListener("click", function() {
+
+		deleteKeylink(this.parentNode.firstChild.value);
+		resetCurrentTab();
+
+		if (SETTINGS.closePopup) window.close();
+	});
+}
 
 
-			if (defaultPopup) {
-				CURRENT_TAB = "change";
-				document.getElementById("menu-title").innerHTML = "Change Bookmark";
-			} else {
-				CURRENT_TAB = "toolchange";
+// Configures input and button for add and toolbar tabs
+function addInputs(defaultPopup, keywordInput, modifyButton, modifyIcon) {
+
+	keywordInput.setAttribute("type", "text");
+	keywordInput.setAttribute("maxlength", "100");
+
+	// Check that the input is valid when any changes are made
+	keywordInput.addEventListener("input", function() {validateAddKeywordInput(this)});
+
+	chrome.tabs.getSelected(function(tab) {
+		var url = tab.url;
+		var currentKeyword = getKeywordFromLink(url);
+
+		if (currentKeyword === "") {
+			configureAddKeylinkInput(defaultPopup, keywordInput, modifyButton, modifyIcon, url);
+
+			// Suggests a possible keyword based on the webpage title
+			if (SETTINGS.keywordSuggestions) {
+				var title = titleSuggestion(tab.title);
+				keywordInput.value = title;
+				validateAddKeywordInput(keywordInput);
 			}
 
-			newInput.value = currentKeyword;
-			OLD_KEYWORD = currentKeyword;
-
-			newButton.disabled = false;
-
-			newImage.src = SOURCE.deleting;
-			newImage.title = "Delete";
-
-			// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-			if (defaultPopup && SETTINGS.keylinkStats) keylinkStatistics(menu, currentKeyword);
-
-			newInput.addEventListener("focus", function() {
-				this.select();
-				OLD_KEYWORD = this.value;
-			});
-
-			newInput.addEventListener("keydown", function(e) {
-				if (e.which === 13) this.blur();
-			});
-
-			newInput.addEventListener("change", function() {
-				if (this.value === "" || !validateAddKeywordInput(this)) {
-
-					this.value = OLD_KEYWORD;
-					this.style.borderColor = null;
-
-				} else {
-
-					var keyword = this.parentNode.firstChild.value;
-
-					// Resets the time created and uses for the changed keylink, may want to modify this later
-					saveKeylink(keyword, KEYLINKS[OLD_KEYWORD]);
-					deleteKeylink(OLD_KEYWORD);
-
-					if (SETTINGS.closePopup) window.close();
-
-				}
-			});
-
-			newButton.addEventListener("click", function() {
-				deleteKeylink(this.parentNode.firstChild.value);
-
-				resetCurrentTab();
-
-				(this.id === "addbookmark") ? addTab() : toolbarTab();
-
-				if (SETTINGS.closePopup) window.close();
-			});
+		} else {
+			configureChangeKeylinkInput(defaultPopup, keywordInput, modifyButton, modifyIcon, currentKeyword);
 		}
 
-		// Suggests a possible keyword based on the webpage title
-		if (SETTINGS.keywordSuggestions && newButton.disabled) {
-			var title = titleSuggestion(tab.title);
-
-			newButton.disabled = false;
-			newInput.value = title;
-
-			validateAddKeywordInput(newInput);
-		}
-
-		newInput.select();
+		keywordInput.select();
 
 	});
 

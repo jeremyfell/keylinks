@@ -1,20 +1,23 @@
 // Adds bookmark in import tab and removes it from the list
-function importAdd(item) {
-	var url = item.parentNode.childNodes[2].title;
-	var keyword = item.parentNode.firstChild.value;
+function importBookmark(inputBox) {
+	var link = inputBox.dataset.link;
+	var keyword = inputBox.value;
+	var importBookmarksList = document.getElementById("import-bookmarks-list");
+	var bookmarkListItems = importBookmarksList.childNodes;
 
-	for (var i = 0; i < item.parentNode.parentNode.childNodes.length; i++) {
+	// Resets the input box value and resets validation, in case any input box had the keyword that was just saved
+	for (var i = 0; i < bookmarkListItems.length; i++) {
 
-		var listItem = item.parentNode.parentNode.childNodes[i];
-		listItem.firstChild.value = "";
-
-		// Necessary?
-		validateImportKeywordInput(listItem.firstChild);
+		var bookmarkItem = bookmarkListItems[i];
+		bookmarkItem.firstChild.value = "";
+		validateImportKeywordInput(bookmarkItem.firstChild);
 
 	}
 
-	if (item.parentNode.parentNode.childNodes.length > 1) {
-		item.parentNode.parentNode.childNodes[1].firstChild.focus();
+	inputBox.parentNode.remove();
+
+	if (bookmarkListItems.length > 1) {
+		importBookmarksList.firstChild.focus();
 	} else {
 		importTab();
 	}
@@ -46,6 +49,7 @@ function getBookmarkItems(list, sorted) {
 		newInput1.addEventListener("input", function() {validateImportKeywordInput(this)});
 
 		newInput1.spellcheck = false;
+		newInput1.dataset.link = bookmark.url;
 
 		newButton1.className = "visit-link-button";
 		newButton1.title = "Visit link";
@@ -68,7 +72,7 @@ function getBookmarkItems(list, sorted) {
 		newButton2.disabled = true;
 		newButton2.title = "Create keylink";
 		newButton2.addEventListener("click", function() {
-			importAdd(this.parentNode.firstChild);
+			importBookmark(this.parentNode.firstChild);
 		});
 
 

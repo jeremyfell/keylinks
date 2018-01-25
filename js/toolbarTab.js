@@ -8,10 +8,12 @@ function toolbarTab() {
 	var addKeylinkButton = document.createElement("button");
 	var addKeylinkIcon = document.createElement("img");
 
+	CURRENT_TAB = "toolbar";
+
 	keywordInput.id = "add-keyword-input";
 	keywordInput.spellcheck = false;
 
-	addKeylinkButton.id = "smallbookmark";
+	addKeylinkButton.id = "add-keylink-button";
 	addKeylinkButton.disabled = true;
 
 	addKeylinkIcon.className = "add-icon";

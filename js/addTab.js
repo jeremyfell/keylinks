@@ -31,12 +31,13 @@ function addTab() {
 
 	// Tab setup
 	resetMenu();
+	CURRENT_TAB = "add";
 	document.getElementById("add-tab-button").disabled = true;
 
 	newDiv.id = "add-tab-container";
 	newInput.id = "add-keyword-input";
 	newInput.spellcheck = false;
-	newButton.id = "addbookmark";
+	newButton.id = "add-keylink-button";
 	newImage.className = "add-icon";
 
 	// Adds functionality to the input box and add button
