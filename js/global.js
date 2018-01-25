@@ -11,7 +11,7 @@ SETTINGS_KEY = "___KEYLINKS_USER_SETTINGS___";
 
 DEFAULT_SETTINGS = {
 	"closePopup"					: false,	// Close popup after keylink changes in add tab
-	"keywordSuggestions"	: true,		// Show keyword suggestions in omnibox
+	"omniboxSuggestions"	: true,		// Show keyword suggestions in omnibox
 	"keylinkStats"				: true,		// Show keylink stats in add tab
 	"sortingOptions"			: true,		// Show sorting options in manage tab
 	"toolbarPopup"				: false,	// Use toolbar popup on startup

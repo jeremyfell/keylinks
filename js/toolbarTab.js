@@ -20,7 +20,7 @@ function toolbarTab() {
 	addKeylinkIcon.src = SOURCE.add;
 
 	// Adds functionality to the input box and add button
-	addInputs(false, keywordInput, addKeylinkButton, addKeylinkIcon);
+	configureKeylinkInput(false, keywordInput, addKeylinkButton, addKeylinkIcon);
 
 	// Deletes all elements from the previous tab
 	trimElement(content);

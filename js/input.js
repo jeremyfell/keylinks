@@ -1,75 +1,6 @@
 /*/////////////////////////
-Functions controlling input
+Functions configuring input
 *//////////////////////////
-
-// Check if keyword is already used by a saved bookmark
-function invalidKeyword(keyword) {
-	return (KEYLINKS[keyword] && keyword !== OLD_KEYWORD);
-}
-
-// Generates a suggested keyword based on the page's title
-function titleSuggestion(tabTitle) {
-	title = tabTitle.substr(0, 15).toLowerCase();
-
-	// If there are multiple words, only take the first
-	if (title.indexOf(" ") > -1) {
-		title = title.substr(0, title.indexOf(" "));
-	}
-
-	// Get rid of non alphanumeric characters
-	title = title.replace(/[^a-zA-Z0-9]/g, "");
-
-	// If the generated title suggestion is already a keyword, do not make a suggestion
-	if (KEYLINKS[title]) title = "";
-
-	return title;
-}
-
-
-function validateImportKeywordInput(inputBox) {
-	var keyword = inputBox.value;
-	var button = inputBox.parentNode.lastChild;
-	var icon = inputBox.parentNode.lastChild.firstChild;
-
-	if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
-		icon.src = BLANK_IMAGE;
-		button.disabled = true;
-	} else {
-		icon.src = SOURCE.add;
-		button.disabled = false;
-	}
-
-	return validateKeywordInput(inputBox, keyword);
-
-}
-
-function validateAddKeywordInput(inputBox) {
-	var keyword = inputBox.value;
-	var button = inputBox.parentNode.lastChild;
-
-	button.disabled = (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword));
-
-	return validateKeywordInput(inputBox, keyword);
-
-}
-
-function validateManageKeywordInput(inputBox) {
-	var keyword = inputBox.value;
-	return validateKeywordInput(inputBox, keyword);
-}
-
-function validateKeywordInput(inputBox, keyword) {
-	if (keyword.length > 25 || invalidKeyword(keyword)) {
-		inputBox.classList.add("input-invalid");
-		return false;
-	} else {
-		inputBox.classList.remove("input-invalid");
-		return true;
-	}
-}
-
-
-
 function configureAddKeylinkInput(defaultPopup, addKeywordInput, addKeylinkButton, addKeylinkIcon, url) {
 
 	if (defaultPopup) document.getElementById("menu-title").innerHTML = "Add Bookmark";
@@ -154,7 +85,7 @@ function configureChangeKeylinkInput(defaultPopup, changeKeywordInput, changeKey
 
 
 // Configures input and button for add and toolbar tabs
-function addInputs(defaultPopup, keywordInput, modifyButton, modifyIcon) {
+function configureKeylinkInput(defaultPopup, keywordInput, modifyButton, modifyIcon) {
 
 	keywordInput.setAttribute("type", "text");
 	keywordInput.setAttribute("maxlength", "100");

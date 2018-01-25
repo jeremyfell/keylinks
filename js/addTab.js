@@ -41,7 +41,7 @@ function addTab() {
 	newImage.className = "add-icon";
 
 	// Adds functionality to the input box and add button
-	addInputs(true, newInput, newButton, newImage);
+	configureKeylinkInput(true, newInput, newButton, newImage);
 
 	// Deletes all elements from the previous tab
 	trimElement(content);
