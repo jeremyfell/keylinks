@@ -1,13 +1,4 @@
-// Resets the colors of all sort buttons when one is pressed
-function clearSort() {
-	var buttons = document.getElementsByClassName("menu-button");
-	buttons[4].disabled = false;
-	buttons[5].disabled = false;
-	buttons[6].disabled = false;
-	buttons[4].title = "Name";
-	buttons[5].title = "Date";
-	buttons[6].title = "Use";
-}
+
 
 function sortingSetup(menu, sorted) {
 	var newDiv1 = document.createElement("div");
@@ -65,7 +56,7 @@ function sortingSetup(menu, sorted) {
 	for (var i = 0; i < buttons.length; i++) {
 		var button = buttons[i];
 		button.addEventListener("click", function() {
-			clearSort();
+			resetSortMenu();
 			this.classList.add("selected-button");
 			if (CURRENT_SORTING_PARAMETER !== this.id) {
 				CURRENT_SORTING_PARAMETER = this.id;
@@ -166,7 +157,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newInput1.addEventListener("change", function() {
-			if (this.value === "" || !checkInput(this)) {
+			if (this.value === "" || !validateKeywordInput(this)) {
 
 				// Keyword is invalid, revert to previous keyword
 				this.value = OLD_KEYWORD;
@@ -182,7 +173,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newInput1.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
-		newInput1.addEventListener("input", function(e) {checkInput(this)});
+		newInput1.addEventListener("input", function(e) {validateKeywordInput(this)});
 		newInput1.spellcheck = false;
 
 		newButton1.className = "visit-link-button";
@@ -193,7 +184,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newImage1.src = SOURCE.equal;
-		newImage1.className = "link";
+		newImage1.className = "equal-icon";
 
 		newInput2.setAttribute("type", "text");
 		newInput2.spellcheck = false;
@@ -238,7 +229,7 @@ function getSortedItems(newList, sorted) {
 		newImage2.src = SOURCE.deleting;
 		newImage2.className = "manage-delete-icon visible";
 
-		newListItem.className = "managebookmark";
+		newListItem.className = "manage-keylink-container";
 
 		newButton1.appendChild(newImage1);
 		newButton2.appendChild(newImage2);
@@ -256,7 +247,7 @@ function getSortedItems(newList, sorted) {
 
 // Create manage bookmarks tab when bookmark icon is pressed
 function manageTab() {
-
+	
 	var menu = document.getElementById("menu");
 	var content = document.getElementById("content");
 	var newList = document.createElement("ul");
@@ -266,7 +257,7 @@ function manageTab() {
 	// Tab setup
 	resetMenu();
 	CURRENT_TAB = "manage";
-	document.getElementById("managetab").disabled = true;
+	document.getElementById("manage-tab-button").disabled = true;
 	document.getElementById("menu-title").innerHTML = "Manage Keylinks";
 
 	newList.id = "manage-keylinks-list";
@@ -303,7 +294,7 @@ function manageTab() {
 
 		NO_KEYLINKS_TO_MANAGE = false;
 
-		if (SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
+		if (SETTINGS.sortingOptions) {
 			// Sets up the sorting buttons in the menu
 			sortingSetup(menu, sorted);
 		} else {

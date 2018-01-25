@@ -1,8 +1,8 @@
 // Creates the toolbar tab when small setting is enabled
 function toolbarTab() {
 
-	var menu = document.getElementById("smallmenu");
-	var smallbox = document.getElementById("smallbox");
+	var menu = document.getElementById("toolbar-menu");
+	var content = document.getElementById("toolbar-content");
 
 	var keywordInput = document.createElement("input");
 	var addKeylinkButton = document.createElement("button");
@@ -21,11 +21,11 @@ function toolbarTab() {
 	addInputs(false, keywordInput, addKeylinkButton, addKeylinkIcon);
 
 	// Deletes all elements from the previous tab
-	trimElement(smallbox);
+	trimElement(content);
 
 	addKeylinkButton.appendChild(addKeylinkIcon);
-	smallbox.appendChild(keywordInput);
-	smallbox.appendChild(addKeylinkButton);
+	content.appendChild(keywordInput);
+	content.appendChild(addKeylinkButton);
 
 	// Places the cursor within the input box
 	keywordInput.focus();

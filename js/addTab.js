@@ -31,7 +31,7 @@ function addTab() {
 
 	// Tab setup
 	resetMenu();
-	document.getElementById("addtab").disabled = true;
+	document.getElementById("add-tab-button").disabled = true;
 
 	newDiv.id = "add-tab-container";
 	newInput.id = "addinput";

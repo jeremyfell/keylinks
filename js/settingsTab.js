@@ -1,7 +1,7 @@
 
 // Exports all keylinks as bookmarks in a folder within the Other Bookmarks folder
 function exportBookmarks() {
-	folderName = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
+	var folderName = prompt("Export all keylinks to a folder under Other Bookmarks\nSpecify the folder name:");
 
 	// If the cancel button was pressed
 	if (folderName === null) {
@@ -43,52 +43,42 @@ function settingsTab() {
 	var exportButton = document.createElement("button");
 	var exportButtonIcon = document.createElement("img");
 
-	//closePopupAfterKeylinkChangesInAddTabSettingContainer
+	var omniboxSuggestionsContainer = document.createElement("div");
+	var closePopupContainer = document.createElement("div");
+	var sortingOptionsContainer = document.createElement("div");
+	var keylinkStatsContainer = document.createElement("div");
+	var toolbarPopupContainer = document.createElement("div");
+	var keywordSuggestionsContainer = document.createElement("div");
+	var creditsContainer = document.createElement("div");
 
-	var newDiv1 = document.createElement("div");
-	var newDiv2 = document.createElement("div");
-	var newDiv3 = document.createElement("div");
-	var newDiv4 = document.createElement("div");
-	var newDiv5 = document.createElement("div");
-	var newDiv6 = document.createElement("div");
-	var newDiv7 = document.createElement("div");
-	var newDiv8 = document.createElement("div");
+	var omniboxSuggestionsText = document.createElement("p");
+	var closePopupText = document.createElement("p");
+	var sortingOptionsText = document.createElement("p");
+	var keylinkStatsText = document.createElement("p");
+	var toolbarPopupText = document.createElement("p");
+	var keywordSuggestionsText = document.createElement("p");
+	var creditsText = document.createElement("p");
 
-	var newP1 = document.createElement("p");
-	var newP2 = document.createElement("p");
-	var newP3 = document.createElement("p");
-	var newP4 = document.createElement("p");
-	var newP5 = document.createElement("p");
-	var newP6 = document.createElement("p");
-	var newP7 = document.createElement("p");
-	var newP8 = document.createElement("p");
+	var omniboxSuggestionsCheckbox = document.createElement("button");
+	var closePopupCheckbox = document.createElement("button");
+	var sortingOptionsCheckbox = document.createElement("button");
+	var keylinkStatsCheckbox = document.createElement("button");
+	var toolbarPopupCheckbox = document.createElement("button");
+	var keywordSuggestionsCheckbox = document.createElement("button");
 
-	var newCheckbox1 = document.createElement("button");
-	var newCheckbox2 = document.createElement("button");
-	var newCheckbox3 = document.createElement("button");
-	var newCheckbox4 = document.createElement("button");
-	var newCheckbox5 = document.createElement("button");
-	var newCheckbox6 = document.createElement("button");
-	var newCheckbox7 = document.createElement("button");
+	var omniboxSuggestionsIcon = document.createElement("img");
+	var closePopupIcon = document.createElement("img");
+	var sortingOptionsIcon = document.createElement("img");
+	var keylinkStatsIcon = document.createElement("img");
+	var toolbarPopupIcon = document.createElement("img");
+	var keywordSuggestionsIcon = document.createElement("img");
 
-	var checkboxes = [newCheckbox1, newCheckbox2, newCheckbox3, newCheckbox4, newCheckbox5, newCheckbox6, newCheckbox7];
-
-	var newImage1 = document.createElement("img");
-	var newImage2 = document.createElement("img");
-	var newImage3 = document.createElement("img");
-	var newImage4 = document.createElement("img");
-	var newImage5 = document.createElement("img");
-	var newImage6 = document.createElement("img");
-	var newImage7 = document.createElement("img");
-
-	var links;
+	var settingCheckboxes = [omniboxSuggestionsCheckbox, closePopupCheckbox, sortingOptionsCheckbox, keylinkStatsCheckbox, toolbarPopupCheckbox, keywordSuggestionsCheckbox];
 
 	// Tab setup
 	resetMenu();
-	// Deletes all elements from the previous tab
-	trimElement(content);
 	CURRENT_TAB = "settings";
-	document.getElementById("settingstab").disabled = true;
+	document.getElementById("settings-tab-button").disabled = true;
 	document.getElementById("menu-title").innerHTML = "Settings";
 
 	exportButton.className = "menu-button";
@@ -103,189 +93,174 @@ function settingsTab() {
 		exportBookmarks();
 	});
 
-	newDiv1.className = "setting-container";
-	newDiv2.className = "setting-container";
-	newDiv3.className = "setting-container";
-	newDiv4.className = "setting-container";
-	newDiv5.className = "setting-container";
-	newDiv6.className = "setting-container";
-	newDiv7.className = "setting-container";
-	newDiv8.className = "setting-container";
+	omniboxSuggestionsContainer.className = "setting-container";
+	closePopupContainer.className = "setting-container";
+	sortingOptionsContainer.className = "setting-container";
+	keylinkStatsContainer.className = "setting-container";
+	toolbarPopupContainer.className = "setting-container";
+	keywordSuggestionsContainer.className = "setting-container";
+	creditsContainer.className = "setting-container";
 
-	newP1.innerHTML = "Keyword suggestions in omnibox";
-	newP2.innerHTML = "Close popup after adding, changing or deleting a bookmark";
-	newP3.innerHTML = "Show sorting options in Manage tab";
-	newP4.innerHTML = "Show bookmark details in Add tab";
-	newP5.innerHTML = "Start extension with smaller and more basic popup";
-	newP6.innerHTML = "Keyword suggestions when adding a bookmark";
-	newP7.innerHTML = "Replace the link for existing keywords";
+	omniboxSuggestionsText.innerHTML = "Keyword suggestions in omnibox";
+	closePopupText.innerHTML = "Close popup after adding, changing or deleting a bookmark";
+	sortingOptionsText.innerHTML = "Show sorting options in Manage tab";
+	keylinkStatsText.innerHTML = "Show bookmark details in Add tab";
+	toolbarPopupText.innerHTML = "Start extension with smaller and more basic popup";
+	keywordSuggestionsText.innerHTML = "Keyword suggestions when adding a bookmark";
 
-	newP1.title = "When entering a keyword in the omnibox,\nyou will see suggestions for keylinks you\nhave currently saved.";
-	newP2.title = "The extension popup will close automatically\nwhen you add, change or delete a keylink\nusing the Add tab.";
-	newP3.title = "You will see additional options for sorting\nkeylinks by name, by date created, and by\nuse, in the Manage tab.";
-	newP4.title = "Shows stats in the Add tab such as when\nthe keylink was created, and how many\ntimes you have used it.";
-	newP5.title = "Starts the extension as a smaller, more basic\npopup, with an Options button to access\nthe full popup.";
-	newP6.title = "Suggests keywords for a webpage when adding a bookmark";
-	newP7.title = "Allows you to update the link for an existing keyword from the Add tab or small popup";
+	omniboxSuggestionsText.title = "When entering a keyword in the omnibox,\nyou will see suggestions for keylinks you\nhave currently saved.";
+	closePopupText.title = "The extension popup will close automatically\nwhen you add, change or delete a keylink\nusing the Add tab.";
+	sortingOptionsText.title = "You will see additional options for sorting\nkeylinks by name, by date created, and by\nuse, in the Manage tab.";
+	keylinkStatsText.title = "Shows stats in the Add tab such as when\nthe keylink was created, and how many\ntimes you have used it.";
+	toolbarPopupText.title = "Starts the extension as a smaller, more basic\npopup, with an Options button to access\nthe full popup.";
+	keywordSuggestionsText.title = "Suggests keywords for a webpage when adding a bookmark";
 
-	newP1.className = "settings-text";
-	newP2.className = "settings-text";
-	newP3.className = "settings-text";
-	newP4.className = "settings-text";
-	newP5.className = "settings-text";
-	newP6.className = "settings-text";
-	newP7.className = "settings-text";
+	omniboxSuggestionsText.className = "settings-text";
+	closePopupText.className = "settings-text";
+	sortingOptionsText.className = "settings-text";
+	keylinkStatsText.className = "settings-text";
+	toolbarPopupText.className = "settings-text";
+	keywordSuggestionsText.className = "settings-text";
 
-	newP8.id = "bugs";
-	newP8.innerHTML = 	"Icons by <a href='http://www.flaticon.com/authors/google'>Google</a> and <a href='http://www.flaticon.com/authors/freepik'>Freepik</a>" +
+	creditsText.id = "credits";
+	creditsText.innerHTML = 	"Icons by <a href='http://www.flaticon.com/authors/google'>Google</a> and <a href='http://www.flaticon.com/authors/freepik'>Freepik</a>" +
 						" via <a href='http://www.flaticon.com'>flaticon</a>, licensed by <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0'>" +
 						"CC BY 3.0</a>. Report any bugs to keylinks.help@gmail.com";
 
-	newCheckbox1.className = "checkoff";
-	newCheckbox2.className = "checkoff";
-	newCheckbox3.className = "checkoff";
-	newCheckbox4.className = "checkoff";
-	newCheckbox5.className = "checkoff";
-	newCheckbox6.className = "checkoff";
-	newCheckbox7.className = "checkoff";
+	omniboxSuggestionsCheckbox.className = "disabled-setting";
+	closePopupCheckbox.className = "disabled-setting";
+	sortingOptionsCheckbox.className = "disabled-setting";
+	keylinkStatsCheckbox.className = "disabled-setting";
+	toolbarPopupCheckbox.className = "disabled-setting";
+	keywordSuggestionsCheckbox.className = "disabled-setting";
 
-	newCheckbox1.id = "SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX";
-	newCheckbox2.id = "CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB";
-	newCheckbox3.id = "SHOW_SORTING_OPTIONS_IN_MANAGE_TAB";
-	newCheckbox4.id = "SHOW_KEYLINK_STATS_IN_ADD_TAB";
-	newCheckbox5.id = "USE_SMALL_POPUP_ON_STARTUP";
-	newCheckbox6.id = "SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK";
-	newCheckbox7.id = "ALLOW_LINK_REPLACING_IN_ADD_TAB";
+	omniboxSuggestionsCheckbox.id = "keywordSuggestions";
+	closePopupCheckbox.id = "closePopup";
+	sortingOptionsCheckbox.id = "sortingOptions";
+	keylinkStatsCheckbox.id = "keylinkStats";
+	toolbarPopupCheckbox.id = "toolbarPopup";
+	keywordSuggestionsCheckbox.id = "keywordSuggestions";
 
-	newImage1.className = "checkicon";
-	newImage2.className = "checkicon";
-	newImage3.className = "checkicon";
-	newImage4.className = "checkicon";
-	newImage5.className = "checkicon";
-	newImage6.className = "checkicon";
-	newImage7.className = "checkicon";
+	omniboxSuggestionsIcon.className = "setting-icon";
+	closePopupIcon.className = "setting-icon";
+	sortingOptionsIcon.className = "setting-icon";
+	keylinkStatsIcon.className = "setting-icon";
+	toolbarPopupIcon.className = "setting-icon";
+	keywordSuggestionsIcon.className = "setting-icon";
 
-	newImage1.src = BLANK_IMAGE;
-	newImage2.src = BLANK_IMAGE;
-	newImage3.src = BLANK_IMAGE;
-	newImage4.src = BLANK_IMAGE;
-	newImage5.src = BLANK_IMAGE;
-	newImage6.src = BLANK_IMAGE;
-	newImage7.src = BLANK_IMAGE;
+	omniboxSuggestionsIcon.src = BLANK_IMAGE;
+	closePopupIcon.src = BLANK_IMAGE;
+	sortingOptionsIcon.src = BLANK_IMAGE;
+	keylinkStatsIcon.src = BLANK_IMAGE;
+	toolbarPopupIcon.src = BLANK_IMAGE;
+	keywordSuggestionsIcon.src = BLANK_IMAGE;
 
 	// Sets the default states of all settings checkboxes according to the current saved settings
-	if (SETTINGS.SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX) {
-		newCheckbox1.className = "checkon";
-		newImage1.src = SOURCE.check;
+	if (SETTINGS.keywordSuggestions) {
+		omniboxSuggestionsCheckbox.className = "enabled-setting";
+		omniboxSuggestionsIcon.src = SOURCE.checkmark;
 	}
 
-	if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) {
-		newCheckbox2.className = "checkon";
-		newImage2.src = SOURCE.check;
+	if (SETTINGS.closePopup) {
+		closePopupCheckbox.className = "enabled-setting";
+		closePopupIcon.src = SOURCE.checkmark;
 	}
 
-	if (SETTINGS.SHOW_SORTING_OPTIONS_IN_MANAGE_TAB) {
-		newCheckbox3.className = "checkon";
-		newImage3.src = SOURCE.check;
+	if (SETTINGS.sortingOptions) {
+		sortingOptionsCheckbox.className = "enabled-setting";
+		sortingOptionsIcon.src = SOURCE.checkmark;
 	}
 
-	if (SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) {
-		newCheckbox4.className = "checkon";
-		newImage4.src = SOURCE.check;
+	if (SETTINGS.keylinkStats) {
+		keylinkStatsCheckbox.className = "enabled-setting";
+		keylinkStatsIcon.src = SOURCE.checkmark;
 	}
 
-	if (SETTINGS.USE_SMALL_POPUP_ON_STARTUP) {
-		newCheckbox5.className = "checkon";
-		newImage5.src = SOURCE.check;
+	if (SETTINGS.toolbarPopup) {
+		toolbarPopupCheckbox.className = "enabled-setting";
+		toolbarPopupIcon.src = SOURCE.checkmark;
 	}
 
-	if (SETTINGS.SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK) {
-		newCheckbox6.className = "checkon";
-		newImage6.src = SOURCE.check;
-	}
-
-	if (SETTINGS.ALLOW_LINK_REPLACING_IN_ADD_TAB) {
-		newCheckbox7.className = "checkon";
-		newImage7.src = SOURCE.check;
+	if (SETTINGS.keywordSuggestions) {
+		keywordSuggestionsCheckbox.className = "enabled-setting";
+		keywordSuggestionsIcon.src = SOURCE.checkmark;
 	}
 
 	// Creates listeners to handle mouse hover and element focus for all settings checkboxes
-	for (var i = 0; i < checkboxes.length; i++) {
-		var checkbox = checkboxes[i];
+	for (var i = 0; i < settingCheckboxes.length; i++) {
+		var checkbox = settingCheckboxes[i];
 
 		checkbox.addEventListener("mouseenter", function() {
-			if (this.className === "checkoff") {
-				this.firstChild.src = SOURCE.check;
+			if (this.className === "disabled-setting") {
+				this.firstChild.src = SOURCE.checkmark;
 			}
 		});
 
 		checkbox.addEventListener("mouseleave", function() {
-			if (this.className === "checkoff") {
+			if (this.className === "disabled-setting") {
 				this.firstChild.src = BLANK_IMAGE;
 			}
 		});
 
 		checkbox.addEventListener("focusin", function() {
-			if (this.className === "checkoff") {
-				this.firstChild.src = SOURCE.check;
+			if (this.className === "disabled-setting") {
+				this.firstChild.src = SOURCE.checkmark;
 			}
 		});
 
 		checkbox.addEventListener("focusout", function() {
-			if (this.className === "checkoff") {
+			if (this.className === "disabled-setting") {
 				this.firstChild.src = BLANK_IMAGE;
 			}
 		});
 
 		checkbox.addEventListener("click", function() {
 			toggleSetting(this.id);
-			this.className = (this.className === "checkoff" ? "checkon" : "checkoff")
+			this.className = (this.className === "disabled-setting" ? "enabled-setting" : "disabled-setting")
 			this.blur();
 		});
 	}
 
 	// Creates click listeners to open each link in a new tab
-	links = newP8.childNodes;
-	for (var i = 1; i < links.length; i += 2) {
-		links[i].addEventListener("click", function() {
+	var creditsLinks = creditsText.childNodes;
+	for (var i = 1; i < creditsLinks.length; i += 2) {
+		creditsLinks[i].addEventListener("click", function() {
 			chrome.tabs.create({url: this.href});
 		});
 	}
 
-	exportButton.appendChild(exportButtonIcon);
+	trimElement(content);
 
-	newCheckbox1.appendChild(newImage1);
-	newCheckbox2.appendChild(newImage2);
-	newCheckbox3.appendChild(newImage3);
-	newCheckbox4.appendChild(newImage4);
-	newCheckbox5.appendChild(newImage5);
-	newCheckbox6.appendChild(newImage6);
-	newCheckbox7.appendChild(newImage7);
+	exportButton.appendChild(exportButtonIcon);
 
 	menu.appendChild(exportButton);
 
-	newDiv1.appendChild(newP1);
-	newDiv1.appendChild(newCheckbox1);
-	newDiv2.appendChild(newP2);
-	newDiv2.appendChild(newCheckbox2);
-	newDiv3.appendChild(newP3);
-	newDiv3.appendChild(newCheckbox3);
-	newDiv4.appendChild(newP4);
-	newDiv4.appendChild(newCheckbox4);
-	newDiv5.appendChild(newP5);
-	newDiv5.appendChild(newCheckbox5);
-	newDiv6.appendChild(newP6);
-	newDiv6.appendChild(newCheckbox6);
-	newDiv7.appendChild(newP7);
-	newDiv7.appendChild(newCheckbox7);
-	newDiv8.appendChild(newP8);
+	omniboxSuggestionsCheckbox.appendChild(omniboxSuggestionsIcon);
+	closePopupCheckbox.appendChild(closePopupIcon);
+	sortingOptionsCheckbox.appendChild(sortingOptionsIcon);
+	keylinkStatsCheckbox.appendChild(keylinkStatsIcon);
+	toolbarPopupCheckbox.appendChild(toolbarPopupIcon);
+	keywordSuggestionsCheckbox.appendChild(keywordSuggestionsIcon);
 
-	content.appendChild(newDiv1);
-	content.appendChild(newDiv2);
-	content.appendChild(newDiv3);
-	content.appendChild(newDiv4);
-	content.appendChild(newDiv5);
-	content.appendChild(newDiv6);
-	content.appendChild(newDiv7);
-	content.appendChild(newDiv8);
+	omniboxSuggestionsContainer.appendChild(omniboxSuggestionsText);
+	omniboxSuggestionsContainer.appendChild(omniboxSuggestionsCheckbox);
+	closePopupContainer.appendChild(closePopupText);
+	closePopupContainer.appendChild(closePopupCheckbox);
+	sortingOptionsContainer.appendChild(sortingOptionsText);
+	sortingOptionsContainer.appendChild(sortingOptionsCheckbox);
+	keylinkStatsContainer.appendChild(keylinkStatsText);
+	keylinkStatsContainer.appendChild(keylinkStatsCheckbox);
+	toolbarPopupContainer.appendChild(toolbarPopupText);
+	toolbarPopupContainer.appendChild(toolbarPopupCheckbox);
+	keywordSuggestionsContainer.appendChild(keywordSuggestionsText);
+	keywordSuggestionsContainer.appendChild(keywordSuggestionsCheckbox);
+	creditsContainer.appendChild(creditsText);
+
+	content.appendChild(omniboxSuggestionsContainer);
+	content.appendChild(closePopupContainer);
+	content.appendChild(sortingOptionsContainer);
+	content.appendChild(keylinkStatsContainer);
+	content.appendChild(toolbarPopupContainer);
+	content.appendChild(keywordSuggestionsContainer);
+	content.appendChild(creditsContainer);
 }

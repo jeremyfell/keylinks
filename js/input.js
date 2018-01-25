@@ -7,8 +7,26 @@ function invalidKeyword(keyword) {
 	return (KEYLINKS[keyword] && keyword !== OLD_KEYWORD);
 }
 
+// Generates a suggested keyword based on the page's title
+function titleSuggestion(tabTitle) {
+	title = tabTitle.substr(0, 15).toLowerCase();
+
+	// If there are multiple words, only take the first
+	if (title.indexOf(" ") > -1) {
+		title = title.substr(0, title.indexOf(" "));
+	}
+
+	// Get rid of non alphanumeric characters
+	title = title.replace(/[^a-zA-Z0-9]/g, "");
+
+	// If the generated title suggestion is already a keyword, do not make a suggestion
+	if (KEYLINKS[title]) title = "";
+
+	return title;
+}
+
 // Check if current keyword is valid, and able to be saved
-function checkInput(item) {
+function validateKeywordInput(item) {
 	var keyword = item.value;
 	var button = item.parentNode.lastChild;
 	var image = item.parentNode.lastChild.firstChild;
@@ -71,23 +89,7 @@ function checkInput(item) {
 	}
 }
 
-// Generates a suggested keyword based on the page's title
-function titleSuggestion(tabTitle) {
-			title = tabTitle.substr(0, 15).toLowerCase();
 
-			// If there are multiple words, only take the first
-			if (title.indexOf(" ") > -1) {
-				title = title.substr(0, title.indexOf(" "));
-			}
-
-			// Get rid of non alphanumeric characters
-			title = title.replace(/[^a-zA-Z0-9]/g, "");
-
-			// If the generated title suggestion is already a keyword, do not make a suggestion
-			if (KEYLINKS[title]) title = "";
-
-			return title;
-}
 
 
 // Configures input and button for add and toolbar tabs
@@ -99,7 +101,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 	newInput.setAttribute("maxlength", "100");
 
 	// Check that the input is valid when any changes are made
-	newInput.addEventListener("input", function() {checkInput(this)});
+	newInput.addEventListener("input", function() {validateKeywordInput(this)});
 
 	chrome.tabs.getSelected(function(tab) {
 		var url = tab.url;
@@ -128,21 +130,12 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newImage.title = "Add";
 			newImage.dataset.add = "true";
 
+			newInput.addEventListener("input", function() {
+				validateKeywordInput(this);
+			})
+
 			newInput.addEventListener("keydown", function(e) {
-				checkInput(this);
-
-				if (!this.parentNode.lastChild.disabled && e.which === 13) {
-
-					var keyword = this.value;
-					this.value = "";
-					this.parentNode.lastChild.disabled = true;
-					saveKeylink(keyword, url);
-
-					(this.id === "addinput") ? addTab() : toolbarTab();
-
-					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
-
-				}
+				if (e.which === 13) this.parentNode.lastChild.click();
 			});
 
 			newButton.addEventListener("click", function() {
@@ -155,7 +148,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+					if (SETTINGS.closePopup) window.close();
 
 				}
 			});
@@ -180,7 +173,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newImage.title = "Delete";
 
 			// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-			if (defaultPopup && SETTINGS.SHOW_KEYLINK_STATS_IN_ADD_TAB) keylinkStatistics(menu, currentKeyword);
+			if (defaultPopup && SETTINGS.keylinkStats) keylinkStatistics(menu, currentKeyword);
 
 			newInput.addEventListener("focus", function() {
 				this.select();
@@ -192,7 +185,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			});
 
 			newInput.addEventListener("change", function() {
-				if (this.value === "" || !checkInput(this)) {
+				if (this.value === "" || !validateKeywordInput(this)) {
 
 					this.value = OLD_KEYWORD;
 					this.style.borderColor = null;
@@ -205,7 +198,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					saveKeylink(keyword, KEYLINKS[OLD_KEYWORD]);
 					deleteKeylink(OLD_KEYWORD);
 
-					if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+					if (SETTINGS.closePopup) window.close();
 
 				}
 			});
@@ -215,18 +208,18 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 
 				(this.id === "addbookmark") ? addTab() : toolbarTab();
 
-				if (SETTINGS.CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB) window.close();
+				if (SETTINGS.closePopup) window.close();
 			});
 		}
 
 		// Suggests a possible keyword based on the webpage title
-		if (SETTINGS.SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK && newButton.disabled) {
+		if (SETTINGS.keywordSuggestions && newButton.disabled) {
 			var title = titleSuggestion(tab.title);
 
 			newButton.disabled = false;
 			newInput.value = title;
 
-			checkInput(newInput);
+			validateKeywordInput(newInput);
 		}
 
 		newInput.select();

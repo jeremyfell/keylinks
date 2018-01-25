@@ -9,7 +9,7 @@ function importAdd(item) {
 		listItem.firstChild.value = "";
 
 		// Necessary?
-		checkInput(listItem.firstChild);
+		validateKeywordInput(listItem.firstChild);
 
 	}
 
@@ -40,13 +40,13 @@ function getBookmarkItems(list, sorted) {
 		newInput1.setAttribute("maxlength", "100");
 
 		newInput1.addEventListener("keydown", function(e) {
-			checkInput(this);
+			validateKeywordInput(this);
 			if (this.parentNode.lastChild.firstChild.src.indexOf(SOURCE.add) !== -1 && e.which === 13) {
 				importAdd(this);
 			}
 		});
 
-		newInput1.addEventListener("input", function() {checkInput(this)});
+		newInput1.addEventListener("input", function() {validateKeywordInput(this)});
 
 		newInput1.spellcheck = false;
 
@@ -58,13 +58,13 @@ function getBookmarkItems(list, sorted) {
 		});
 
 		newImage1.src = SOURCE.equal;
-		newImage1.className = "link";
+		newImage1.className = "equal-icon";
 
 		newInput2.setAttribute("type", "text");
 		newInput2.setAttribute("disabled", "disabled");
 		newInput2.value = bookmark.title;
 		newInput2.title = bookmark.url;
-		newInput2.className = "importtitle";
+		newInput2.className = "import-title-input";
 		newInput2.spellcheck = false;
 
 		newButton2.className = "import-bookmark-button";
@@ -76,7 +76,7 @@ function getBookmarkItems(list, sorted) {
 		newImage2.src = BLANK_IMAGE;
 		newImage2.className = "import-add-icon hidden";
 
-		newListItem.className = "importbookmark";
+		newListItem.className = "import-bookmark-container";
 
 		newButton1.appendChild(newImage1);
 		newButton2.appendChild(newImage2);
@@ -190,7 +190,7 @@ function importTab() {
 	// Tab setup
 	resetMenu();
 	CURRENT_TAB = "import";
-	document.getElementById("importtab").disabled = true;
+	document.getElementById("import-tab-button").disabled = true;
 	document.getElementById("menu-title").innerHTML = "Import Bookmarks";
 
 	newSelect.id = "bookmark-folders-selection-box";

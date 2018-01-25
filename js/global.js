@@ -10,20 +10,18 @@ STORAGE_KEY = "___KEYLINKS_STORAGE_COUNT___";
 SETTINGS_KEY = "___KEYLINKS_USER_SETTINGS___";
 
 DEFAULT_SETTINGS = {
-	"CLOSE_POPUP_AFTER_KEYLINK_CHANGES_IN_ADD_TAB"				: false,
-	"SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX"									: true,
-	"SHOW_KEYLINK_STATS_IN_ADD_TAB"												: true,
-	"SHOW_SORTING_OPTIONS_IN_MANAGE_TAB"									: true,
-	"USE_SMALL_POPUP_ON_STARTUP"													: false,
-	"SUGGEST_KEYWORDS_WHEN_ADDING_KEYLINK"								: false,
-	"ALLOW_LINK_REPLACING_IN_ADD_TAB"											: false
+	"closePopup"					: false,	// Close popup after keylink changes in add tab
+	"keywordSuggestions"	: true,		// Show keyword suggestions in omnibox
+	"keylinkStats"				: true,		// Show keylink stats in add tab
+	"sortingOptions"			: true,		// Show sorting options in manage tab
+	"toolbarPopup"				: false,	// Use toolbar popup on startup
+	"keywordSuggestions"	: false,	// Suggest keywords when adding keylink
 };
 
 // All user keylinks
 var KEYLINKS = {};
 // Holds the user settings retrieved from storage
 var SETTINGS = {};
-
 
 // Holds the previous keyword, when a keyword is changed, so that it can be reverted if it is set to an invalid value
 var OLD_KEYWORD;
@@ -45,7 +43,6 @@ var NO_KEYLINKS_TO_MANAGE = true;
 // There are no bookmarks to import
 var NO_BOOKMARKS_TO_IMPORT = true;
 
-
 // Describes a blank icon, used as an image source when no icon should be displayed
 var BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 
@@ -53,7 +50,7 @@ var BLANK_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
 var SOURCE = {
 	add				: "../svg/add.svg",
 	arrow			: "../svg/arrow.svg",
-	check			: "../svg/check.svg",
+	checkmark	: "../svg/checkmark.svg",
 	date			: "../svg/date.svg",
 	deleting	: "../svg/delete.svg",
 	equal			: "../svg/equal.svg",

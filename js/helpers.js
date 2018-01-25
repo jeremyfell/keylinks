@@ -21,13 +21,23 @@ function resetMenu() {
 	var menuButtons = document.getElementsByClassName("menu-button");
 	var menu = document.getElementById("menu");
 
-	for (var i = 0; i < menuButtons.length; i++) {
-		var button = menuButtons[i];
-		button.disabled = false;
+	for (var i = 0; i < 4; i++) {
+		menuButtons[i].disabled = false;
 	}
 
 	while (menu.childNodes.length > 5) {
 		menu.lastChild.remove();
 	}
 
+}
+
+// Resets the colors of all sort buttons when one is pressed
+function resetSortMenu() {
+	var menuButtons = document.getElementsByClassName("menu-button");
+	menuButtons[4].disabled = false;
+	menuButtons[5].disabled = false;
+	menuButtons[6].disabled = false;
+	menuButtons[4].title = "Name";
+	menuButtons[5].title = "Date";
+	menuButtons[6].title = "Use";
 }

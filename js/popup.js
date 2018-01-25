@@ -6,35 +6,35 @@ Functions controlling popup startup
 function toolbarSetup() {
 
 	var menu = document.createElement("div");
-	var newDiv = document.createElement("div");
-	var newButton = document.createElement("button");
-	var newImage = document.createElement("img");
+	var content = document.createElement("div");
+	var optionsButton = document.createElement("button");
+	var optionsIcon = document.createElement("img");
 
-	menu.id = "smallmenu";
-	newDiv.id = "smallbox";
-	newButton.className = "menu-button";
-	newButton.id = "options";
-	newButton.title = "Options";
+	document.documentElement.className = "toolbar";
+	document.body.className = "toolbar";
+
+	menu.id = "toolbar-menu";
+	content.id = "toolbar-content";
+	optionsButton.className = "menu-button";
+	optionsButton.id = "options-button";
+	optionsButton.title = "Options";
 
 	// Button to expand toolbar view to the full popup view
-	newButton.addEventListener("click", function() {
-		document.getElementsByTagName("html")[0].className = "popup";
+	optionsButton.addEventListener("click", function() {
+		document.documentElement.className = "popup";
 		document.body.className = "popup";
-		document.body.removeChild(document.body.lastChild);
+		document.body.lastChild.remove();
 		defaultSetup();
 	});
 
-	newImage.className = "menu-tab-icon";
-	newImage.id = "optionsicon";
-	newImage.src = SOURCE.options;
+	optionsIcon.className = "menu-tab-icon";
+	optionsIcon.id = "options-icon";
+	optionsIcon.src = SOURCE.options;
 
-	newButton.appendChild(newImage);
-	menu.appendChild(newButton);
-	menu.appendChild(newDiv);
+	optionsButton.appendChild(optionsIcon);
+	menu.appendChild(optionsButton);
+	menu.appendChild(content);
 	document.body.appendChild(menu);
-
-	document.getElementsByTagName("html")[0].className = "toolbar";
-	document.body.className = "toolbar";
 
 	toolbarTab();
 
@@ -45,14 +45,17 @@ function defaultSetup() {
 
 	var menu = document.createElement("div");
 	var content = document.createElement("div");
+
 	var settingsTabButton = document.createElement("button");
 	var importTabButton = document.createElement("button");
 	var manageTabButton = document.createElement("button");
 	var addTabButton = document.createElement("button");
+
 	var settingsTabIcon = document.createElement("img");
 	var importTabIcon = document.createElement("img");
 	var manageTabIcon = document.createElement("img");
 	var addTabIcon = document.createElement("img");
+
 	var menuTitleContainer = document.createElement("div");
 	var menuTitle = document.createElement("p");
 
@@ -64,10 +67,10 @@ function defaultSetup() {
 	manageTabButton.className = "menu-button";
 	addTabButton.className = "menu-button";
 
-	settingsTabButton.id = "settingstab";
-	importTabButton.id = "importtab";
-	manageTabButton.id = "managetab";
-	addTabButton.id = "addtab";
+	settingsTabButton.id = "settings-tab-button";
+	importTabButton.id = "import-tab-button";
+	manageTabButton.id = "manage-tab-button";
+	addTabButton.id = "add-tab-button";
 
 	settingsTabButton.title = "Settings";
 	importTabButton.title = "Import";

@@ -2,14 +2,14 @@ function getKeylinks() {
 	chrome.storage.sync.get(null, function(storage) {
 
 		// Separates storage items into keylinks, the storage count, and the user settings
-		for (var key in storage) {
-			if (key === STORAGE_KEY) {
-				CURRENT_KEYLINKS = storage[key].keylinkCount;
-				CURRENT_BYTES = storage[key].byteCount;
-			} else if (key === SETTINGS_KEY) {
-				SETTINGS = Object.assign({}, storage[key]);
+		for (var keyword in storage) {
+			if (keyword === STORAGE_KEY) {
+				CURRENT_KEYLINKS = storage[keyword].keylinkCount;
+				CURRENT_BYTES = storage[keyword].byteCount;
+			} else if (keyword === SETTINGS_KEY) {
+				SETTINGS = Object.assign({}, storage[keyword]);
 			} else {
-				KEYLINKS[key] = storage[key];
+				KEYLINKS[keyword] = storage[keyword];
 			}
 		}
 
@@ -35,20 +35,19 @@ function getKeylinks() {
 
 		}
 
-		SETTINGS.USE_SMALL_POPUP_ON_STARTUP ? toolbarSetup() : defaultSetup();
+		SETTINGS.toolbarPopup ? toolbarSetup() : defaultSetup();
 
 	});
 }
 
 // Saves a new keylink
-function saveKeylink(keyword, url) {
-	var bytes = keyword.length + url.length + KEYLINK_OVERHEAD;
-	var backgroundPage = chrome.extension.getBackgroundPage();
+function saveKeylink(keyword, link) {
+	var bytes = keyword.length + link.length + KEYLINK_OVERHEAD;
 	var time = new Date().getTime();
 	var storageChanges = {};
 
 	KEYLINKS[keyword] = {
-		"link": url,
+		"link": link,
 		"timeCreated": time,
 		"timesUsed": 0
 	}
@@ -57,24 +56,23 @@ function saveKeylink(keyword, url) {
 	CURRENT_BYTES += bytes;
 
 	storageChanges[keyword] = {
-		"link": url,
+		"link": link,
 		"timeCreated": time,
 		"timesUsed": 0
 	}
 
 	storageChanges[STORAGE_KEY] = {"keylinkCount" : CURRENT_KEYLINKS, "byteCount": CURRENT_BYTES};
 
-	backgroundPage.iconUpdate(true, url);
+	chrome.extension.getBackgroundPage().iconUpdate(true, link);
 	chrome.storage.sync.set(storageChanges, function(entry) {errorCheck(entry)});
 
 }
 
 // Deletes a saved bookmark
 function deleteKeylink(keyword) {
-	var url = KEYLINKS[keyword].link;
-	var bytes = keyword.length + url.length + KEYLINK_OVERHEAD;
+	var link = KEYLINKS[keyword].link;
+	var bytes = keyword.length + link.length + KEYLINK_OVERHEAD;
 	var storageChanges = {};
-	var backgroundPage = chrome.extension.getBackgroundPage();
 
 	delete KEYLINKS[keyword];
 
@@ -85,5 +83,5 @@ function deleteKeylink(keyword) {
 	chrome.storage.sync.set(storageChanges);
 	chrome.storage.sync.remove(keyword, function(entry) {errorCheck(entry)});
 
-	backgroundPage.iconUpdate(false, url);
+	chrome.extension.getBackgroundPage().iconUpdate(false, link);
 }

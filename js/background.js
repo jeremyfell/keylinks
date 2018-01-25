@@ -1,5 +1,5 @@
 var KEYLINKS = {};
-var SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = false;
+var OMNIBOX_SUGGESTIONS = false;
 var SETTINGS_KEY = "___KEYLINKS_USER_SETTINGS___";
 
 // Path to page displayed for entering an invalid keylink in the omnibox
@@ -9,70 +9,62 @@ var BROKEN_PAGE = "../html/broken.html";
 Functions for storage
 */////////////////////
 
-// Retrieves keylinks and the ketword suggestion in omnibox setting from storage into the background page
+// Retrieves keylinks and omnibox suggestions setting from storage into the background page
 function updateBackgroundPageStorage() {
 	chrome.storage.sync.get(null, function(storage) {
 
-		for (var key in storage) {
-			if (key === SETTINGS_KEY) {
-				SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX = storage[SETTINGS_KEY].SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX;
+		for (var keyword in storage) {
+			if (keyword === SETTINGS_KEY) {
+				OMNIBOX_SUGGESTIONS = storage[SETTINGS_KEY].keywordSuggestions;
 			} else {
-				KEYLINKS[key] = storage[key];
+				KEYLINKS[keyword] = storage[keyword];
 			}
 		}
 
 	});
 }
-
 
 /*//////////////////
 Functions for icons
 *///////////////////
 
-// Sets bookmark status icon when a tab is created or updated
+// Sets keylink status icon when a tab is created or updated
 function iconChange(tabId, changeInfo, tab) {
 	if (changeInfo.status === "loading" || changeInfo.status === "created") {
-		var check = false;
+		var tabHasKeylink = false;
 		for (var keyword in KEYLINKS) {
 			if (KEYLINKS[keyword].link === tab.url) {
-				check = true;
+				tabHasKeylink = true;
 				break;
 			}
 		}
-		iconSwitch(check, tabId);
+		iconSwitch(tabHasKeylink, tabId);
 	}
 }
 
-// Double check whether it needs to examine all tabs
-// Updates bookmark status icon when a new bookmark is added
-function iconUpdate(bookmark, url) {
+// Updates keylink status icon when a new keylink is added
+function iconUpdate(tabHasKeylink, link) {
+
 	chrome.tabs.query({}, function(tabs) {
 		for (var i = 0; i < tabs.length; i++) {
+
 			var tab = tabs[i];
-			if (tab.url === url) {
-				iconSwitch(bookmark, tab.id);
+
+			if (tab.url === link) {
+				iconSwitch(tabHasKeylink, tab.id);
 			}
+
 		}
 	});
+
 }
 
-function iconSwitch(bookmarked, id) {
+function iconSwitch(tabHasKeylink, tabId) {
 
-	if (bookmarked) {
-
-		chrome.browserAction.setIcon({
-			path: "icons/keylink19.png",
-			tabId: id
-		});
-
-	} else {
-
-		chrome.browserAction.setIcon({
-			path: "icons/link19.png",
-			tabId: id
-		});
-
-	}
+	var iconChange = {};
+	iconChange.tabId = tabId;
+	iconChange.path = (tabHasKeylink) ? "icons/keylink19.png" : "icons/link19.png";
+	chrome.browserAction.setIcon(iconChange);
 
 }
 
@@ -80,12 +72,12 @@ function iconSwitch(bookmarked, id) {
 Tab listeners
 */////////////
 
-//Calls iconChange when a tab is updated
+// Calls iconChange when a tab is updated
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	iconChange(tabId, changeInfo, tab);
 });
 
-//Calls iconChange when a tab is created
+// Calls iconChange when a tab is created
 chrome.tabs.onCreated.addListener(function(tab) {
 	iconChange(tab.id, {status: "created", url: tab.url}, tab);
 });
@@ -94,12 +86,12 @@ chrome.tabs.onCreated.addListener(function(tab) {
 Omnibox listeners
 */////////////////
 
-//Takes user to the link associated with the keyword
+// Takes user to the link associated with the keyword
 chrome.omnibox.onInputEntered.addListener(function(keyword) {
 
 	if (KEYLINKS[keyword]) {
 
-		// If the keyword is valid, go to the associated link, increment total uses, and save keylinks
+		// If the keyword is valid, go to the associated link, increment total uses, and save the keylink
 		var link = KEYLINKS[keyword].link;
 		var storageChanges = {};
 		KEYLINKS[keyword].timesUsed++;
@@ -117,36 +109,35 @@ chrome.omnibox.onInputEntered.addListener(function(keyword) {
 });
 
 
-//Multiple variables with same name, should change
-//Shows keyword suggestions
+// Shows keyword suggestions in the omnibox
 chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 
-	if (SHOW_KEYWORD_SUGGESTIONS_IN_OMNIBOX && text.length > 0) {
+	if (OMNIBOX_SUGGESTIONS && text.length > 0) {
 
-		var matches = [];
+		var matchingKeywords = [];
 
 		// Finds all keywords that have the omnibox text at the start
 		for (keyword in KEYLINKS) {
-			if (keyword.lastIndexOf(text, 0) === 0 && text.length <= keyword.length) { // lastIndexOf could possibly be replaced with just firstIndexOf === 0
-				matches.push(keyword);
+			if (keyword.indexOf(text) === 0) {
+				matchingKeywords.push(keyword);
 			}
 		}
 
-		if (matches.length > 0) {
+		if (matchingKeywords.length > 0) {
 
-			var bestFiveSuggestions = [];
+			var mostUsedSuggestions = [];
 
 			// Sorts the possible matches by how many times they have been used
-			matches.sort(function compare(a, b) {return (a.timesUsed < b.timesUsed) ? -1 : 1;});
+			matchingKeywords.sort(function compare(a, b) {return (a.timesUsed < b.timesUsed) ? -1 : 1;});
 
 			// Adds the 5 most used matches to the suggestions, or less if there are less matches
-			for (var i = 0; i < matches.length && i < 5; i++) {
-				match = matches[i];
-				bestFiveSuggestions.push({content: match, description: match});
+			for (var i = 0; i < matchingKeywords.length && i < 5; i++) {
+				var match = matchingKeywords[i];
+				mostUsedSuggestions.push({content: match, description: match});
 			}
 
 			// Pushes the suggestions to be displayed underneath the omnibox
-			suggest(bestFiveSuggestions);
+			suggest(mostUsedSuggestions);
 
 		}
 	}
