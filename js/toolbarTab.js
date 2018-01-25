@@ -8,7 +8,7 @@ function toolbarTab() {
 	var addKeylinkButton = document.createElement("button");
 	var addKeylinkIcon = document.createElement("img");
 
-	keywordInput.id = "smallinput";
+	keywordInput.id = "add-keyword-input";
 	keywordInput.spellcheck = false;
 
 	addKeylinkButton.id = "smallbookmark";

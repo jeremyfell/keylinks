@@ -25,72 +25,48 @@ function titleSuggestion(tabTitle) {
 	return title;
 }
 
-// Check if current keyword is valid, and able to be saved
-function validateKeywordInput(item) {
-	var keyword = item.value;
-	var button = item.parentNode.lastChild;
-	var image = item.parentNode.lastChild.firstChild;
 
-	// Can most likely simplify all these if and else statements into a better control flow
+function validateImportKeywordInput(inputBox) {
+	var keyword = inputBox.value;
+	var button = inputBox.parentNode.lastChild;
+	var icon = inputBox.parentNode.lastChild.firstChild;
 
-	if (CURRENT_TAB === "import") {
-
-		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
-
-			// Keyword is not valid, disable the import button
-			image.src = BLANK_IMAGE;
-			button.disabled = true;
-
-		} else {
-
-			// Keyword is valid, enable the import button
-			image.src = SOURCE.add;
-			button.disabled = false;
-
-		}
-
-	}
-
-	if ((item.id === "addinput" || item.id === "smallinput") && (CURRENT_TAB === "add" || CURRENT_TAB === "tooladd")) {
-
-		if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
-			// Disables the add keylink button
-			item.parentNode.lastChild.disabled = true;
-		} else {
-			// Enables the add keylink button
-			item.parentNode.lastChild.disabled = false;
-		}
-
-	}
-
-
-	if (keyword.length > 25 || invalidKeyword(keyword)) {
-
-			// Keyword is not valid, make border or background red
-			if (item.id == "addinput" || item.id == "smallinput") {
-				item.style.borderColor = COLORS.red;
-			} else {
-				item.style.backgroundColor = COLORS.lightRed;
-			}
-
-			return false;
-
+	if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
+		icon.src = BLANK_IMAGE;
+		button.disabled = true;
 	} else {
-
-			// Keyword is valid, get rid of border or background color
-			if (item.id == "addinput" || item.id == "smallinput") {
-				item.style.borderColor = null;
-			} else {
-				item.style.backgroundColor = null;
-			}
-
-			return true;
-
+		icon.src = SOURCE.add;
+		button.disabled = false;
 	}
+
+	return validateKeywordInput(inputBox, keyword);
+
 }
 
+function validateAddKeywordInput(inputBox) {
+	var keyword = inputBox.value;
+	var button = inputBox.parentNode.lastChild;
 
+	button.disabled = (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword));
 
+	return validateKeywordInput(inputBox, keyword);
+
+}
+
+function validateManageKeywordInput(inputBox) {
+	var keyword = inputBox.value;
+	return validateKeywordInput(inputBox, keyword);
+}
+
+function validateKeywordInput(inputBox, keyword) {
+	if (keyword.length > 25 || invalidKeyword(keyword)) {
+		inputBox.classList.add("input-invalid");
+		return false;
+	} else {
+		inputBox.classList.remove("input-invalid");
+		return true;
+	}
+}
 
 // Configures input and button for add and toolbar tabs
 function addInputs(defaultPopup, newInput, newButton, newImage) {
@@ -101,7 +77,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 	newInput.setAttribute("maxlength", "100");
 
 	// Check that the input is valid when any changes are made
-	newInput.addEventListener("input", function() {validateKeywordInput(this)});
+	newInput.addEventListener("input", function() {validateAddKeywordInput(this)});
 
 	chrome.tabs.getSelected(function(tab) {
 		var url = tab.url;
@@ -131,7 +107,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newImage.dataset.add = "true";
 
 			newInput.addEventListener("input", function() {
-				validateKeywordInput(this);
+				validateAddKeywordInput(this);
 			})
 
 			newInput.addEventListener("keydown", function(e) {
@@ -139,7 +115,6 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			});
 
 			newButton.addEventListener("click", function() {
-				if (!this.disabled) {
 
 					var keyword = this.parentNode.firstChild.value;
 					this.parentNode.firstChild.value = "";
@@ -149,8 +124,6 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 					(this.id === "addbookmark") ? addTab() : toolbarTab();
 
 					if (SETTINGS.closePopup) window.close();
-
-				}
 			});
 
 		} else {
@@ -185,7 +158,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			});
 
 			newInput.addEventListener("change", function() {
-				if (this.value === "" || !validateKeywordInput(this)) {
+				if (this.value === "" || !validateAddKeywordInput(this)) {
 
 					this.value = OLD_KEYWORD;
 					this.style.borderColor = null;
@@ -206,6 +179,8 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newButton.addEventListener("click", function() {
 				deleteKeylink(this.parentNode.firstChild.value);
 
+				resetCurrentTab();
+
 				(this.id === "addbookmark") ? addTab() : toolbarTab();
 
 				if (SETTINGS.closePopup) window.close();
@@ -219,7 +194,7 @@ function addInputs(defaultPopup, newInput, newButton, newImage) {
 			newButton.disabled = false;
 			newInput.value = title;
 
-			validateKeywordInput(newInput);
+			validateAddKeywordInput(newInput);
 		}
 
 		newInput.select();

@@ -34,7 +34,7 @@ function addTab() {
 	document.getElementById("add-tab-button").disabled = true;
 
 	newDiv.id = "add-tab-container";
-	newInput.id = "addinput";
+	newInput.id = "add-keyword-input";
 	newInput.spellcheck = false;
 	newButton.id = "addbookmark";
 	newImage.className = "add-icon";

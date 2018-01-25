@@ -10,6 +10,7 @@
 	--blue: #4386FA;
 	--blue-dark: #2B74F2;
 	--red: #FF0000;
+	--red-light: #FFB2B2;
 	--blue-highlight: #E0EAF9;
 }
 
@@ -120,6 +121,18 @@ a {
 a:hover {
 	color: var(--blue-light);
 }
+
+.popup {
+	width: 600px;
+	height: 400px;
+}
+
+.toolbar {
+	width: 350px;
+	height: 50px;
+}
+
+
 /********************************
 			Menu Bar
 ********************************/
@@ -191,7 +204,7 @@ a:hover {
 	margin: 150px 150px;
 }
 
-#addinput, #smallinput {
+#add-keyword-input {
 	height: 50px;
 	width: 250px;
 	font-size: 250%;
@@ -202,14 +215,18 @@ a:hover {
 	float: left;
 }
 
-#addinput:focus, #smallinput:focus {
+#add-keyword-input:focus {
 	border-color: var(--blue);
 	background-color: var(--white);
 }
 
-#addinput::selection, #smallinput::selection {
+#add-keyword-input::selection {
 	color: var(--white);
 	background: var(--blue);
+}
+
+#add-keyword-input.input-invalid {
+	border-color: var(--red);
 }
 
 #addbookmark, #smallbookmark {
@@ -237,7 +254,7 @@ a:hover {
 	width: 50px;
 }
 
-#smallmenu {
+#toolbar-menu {
 	margin: 0;
 	padding: 0;
 	height: 50px;
@@ -252,16 +269,6 @@ a:hover {
 	line-height: 0;
 	margin: 0;
 	padding: 12px 20px;
-}
-
-.popup {
-	width: 600px;
-	height: 400px;
-}
-
-.toolbar {
-	width: 350px;
-	height: 50px;
 }
 
 /********************************
@@ -296,7 +303,7 @@ a:hover {
 	font-size: 16px;
 }
 
-.equal, .import-keyword-input, .importtitle, .import-bookmark-button, .import-add-icon, .manage-keyword-input, .manage-link-input, .delete-keylink-button, .manage-delete-icon, .visit-link-button, .link {
+.import-keyword-input, .import-title-input, .import-bookmark-button, .import-add-icon, .manage-keyword-input, .manage-link-input, .delete-keylink-button, .manage-delete-icon, .visit-link-button, .equal-icon {
 	float: left;
 }
 
@@ -304,18 +311,15 @@ a:hover {
 	width: 200px;
 }
 
-.equal {
-	line-height: 0px;
-	color: var(--white);
-	font-size: 125%;
-	font-weight: bold;
+.import-keyword-input.input-invalid, .manage-keyword-input.input-invalid {
+	background-color: var(--red-light);
 }
 
-.importtitle, .manage-link-input {
+.import-title-input, .manage-link-input {
 	width: 325px;
 }
 
-.importtitle[disabled] {
+.import-title-input[disabled] {
 	margin: 5px 5px 5px 0px;
 }
 
@@ -344,7 +348,7 @@ a:hover {
 	height: 21px;
 }
 
-.link {
+.equal-icon {
 	width: 11px;
 	height: 11px;
 	margin: 5px;
@@ -354,14 +358,14 @@ a:hover {
 	margin-right: 0;
 }
 
-.importtitle, .manage-link-input {
+.import-title-input, .manage-link-input {
 	margin-left: 0;
 }
 
 /********************************
 			Settings
 ********************************/
-#bugs {
+#credits {
 	position: absolute;
 	float: left;
 	font-size: 100%;
@@ -386,7 +390,7 @@ a:hover {
 	-webkit-transition: color 1s;
 }
 
-.checkoff, .checkon {
+.disabled-setting, .enabled-setting {
 	float: right;
 	height: 25px;
 	width: 25px;
@@ -396,19 +400,19 @@ a:hover {
 	-webkit-transition: background-color 0.3s;
 }
 
-.checkoff {
+.disabled-setting {
 	background-color: var(--gray-dark);
 }
 
-.checkon {
+.enabled-setting {
 	background-color: var(--blue);
 }
 
-.checkon:focus, .checkon:hover {
+.enabled-setting:focus, .enabled-setting:hover {
 	background-color: var(--blue-light);
 }
 
-.checkicon {
+.setting-icon {
 	height: 15px;
 	width: 15px;
 	margin: 5px;

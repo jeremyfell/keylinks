@@ -1,3 +1,10 @@
+// Resets the tab, according to what the current tab is
+function resetCurrentTab() {
+	if (CURRENT_TAB === "") {
+		
+	}
+}
+
 // Removes all child elements of an element
 function trimElement(element) {
 	while (element.lastChild) {

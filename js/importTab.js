@@ -9,7 +9,7 @@ function importAdd(item) {
 		listItem.firstChild.value = "";
 
 		// Necessary?
-		validateKeywordInput(listItem.firstChild);
+		validateImportKeywordInput(listItem.firstChild);
 
 	}
 
@@ -40,13 +40,10 @@ function getBookmarkItems(list, sorted) {
 		newInput1.setAttribute("maxlength", "100");
 
 		newInput1.addEventListener("keydown", function(e) {
-			validateKeywordInput(this);
-			if (this.parentNode.lastChild.firstChild.src.indexOf(SOURCE.add) !== -1 && e.which === 13) {
-				importAdd(this);
-			}
+			if (e.which === 13) this.parentNode.lastChild.click();
 		});
 
-		newInput1.addEventListener("input", function() {validateKeywordInput(this)});
+		newInput1.addEventListener("input", function() {validateImportKeywordInput(this)});
 
 		newInput1.spellcheck = false;
 
@@ -70,7 +67,9 @@ function getBookmarkItems(list, sorted) {
 		newButton2.className = "import-bookmark-button";
 		newButton2.disabled = true;
 		newButton2.title = "Create keylink";
-		newButton2.addEventListener("click", function() {if (!this.disabled) importAdd(this.parentNode.firstChild)});
+		newButton2.addEventListener("click", function() {
+			importAdd(this.parentNode.firstChild);
+		});
 
 
 		newImage2.src = BLANK_IMAGE;

@@ -157,7 +157,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newInput1.addEventListener("change", function() {
-			if (this.value === "" || !validateKeywordInput(this)) {
+			if (this.value === "" || !validateManageKeywordInput(this)) {
 
 				// Keyword is invalid, revert to previous keyword
 				this.value = OLD_KEYWORD;
@@ -173,7 +173,7 @@ function getSortedItems(newList, sorted) {
 		});
 
 		newInput1.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
-		newInput1.addEventListener("input", function(e) {validateKeywordInput(this)});
+		newInput1.addEventListener("input", function(e) {validateManageKeywordInput(this)});
 		newInput1.spellcheck = false;
 
 		newButton1.className = "visit-link-button";
@@ -247,7 +247,7 @@ function getSortedItems(newList, sorted) {
 
 // Create manage bookmarks tab when bookmark icon is pressed
 function manageTab() {
-	
+
 	var menu = document.getElementById("menu");
 	var content = document.getElementById("content");
 	var newList = document.createElement("ul");
