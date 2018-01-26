@@ -36,7 +36,8 @@ function configureChangeKeylinkInput(defaultPopup, changeKeywordInput, changeKey
 	if (defaultPopup) {
 		document.getElementById("menu-title").innerHTML = "Change Bookmark";
 		// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-		if (SETTINGS.keylinkStats) keylinkStatistics(menu, currentKeyword);
+		console.log(menu);
+		if (SETTINGS.keylinkStats) keylinkStatistics(currentKeyword);
 	}
 
 	changeKeywordInput.value = currentKeyword;

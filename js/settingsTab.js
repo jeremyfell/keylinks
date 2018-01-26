@@ -88,6 +88,7 @@ function settingsTab() {
 	exportButtonIcon.className = "menu-tab-icon";
 	exportButtonIcon.id = "export-icon";
 	exportButtonIcon.src = SOURCE.exporting;
+	exportButtonIcon.draggable = false;
 
 	exportButton.addEventListener("click", function() {
 		exportBookmarks();
@@ -154,6 +155,13 @@ function settingsTab() {
 	keylinkStatsIcon.src = BLANK_IMAGE;
 	toolbarPopupIcon.src = BLANK_IMAGE;
 	keywordSuggestionsIcon.src = BLANK_IMAGE;
+
+	omniboxSuggestionsIcon.draggable = false;
+	closePopupIcon.draggable = false;
+	sortingOptionsIcon.draggable = false;
+	keylinkStatsIcon.draggable = false;
+	toolbarPopupIcon.draggable = false;
+	keywordSuggestionsIcon.draggable = false;
 
 	// Sets the default states of all settings checkboxes according to the current saved settings
 	if (SETTINGS.keywordSuggestions) {

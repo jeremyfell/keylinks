@@ -9,7 +9,7 @@ function getKeywordFromLink(link) {
 
 // Generates a suggested keyword based on the page's title
 function titleSuggestion(tabTitle) {
-	title = tabTitle.substr(0, 15).toLowerCase();
+	var title = tabTitle.substr(0, 15).toLowerCase();
 
 	// If there are multiple words, only take the first
 	if (title.indexOf(" ") > -1) {

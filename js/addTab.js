@@ -1,21 +1,23 @@
-// Display the date the keylink was created and how many times it has been used
-function keylinkStatistics(menu, currentKeyword) {
-	var time = KEYLINKS[currentKeyword].timeCreated;
+// Display the date the keylink was created and how many times it has been used in the top-right of the Add tab
+function keylinkStatistics(keyword) {
+	var menu = document.getElementById("menu");
+
+	var createdText = document.createElement("p");
+	var usesText = document.createElement("p");
+
+	var time = KEYLINKS[keyword].timeCreated;
 	var date = new Date(time);
-	var uses = KEYLINKS[currentKeyword].timesUsed;
+	var uses = KEYLINKS[keyword].timesUsed;
 
-	var newP1 = document.createElement("p");
-	var newP2 = document.createElement("p");
+	createdText.className = "keylink-statistics-text";
+	usesText.className = "keylink-statistics-text";
 
-	newP1.className = "keylink-statistics-text";
-	newP2.className = "keylink-statistics-text";
+	createdText.innerHTML = "Created " + date.toString().substring(4, 15);
+	createdText.title = date.toString().substring(16,24);
+	usesText.innerHTML = "Used " + String(uses) + " time" + (uses === 1 ? "" : "s");
 
-	newP1.innerHTML = "Created " + date.toString().substring(4, 15);
-	newP1.title = date.toString().substring(16,24);
-	newP2.innerHTML = "Used " + String(uses) + " time" + (uses === 1 ? "" : "s");
-
-	menu.appendChild(newP1);
-	menu.appendChild(newP2);
+	menu.appendChild(createdText);
+	menu.appendChild(usesText);
 }
 
 // Creates add bookmark tab when plus icon is pressed
@@ -24,35 +26,36 @@ function addTab() {
 	var menu = document.getElementById("menu");
 	var content = document.getElementById("content");
 
-	var newDiv = document.createElement("div");
-	var newInput = document.createElement("input");
-	var newButton = document.createElement("button");
-	var newImage = document.createElement("img");
+	var addTabContainer = document.createElement("div");
+	var addKeywordInput = document.createElement("input");
+	var addKeylinkButton = document.createElement("button");
+	var addKeylinkIcon = document.createElement("img");
 
 	// Tab setup
 	resetMenu();
 	CURRENT_TAB = "add";
 	document.getElementById("add-tab-button").disabled = true;
 
-	newDiv.id = "add-tab-container";
-	newInput.id = "add-keyword-input";
-	newInput.spellcheck = false;
-	newButton.id = "add-keylink-button";
-	newImage.className = "add-icon";
+	addTabContainer.id = "add-tab-container";
+	addKeywordInput.id = "add-keyword-input";
+	addKeywordInput.spellcheck = false;
+	addKeylinkButton.id = "add-keylink-button";
+	addKeylinkIcon.className = "add-icon";
+	addKeylinkIcon.draggable = false;
 
 	// Adds functionality to the input box and add button
-	configureKeylinkInput(true, newInput, newButton, newImage);
+	configureKeylinkInput(true, addKeywordInput, addKeylinkButton, addKeylinkIcon);
 
 	// Deletes all elements from the previous tab
 	trimElement(content);
 
 	// Append new elements to the popup
-	newButton.appendChild(newImage);
-	newDiv.appendChild(newInput);
-	newDiv.appendChild(newButton);
-	content.appendChild(newDiv);
+	addKeylinkButton.appendChild(addKeylinkIcon);
+	addTabContainer.appendChild(addKeywordInput);
+	addTabContainer.appendChild(addKeylinkButton);
+	content.appendChild(addTabContainer);
 
 	// Places the cursor within the input box
-	newInput.focus();
+	addKeywordInput.focus();
 
 }

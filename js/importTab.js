@@ -17,79 +17,81 @@ function importBookmark(inputBox) {
 	inputBox.parentNode.remove();
 
 	if (bookmarkListItems.length > 1) {
-		importBookmarksList.firstChild.focus();
+		importBookmarksList.firstChild.firstChild.focus();
 	} else {
 		importTab();
 	}
 
-	item.parentNode.parentNode.removeChild(item.parentNode);
-	saveKeylink(keyword, url);
+	//item.parentNode.parentNode.removeChild(item.parentNode);
+	saveKeylink(keyword, link);
 }
 
 function getBookmarkItems(list, sorted) {
 	for (var s = 0; s < sorted.length; s++) {
 
 		var bookmark = sorted[s];
-		var newListItem = document.createElement("li");
-		var newInput1 = document.createElement("input");
-		var newButton1 = document.createElement("button");
-		var newImage1 = document.createElement("img");
-		var newInput2 = document.createElement("input");
-		var newButton2 = document.createElement("button");
-		var newImage2 = document.createElement("img");
+		var bookmarkListItem = document.createElement("li");
+		var importKeywordInput = document.createElement("input");
+		var visitLinkButton = document.createElement("button");
+		var visitLinkIcon = document.createElement("img");
+		var importTitleInput = document.createElement("input");
+		var importBookmarkButton = document.createElement("button");
+		var importBookmarkIcon = document.createElement("img");
 
-		newInput1.setAttribute("type", "text");
-		newInput1.className = "import-keyword-input";
-		newInput1.setAttribute("maxlength", "100");
+		importKeywordInput.setAttribute("type", "text");
+		importKeywordInput.className = "import-keyword-input";
+		importKeywordInput.setAttribute("maxlength", "100");
 
-		newInput1.addEventListener("keydown", function(e) {
+		importKeywordInput.addEventListener("keydown", function(e) {
 			if (e.which === 13) this.parentNode.lastChild.click();
 		});
 
-		newInput1.addEventListener("input", function() {validateImportKeywordInput(this)});
+		importKeywordInput.addEventListener("input", function() {validateImportKeywordInput(this)});
 
-		newInput1.spellcheck = false;
-		newInput1.dataset.link = bookmark.url;
+		importKeywordInput.spellcheck = false;
+		importKeywordInput.dataset.link = bookmark.url;
 
-		newButton1.className = "visit-link-button";
-		newButton1.title = "Visit link";
+		visitLinkButton.className = "visit-link-button";
+		visitLinkButton.title = "Visit link";
 
-		newButton1.addEventListener("click", function() {
+		visitLinkButton.addEventListener("click", function() {
 			chrome.tabs.create({url: this.parentNode.childNodes[2].title})
 		});
 
-		newImage1.src = SOURCE.equal;
-		newImage1.className = "equal-icon";
+		visitLinkIcon.src = SOURCE.equal;
+		visitLinkIcon.className = "equal-icon";
+		visitLinkIcon.draggable = false;
 
-		newInput2.setAttribute("type", "text");
-		newInput2.setAttribute("disabled", "disabled");
-		newInput2.value = bookmark.title;
-		newInput2.title = bookmark.url;
-		newInput2.className = "import-title-input";
-		newInput2.spellcheck = false;
+		importTitleInput.setAttribute("type", "text");
+		importTitleInput.setAttribute("disabled", "disabled");
+		importTitleInput.value = bookmark.title;
+		importTitleInput.title = bookmark.url;
+		importTitleInput.className = "import-title-input";
+		importTitleInput.spellcheck = false;
 
-		newButton2.className = "import-bookmark-button";
-		newButton2.disabled = true;
-		newButton2.title = "Create keylink";
-		newButton2.addEventListener("click", function() {
+		importBookmarkButton.className = "import-bookmark-button";
+		importBookmarkButton.disabled = true;
+		importBookmarkButton.title = "Create keylink";
+		importBookmarkButton.addEventListener("click", function() {
 			importBookmark(this.parentNode.firstChild);
 		});
 
 
-		newImage2.src = BLANK_IMAGE;
-		newImage2.className = "import-add-icon hidden";
+		importBookmarkIcon.src = BLANK_IMAGE;
+		importBookmarkIcon.className = "import-add-icon hidden";
+		importBookmarkIcon.draggable = false;
 
-		newListItem.className = "import-bookmark-container";
+		bookmarkListItem.className = "import-bookmark-container";
 
-		newButton1.appendChild(newImage1);
-		newButton2.appendChild(newImage2);
+		visitLinkButton.appendChild(visitLinkIcon);
+		importBookmarkButton.appendChild(importBookmarkIcon);
 
-		newListItem.appendChild(newInput1);
-		newListItem.appendChild(newButton1);
-		newListItem.appendChild(newInput2);
-		newListItem.appendChild(newButton2);
+		bookmarkListItem.appendChild(importKeywordInput);
+		bookmarkListItem.appendChild(visitLinkButton);
+		bookmarkListItem.appendChild(importTitleInput);
+		bookmarkListItem.appendChild(importBookmarkButton);
 
-		list.appendChild(newListItem);
+		list.appendChild(bookmarkListItem);
 	}
 }
 

@@ -30,6 +30,7 @@ function toolbarSetup() {
 	optionsIcon.className = "menu-tab-icon";
 	optionsIcon.id = "options-icon";
 	optionsIcon.src = SOURCE.options;
+	optionsIcon.draggable = false;
 
 	optionsButton.appendChild(optionsIcon);
 	menu.appendChild(optionsButton);
@@ -58,6 +59,9 @@ function defaultSetup() {
 
 	var menuTitleContainer = document.createElement("div");
 	var menuTitle = document.createElement("p");
+
+	document.documentElement.className = "popup";
+	document.body.className = "popup";
 
 	menu.id = "menu";
 	content.id = "content";
@@ -97,9 +101,14 @@ function defaultSetup() {
 	manageTabIcon.src = SOURCE.manage;
 	addTabIcon.src = SOURCE.add;
 
+	settingsTabIcon.draggable = false;
+	importTabIcon.draggable = false;
+	manageTabIcon.draggable = false;
+	addTabIcon.draggable = false;
+
 	menuTitleContainer.id = "menu-title-container";
 	menuTitle.id = "menu-title";
-	
+
 	menuTitleContainer.appendChild(menuTitle);
 
 	settingsTabButton.appendChild(settingsTabIcon);

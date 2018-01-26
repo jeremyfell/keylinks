@@ -34,7 +34,7 @@ var CURRENT_TAB = "";
 var BOOKMARK_FOLDERS = [];
 
 // Current type of sorting
-var CURRENT_SORTING_PARAMETER = "name";
+var CURRENT_SORT_TYPE = "name";
 var REVERSE_SORTING = false;
 
 // There are no keylinks to manage
