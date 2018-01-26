@@ -170,7 +170,7 @@ function getSortedItems(newList, sortedKeylinks) {
 
 				// Keyword is invalid, revert to previous keyword
 				this.value = OLD_KEYWORD;
-				this.style.backgroundColor = null;
+				this.classList.remove("input-invalid");
 
 			} else {
 

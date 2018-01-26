@@ -7,6 +7,7 @@ function validateImportKeywordInput(inputBox) {
 	var keyword = inputBox.value;
 	var button = inputBox.parentNode.lastChild;
 	var icon = inputBox.parentNode.lastChild.firstChild;
+	OLD_KEYWORD = "";
 
 	if (keyword.length === 0 || keyword.length > 25 || invalidKeyword(keyword)) {
 		icon.src = BLANK_IMAGE;

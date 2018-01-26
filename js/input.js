@@ -3,7 +3,7 @@ Functions configuring input
 *//////////////////////////
 function configureAddKeylinkInput(defaultPopup, addKeywordInput, addKeylinkButton, addKeylinkIcon, url) {
 
-	if (defaultPopup) document.getElementById("menu-title").innerHTML = "Add Bookmark";
+	if (defaultPopup) document.getElementById("menu-title").innerHTML = "Add Keylink";
 
 	addKeylinkButton.disabled = true;
 
@@ -34,9 +34,8 @@ function configureAddKeylinkInput(defaultPopup, addKeywordInput, addKeylinkButto
 function configureChangeKeylinkInput(defaultPopup, changeKeywordInput, changeKeylinkButton, changeKeylinkIcon, currentKeyword) {
 
 	if (defaultPopup) {
-		document.getElementById("menu-title").innerHTML = "Change Bookmark";
+		document.getElementById("menu-title").innerHTML = "Change Keylink";
 		// If the input is in the default popup and the keylink stats option is enabled, display keylink stats
-		console.log(menu);
 		if (SETTINGS.keylinkStats) keylinkStatistics(currentKeyword);
 	}
 
@@ -61,6 +60,7 @@ function configureChangeKeylinkInput(defaultPopup, changeKeywordInput, changeKey
 		if (!this.value || !validateAddKeywordInput(this)) {
 
 			this.value = OLD_KEYWORD;
+			this.classList.remove("input-invalid");
 
 		} else {
 
