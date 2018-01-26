@@ -104,14 +104,14 @@ function settingsTab() {
 
 	omniboxSuggestionsText.innerHTML = "Keyword suggestions in omnibox";
 	closePopupText.innerHTML = "Close popup after adding, changing or deleting a bookmark";
-	sortingOptionsText.innerHTML = "Show sorting options in Manage tab";
+	sortingOptionsText.innerHTML = "Show sorting options in Edit tab";
 	keylinkStatsText.innerHTML = "Show bookmark details in Add tab";
 	toolbarPopupText.innerHTML = "Start extension with smaller and more basic popup";
 	keywordSuggestionsText.innerHTML = "Keyword suggestions when adding a bookmark";
 
 	omniboxSuggestionsText.title = "When entering a keyword in the omnibox,\nyou will see suggestions for keylinks you\nhave currently saved.";
 	closePopupText.title = "The extension popup will close automatically\nwhen you add, change or delete a keylink\nusing the Add tab.";
-	sortingOptionsText.title = "You will see additional options for sorting\nkeylinks by name, by date created, and by\nuse, in the Manage tab.";
+	sortingOptionsText.title = "You will see additional options for sorting\nkeylinks by name, by date created, and by\nuse, in the Edit tab.";
 	keylinkStatsText.title = "Shows stats in the Add tab such as when\nthe keylink was created, and how many\ntimes you have used it.";
 	toolbarPopupText.title = "Starts the extension as a smaller, more basic\npopup, with an Options button to access\nthe full popup.";
 	keywordSuggestionsText.title = "Suggests keywords for a webpage when adding a bookmark";

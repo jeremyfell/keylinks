@@ -22,7 +22,6 @@ function importBookmark(inputBox) {
 		importTab();
 	}
 
-	//item.parentNode.parentNode.removeChild(item.parentNode);
 	saveKeylink(keyword, link);
 }
 

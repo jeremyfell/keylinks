@@ -74,7 +74,7 @@ function configureSortMenu(menu, sortedKeylinks) {
 			} else {
 				REVERSE_SORTING = !REVERSE_SORTING;
 			}
-			manageTab();
+			editTab();
 		});
 	}
 
@@ -149,24 +149,24 @@ function getSortedItems(newList, sortedKeylinks) {
 		var keylink = sortedKeylinks[i];
 
 		var newListItem = document.createElement("li");
-		var manageKeywordInput = document.createElement("input");
+		var editKeywordInput = document.createElement("input");
 		var visitLinkButton = document.createElement("button");
 		var visitLinkIcon = document.createElement("img");
-		var manageLinkInput = document.createElement("input");
+		var editLinkInput = document.createElement("input");
 		var deleteKeylinkButton = document.createElement("button");
 		var deleteKeylinkIcon = document.createElement("img");
 
-		manageKeywordInput.setAttribute("type", "text");
-		manageKeywordInput.value = keylink.keyword;
-		manageKeywordInput.className = "manage-keyword-input";
-		manageKeywordInput.setAttribute("maxlength", "100");
+		editKeywordInput.setAttribute("type", "text");
+		editKeywordInput.value = keylink.keyword;
+		editKeywordInput.className = "edit-keyword-input";
+		editKeywordInput.setAttribute("maxlength", "100");
 
-		manageKeywordInput.addEventListener("focus", function() {
+		editKeywordInput.addEventListener("focus", function() {
 			OLD_KEYWORD = this.value;
 		});
 
-		manageKeywordInput.addEventListener("change", function() {
-			if (this.value === "" || !validateManageKeywordInput(this)) {
+		editKeywordInput.addEventListener("change", function() {
+			if (this.value === "" || !validateEditKeywordInput(this)) {
 
 				// Keyword is invalid, revert to previous keyword
 				this.value = OLD_KEYWORD;
@@ -181,9 +181,9 @@ function getSortedItems(newList, sortedKeylinks) {
 			}
 		});
 
-		manageKeywordInput.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
-		manageKeywordInput.addEventListener("input", function(e) {validateManageKeywordInput(this)});
-		manageKeywordInput.spellcheck = false;
+		editKeywordInput.addEventListener("keydown", function(e) {if (e.which === 13) this.blur();});
+		editKeywordInput.addEventListener("input", function(e) {validateEditKeywordInput(this)});
+		editKeywordInput.spellcheck = false;
 
 		visitLinkButton.className = "visit-link-button";
 		visitLinkButton.title = "Visit link";
@@ -194,20 +194,21 @@ function getSortedItems(newList, sortedKeylinks) {
 
 		visitLinkIcon.src = SOURCE.equal;
 		visitLinkIcon.className = "equal-icon";
+		visitLinkIcon.draggable = false;
 
-		manageLinkInput.setAttribute("type", "text");
-		manageLinkInput.spellcheck = false;
-		manageLinkInput.value = keylink.link;
-		manageLinkInput.className = "manage-link-input";
-		manageLinkInput.addEventListener("focus", function() {
+		editLinkInput.setAttribute("type", "text");
+		editLinkInput.spellcheck = false;
+		editLinkInput.value = keylink.link;
+		editLinkInput.className = "edit-link-input";
+		editLinkInput.addEventListener("focus", function() {
 			this.dataset.oldLink = this.value;
 		});
 
-		manageLinkInput.addEventListener("keydown", function(e) {
+		editLinkInput.addEventListener("keydown", function(e) {
 			if (e.which === 13) this.blur();
 		});
 
-		manageLinkInput.addEventListener("change", function() {
+		editLinkInput.addEventListener("change", function() {
 			if (this.value === "") {
 				this.value = this.dataset.oldLink;
 			} else {
@@ -222,9 +223,9 @@ function getSortedItems(newList, sortedKeylinks) {
 		// If sorting by uses, displays the number of times the keylink has been used
 		if (CURRENT_SORT_TYPE === "date") {
 			var date = new Date(keylink.timeCreated);
-			manageLinkInput.title = "Created " + date.toLocaleTimeString() + ", " + date.toDateString();
+			editLinkInput.title = "Created " + date.toLocaleTimeString() + ", " + date.toDateString();
 		} else if (CURRENT_SORT_TYPE === "use") {
-			manageLinkInput.title = "Used " + keylink.timesUsed + " time" + (keylink.timesUsed === 1 ? "" : "s");
+			editLinkInput.title = "Used " + keylink.timesUsed + " time" + (keylink.timesUsed === 1 ? "" : "s");
 		}
 
 		deleteKeylinkButton.className = "delete-keylink-button";
@@ -232,20 +233,21 @@ function getSortedItems(newList, sortedKeylinks) {
 		deleteKeylinkButton.addEventListener("click", function() {
 			deleteKeylink(this.parentNode.firstChild.value);
 			this.parentNode.remove();
-			if (CURRENT_KEYLINKS === DEFAULT_KEYLINK_COUNT) manageTab();
+			if (CURRENT_KEYLINKS === DEFAULT_KEYLINK_COUNT) editTab();
 		});
 
 		deleteKeylinkIcon.src = SOURCE.deleting;
-		deleteKeylinkIcon.className = "manage-delete-icon visible";
+		deleteKeylinkIcon.className = "edit-delete-icon visible";
+		deleteKeylinkIcon.draggable = false;
 
-		newListItem.className = "manage-keylink-container";
+		newListItem.className = "edit-keylink-container";
 
 		visitLinkButton.appendChild(visitLinkIcon);
 		deleteKeylinkButton.appendChild(deleteKeylinkIcon);
 
-		newListItem.appendChild(manageKeywordInput);
+		newListItem.appendChild(editKeywordInput);
 		newListItem.appendChild(visitLinkButton);
-		newListItem.appendChild(manageLinkInput);
+		newListItem.appendChild(editLinkInput);
 		newListItem.appendChild(deleteKeylinkButton);
 
 		newList.appendChild(newListItem);
@@ -254,22 +256,22 @@ function getSortedItems(newList, sortedKeylinks) {
 }
 
 
-// Create manage bookmarks tab when bookmark icon is pressed
-function manageTab() {
+// Create edit bookmarks tab when bookmark icon is pressed
+function editTab() {
 
 	var menu = document.getElementById("menu");
 	var content = document.getElementById("content");
-	var manageKeylinksList = document.createElement("ul");
+	var editKeylinksList = document.createElement("ul");
 
 	var sortedKeylinks = [];
 
 	// Tab setup
 	resetMenu();
-	CURRENT_TAB = "manage";
-	document.getElementById("manage-tab-button").disabled = true;
-	document.getElementById("menu-title").innerHTML = "Manage Keylinks";
+	CURRENT_TAB = "edit";
+	document.getElementById("edit-tab-button").disabled = true;
+	document.getElementById("menu-title").innerHTML = "Edit Keylinks";
 
-	manageKeylinksList.id = "manage-keylinks-list";
+	editKeylinksList.id = "edit-keylinks-list";
 
 	// Takes all keylinks from the main object, and puts them into an array so that they can be sortedKeylinks
 	for (var keyword in KEYLINKS) {
@@ -287,7 +289,7 @@ function manageTab() {
 		var emptyHeader = document.createElement("p");
 		var emptyText = document.createElement("p");
 
-		NO_KEYLINKS_TO_MANAGE = true;
+		NO_KEYLINKS_TO_EDIT = true;
 
 		emptyHeader.className = "empty-tab-header";
 		emptyText.className = "empty-tab-text";
@@ -301,7 +303,7 @@ function manageTab() {
 
 	} else {
 
-		NO_KEYLINKS_TO_MANAGE = false;
+		NO_KEYLINKS_TO_EDIT = false;
 
 		if (SETTINGS.sortingOptions) {
 			// Sets up the sorting buttons in the menu
@@ -312,12 +314,12 @@ function manageTab() {
 		}
 
 		// Creates and displays the list of sortedKeylinks keylinks
-		getSortedItems(manageKeylinksList, sortedKeylinks);
+		getSortedItems(editKeylinksList, sortedKeylinks);
 
 		// Deletes all elements from the previous tab
 		trimElement(content);
 
-		content.appendChild(manageKeylinksList);
+		content.appendChild(editKeylinksList);
 
 	}
 

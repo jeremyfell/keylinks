@@ -18,6 +18,7 @@ function toolbarTab() {
 
 	addKeylinkIcon.className = "add-icon";
 	addKeylinkIcon.src = SOURCE.add;
+	addKeylinkIcon.draggable = false;
 
 	// Adds functionality to the input box and add button
 	configureKeylinkInput(false, keywordInput, addKeylinkButton, addKeylinkIcon);

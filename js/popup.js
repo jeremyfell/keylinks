@@ -49,12 +49,12 @@ function defaultSetup() {
 
 	var settingsTabButton = document.createElement("button");
 	var importTabButton = document.createElement("button");
-	var manageTabButton = document.createElement("button");
+	var editTabButton = document.createElement("button");
 	var addTabButton = document.createElement("button");
 
 	var settingsTabIcon = document.createElement("img");
 	var importTabIcon = document.createElement("img");
-	var manageTabIcon = document.createElement("img");
+	var editTabIcon = document.createElement("img");
 	var addTabIcon = document.createElement("img");
 
 	var menuTitleContainer = document.createElement("div");
@@ -68,42 +68,42 @@ function defaultSetup() {
 
 	settingsTabButton.className = "menu-button";
 	importTabButton.className = "menu-button";
-	manageTabButton.className = "menu-button";
+	editTabButton.className = "menu-button";
 	addTabButton.className = "menu-button";
 
 	settingsTabButton.id = "settings-tab-button";
 	importTabButton.id = "import-tab-button";
-	manageTabButton.id = "manage-tab-button";
+	editTabButton.id = "edit-tab-button";
 	addTabButton.id = "add-tab-button";
 
 	settingsTabButton.title = "Settings";
 	importTabButton.title = "Import";
-	manageTabButton.title = "Manage";
+	editTabButton.title = "Edit";
 	addTabButton.title = "Add";
 
 	settingsTabButton.addEventListener("click", function() {settingsTab()});
 	importTabButton.addEventListener("click", function() {importTab()});
-	manageTabButton.addEventListener("click", function() {manageTab()});
+	editTabButton.addEventListener("click", function() {editTab()});
 	addTabButton.addEventListener("click", function() {addTab()});
 
 	settingsTabIcon.className = "menu-tab-icon";
 	importTabIcon.className = "menu-tab-icon";
-	manageTabIcon.className = "menu-tab-icon";
+	editTabIcon.className = "menu-tab-icon";
 	addTabIcon.className = "menu-tab-icon";
 
 	settingsTabIcon.id = "settings-tab-icon";
 	importTabIcon.id = "import-tab-icon";
-	manageTabIcon.id = "manage-tab-icon";
+	editTabIcon.id = "edit-tab-icon";
 	addTabIcon.id = "add-tab-icon";
 
 	settingsTabIcon.src = SOURCE.settings;
 	importTabIcon.src = SOURCE.importing;
-	manageTabIcon.src = SOURCE.manage;
+	editTabIcon.src = SOURCE.edit;
 	addTabIcon.src = SOURCE.add;
 
 	settingsTabIcon.draggable = false;
 	importTabIcon.draggable = false;
-	manageTabIcon.draggable = false;
+	editTabIcon.draggable = false;
 	addTabIcon.draggable = false;
 
 	menuTitleContainer.id = "menu-title-container";
@@ -113,12 +113,12 @@ function defaultSetup() {
 
 	settingsTabButton.appendChild(settingsTabIcon);
 	importTabButton.appendChild(importTabIcon);
-	manageTabButton.appendChild(manageTabIcon);
+	editTabButton.appendChild(editTabIcon);
 	addTabButton.appendChild(addTabIcon);
 
 	menu.appendChild(settingsTabButton);
 	menu.appendChild(importTabButton);
-	menu.appendChild(manageTabButton);
+	menu.appendChild(editTabButton);
 	menu.appendChild(addTabButton);
 	menu.appendChild(menuTitleContainer);
 

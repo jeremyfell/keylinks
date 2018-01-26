@@ -1,7 +1,7 @@
 Keylinks
 ======
 
-A Chrome extension to easily manage bookmarked pages by associating keywords with them
+A Chrome extension to easily edit bookmarked pages by associating keywords with them
 
 
 
@@ -22,15 +22,15 @@ If omnibox suggestions are enabled, keyword suggestions will appear below the om
 
 ![oops](https://user-images.githubusercontent.com/31748813/34911511-fd53b94c-f880-11e7-98a1-a0fd37c29e88.png)
 
-Manage Keylinks
+Edit Keylinks
 ------
-Allows you to manage all existing keylinks.  
+Allows you to edit all existing keylinks.  
 Edit the keyword or the link associated with them, simply by modifying the text (keywords must be changed to an unused keyword).  
 Click the X to delete a keylink.  
 Click the = to visit the link associated with that keylink.  
 If sorting options is enabled, you can sort by name, date, and usage.  
 
-![manage](https://user-images.githubusercontent.com/31748813/34911396-b01209f6-f87e-11e7-8bef-4816dbcfdc2b.png)
+![edit](https://user-images.githubusercontent.com/31748813/34911396-b01209f6-f87e-11e7-8bef-4816dbcfdc2b.png)
 
 Import Bookmarks
 ------
@@ -52,8 +52,8 @@ When entering a keyword in the Chrome omnibox (URL box), you will see suggestion
 Close popup after adding, changing or deleting a bookmark:  
 The extension popup will close automatically when you add, change or delete a keylink using the Add tab.  
 
-Show sorting options in Manage tab:  
-You will see additional options for sorting keylinks by name, by date created, and by use, in the Manage tab.  
+Show sorting options in Edit tab:  
+You will see additional options for sorting keylinks by name, by date created, and by use, in the Edit tab.  
 
 Show bookmark details in Add tab:  
 Shows statistics in the Add tab such as when the keylink was created, and how many times you have used it.  

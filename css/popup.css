@@ -268,10 +268,10 @@ a:hover {
 }
 
 /********************************
-		Import & Manage
+		Import & Edit
 ********************************/
 
-#manage-keylinks-list, #import-bookmarks-list {
+#edit-keylinks-list, #import-bookmarks-list {
 	height: 340px;
 	margin-top: 10px;
 }
@@ -299,19 +299,19 @@ a:hover {
 	font-size: 16px;
 }
 
-.import-keyword-input, .import-title-input, .import-bookmark-button, .import-add-icon, .manage-keyword-input, .manage-link-input, .delete-keylink-button, .manage-delete-icon, .visit-link-button, .equal-icon {
+.import-keyword-input, .import-title-input, .import-bookmark-button, .import-add-icon, .edit-keyword-input, .edit-link-input, .delete-keylink-button, .edit-delete-icon, .visit-link-button, .equal-icon {
 	float: left;
 }
 
-.import-keyword-input, .manage-keyword-input {
+.import-keyword-input, .edit-keyword-input {
 	width: 200px;
 }
 
-.import-keyword-input.input-invalid, .manage-keyword-input.input-invalid {
+.import-keyword-input.input-invalid, .edit-keyword-input.input-invalid {
 	background-color: var(--red-light);
 }
 
-.import-title-input, .manage-link-input {
+.import-title-input, .edit-link-input {
 	width: 325px;
 }
 
@@ -339,7 +339,7 @@ a:hover {
 	background-color: transparent;
 }
 
-.import-add-icon, .manage-delete-icon {
+.import-add-icon, .edit-delete-icon {
 	width: 21px;
 	height: 21px;
 }
@@ -350,11 +350,11 @@ a:hover {
 	margin: 5px;
 }
 
-.import-keyword-input, .manage-keyword-input {
+.import-keyword-input, .edit-keyword-input {
 	margin-right: 0;
 }
 
-.import-title-input, .manage-link-input {
+.import-title-input, .edit-link-input {
 	margin-left: 0;
 }
 

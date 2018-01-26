@@ -13,7 +13,7 @@ DEFAULT_SETTINGS = {
 	"closePopup"					: false,	// Close popup after keylink changes in add tab
 	"omniboxSuggestions"	: true,		// Show keyword suggestions in omnibox
 	"keylinkStats"				: true,		// Show keylink stats in add tab
-	"sortingOptions"			: true,		// Show sorting options in manage tab
+	"sortingOptions"			: true,		// Show sorting options in edit tab
 	"toolbarPopup"				: false,	// Use toolbar popup on startup
 	"keywordSuggestions"	: false,	// Suggest keywords when adding keylink
 };
@@ -27,7 +27,7 @@ var SETTINGS = {};
 var OLD_KEYWORD;
 
 // Holds the current displayed page state
-// settings, import, manage, add, change, toolbar
+// settings, import, edit, add, change, toolbar
 var CURRENT_TAB = "";
 
 // Holds all user bookmark folders
@@ -37,8 +37,8 @@ var BOOKMARK_FOLDERS = [];
 var CURRENT_SORT_TYPE = "name";
 var REVERSE_SORTING = false;
 
-// There are no keylinks to manage
-var NO_KEYLINKS_TO_MANAGE = true;
+// There are no keylinks to edit
+var NO_KEYLINKS_TO_EDIT = true;
 
 // There are no bookmarks to import
 var NO_BOOKMARKS_TO_IMPORT = true;
@@ -56,7 +56,7 @@ var SOURCE = {
 	equal			: "../svg/equal.svg",
 	exporting	: "../svg/export.svg",
 	importing	: "../svg/import.svg",
-	manage		: "../svg/manage.svg",
+	edit		: "../svg/edit.svg",
 	name			: "../svg/name.svg",
 	options		: "../svg/options.svg",
 	replace		: "../svg/replace.svg",

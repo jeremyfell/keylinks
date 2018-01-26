@@ -30,7 +30,7 @@ function validateAddKeywordInput(inputBox) {
 
 }
 
-function validateManageKeywordInput(inputBox) {
+function validateEditKeywordInput(inputBox) {
 	var keyword = inputBox.value;
 	return validateKeywordInput(inputBox, keyword);
 }
