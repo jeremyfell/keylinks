@@ -127,7 +127,7 @@ function settingsTab() {
 	newP8.id = "bugs";
 	newP8.innerHTML = 	"Icons by <a href='http://www.flaticon.com/authors/google'>Google</a> and <a href='http://www.flaticon.com/authors/freepik'>Freepik</a>" +
 						" via <a href='http://www.flaticon.com'>flaticon</a>, licensed by <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0'>" +
-						"CC BY 3.0</a>. Report any bugs to keylinks.help@gmail.com";
+						"CC BY 3.0</a>";
 
 	newCheckbox1.className = "checkoff";
 	newCheckbox2.className = "checkoff";
